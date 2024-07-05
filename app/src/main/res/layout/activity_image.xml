@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.ImageActivity">
+   <!-- <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:paddingBottom="@dimen/dim_8dp">
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_marginLeft="@dimen/dim_10dp"
+            android:padding="@dimen/dim_8dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_arrow"/>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dim_10dp"
+            android:text="Exercise Media Files"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_18"
+            android:textStyle="bold"></TextView>
+
+    </RelativeLayout>-->
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/img_hip_correction_img"
+        android:scaleType="fitCenter" />
+    <ImageView
+        android:id="@+id/back_btn"
+        android:layout_margin="@dimen/dim_22dp"
+        android:layout_alignParentTop="true"
+        android:layout_width="@dimen/dim_35dp"
+        android:layout_height="@dimen/dim_35dp"
+        android:src="@drawable/ic_back_arrow"
+        app:tint="@color/colorPrimary" />
+
+</RelativeLayout>

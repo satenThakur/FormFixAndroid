@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Form Fix</string>
+    <string name="menu_camera">Camera</string>
+    <string name="menu_gallery">Gallery</string>
+
+    <string name="stop_recording">Stop Recording</string>
+    <string name="start_recording">Start Recording</string>
+
+    <string-array name="tags">
+        <item><!--Front -->Squat</item>
+       <!-- <item>Left/Right Squat</item>-->
+        <item>Bench</item>
+        <item>Dead Lift</item>
+        <item>Shoulder Press</item>
+        <item>Bent Over Lateral Row</item>
+        <item>Others</item>
+    </string-array>
+
+    <string name="select_exercise">Please Select Exercise</string>
+    <string name="coming_soon">Coming Soon</string>
+    <string name="file_not_exist">Media File not Exist</string>
+    <string name="key_record_audio">key_record_audio</string>
+    <string name="key_video_resolution">key_video_resolution</string>
+    <string name="key_video_fps">key_video_fps</string>
+    <string name="key_video_bitrate">key_video_bitrate</string>
+    <string name="key_show_notification">key_show_notification</string>
+    <string name="key_video_encoder">key_video_encoder</string>
+    <string name="key_audio_source">key_audio_source</string>
+    <string name="key_output_format">key_output_format</string>
+    <string name="quick_settings_title">QUICK SETTINGS</string>
+    <string name="custom_settings_title">USE CUSTOM SETTINGS</string>
+    <string name="or_title">or</string>
+    <string name="max_file_hint">Enter max file size</string>
+    <string name="stop_recording_notification_message">Drag down to stop the recording</string>
+    <string name="stop_recording_notification_title">Recording your screen</string>
+    <string name="settings_not_supported_message">Some settings are not supported by your device</string>
+    <string name="max_file_size_reached_message">The file reached the designated max size</string>
+    <string name="general_recording_error_message">HBRecorderOnError - See Log</string>
+    <string name="empty_string"></string>
+    <string name="state_down">State: DOWN</string>
+    <string name="state_up">State: UP</string>
+    <string name="state_moving">State: Moving</string>
+    <string name="reps">Reps:</string>
+    <string name="incorrect_reps">Incorrect Reps:</string>
+    <string name="face_type">Face:</string>
+    <string name="nav_open">Nav Open</string>
+    <string name="nav_close">Nav Close</string>
+    <string name="knee_crossing_toes">Knees crossing toes</string>
+    <string name="externally_rotate_feet">Externally Rotate Feet</string>
+    <string name="tuck_hips">Tuck hips</string>
+    <string name="knees_going_inwards">Knees going inwards</string>
+    <string name="spine_goes_into_lordosis">Tuck Hips</string>
+    <string name="spine_Kyphosis" tools:ignore="ExtraTranslation">Retract shoulder blades</string>
+
+    <string name="squat_down_further" tools:ignore="ExtraTranslation">Squat deeper</string>
+
+</resources>

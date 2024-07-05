@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="@dimen/dim_150dp"
+            android:layout_height="@dimen/dim_140dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/splash_icon"></ImageView>
+
+        <TextView
+            android:layout_below="@+id/img_logo"
+            android:id="@+id/title"
+            android:layout_centerHorizontal="true"
+            android:text="Form Fix"
+            android:textSize="@dimen/text_22"
+            android:fontFamily="@font/helvetica_bold"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
