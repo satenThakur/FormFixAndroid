@@ -3,6 +3,7 @@ package com.fittracker.utilits;
 import android.os.Environment;
 
 public interface Constants {
+    long SPLASH_DELAY=3000;
     int LINE_LENGTH=300;
     int HEEL_MESSAGE=111;
     int KNEE_MESSAGE=222;

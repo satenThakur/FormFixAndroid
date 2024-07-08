@@ -13,21 +13,12 @@
 
         <ImageView
             android:id="@+id/img_logo"
-            android:layout_width="@dimen/dim_150dp"
-            android:layout_height="@dimen/dim_140dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:src="@drawable/splash_icon"></ImageView>
 
-        <TextView
-            android:layout_below="@+id/img_logo"
-            android:id="@+id/title"
-            android:layout_centerHorizontal="true"
-            android:text="Form Fix"
-            android:textSize="@dimen/text_22"
-            android:fontFamily="@font/helvetica_bold"
-            android:textColor="@color/colorPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></TextView>
+
 
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
