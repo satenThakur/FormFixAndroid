@@ -5,19 +5,19 @@
     android:id="@+id/errormessage_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/dim_10dp"
-    android:layout_marginRight="@dimen/dim_10dp"
-    android:layout_marginTop="@dimen/dim_6dp"
+    android:layout_marginLeft="@dimen/_10sdp"
+    android:layout_marginRight="@dimen/_10sdp"
+    android:layout_marginTop="@dimen/_6sdp"
     android:background="@color/white"
-    app:cardCornerRadius="@dimen/dim_8dp">
+    app:cardCornerRadius="@dimen/_8sdp">
     <RelativeLayout
-        android:paddingBottom="@dimen/dim_4dp"
+        android:paddingBottom="@dimen/_4sdp"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dim_75dp">
+        android:layout_height="@dimen/_75sdp">
         <ImageView
             android:id="@+id/video"
-            android:layout_width="@dimen/dim_80dp"
-            android:layout_height="@dimen/dim_60dp"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_60sdp"
             android:src="@drawable/ic_video_placeholder"
              android:layout_centerVertical="true"
             android:scaleType="fitXY"
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/video"
-            android:layout_marginTop="@dimen/dim_10dp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:layout_toEndOf="@+id/video"
             android:singleLine="true"
             android:text="Squats"
@@ -40,8 +40,8 @@
         <ImageView
             android:id="@+id/btn_delete"
             android:src="@drawable/ic_delete"
-            android:layout_marginTop="@dimen/dim_8dp"
-            android:layout_marginRight="@dimen/dim_10dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -49,7 +49,7 @@
             android:id="@+id/btn_share"
             android:layout_below="@+id/btn_delete"
             android:src="@mipmap/ic_share"
-            android:layout_marginTop="@dimen/dim_6dp"
+            android:layout_marginTop="@dimen/_6sdp"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

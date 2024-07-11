@@ -4,14 +4,14 @@
     <item>
         <shape android:shape="oval">
             <solid android:color="@color/colorPrimary" />
-            <corners android:radius="10dp" />
+            <corners android:radius="@dimen/_10sdp" />
         </shape>
     </item>
     <!-- Shadow -->
-    <item android:top="1dp" android:left="1dp" android:right="1dp" android:bottom="3dp">
+    <item android:top="@dimen/_1sdp" android:left="@dimen/_1sdp" android:right="@dimen/_1sdp" android:bottom="@dimen/_3sdp">
         <shape android:shape="oval">
             <solid android:color="#8692f7" />
-            <corners android:radius="8dp" />
+            <corners android:radius="@dimen/_8sdp" />
         </shape>
     </item>
 </layer-list>

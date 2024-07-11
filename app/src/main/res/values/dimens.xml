@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="dim_tag_border">2dp</dimen>
+    <dimen name="dim_tag_radious">10dp</dimen>
+    <dimen name="dim_tag_text">14dp</dimen>
+
+    <dimen name="dim_300dp">300dp</dimen>
+    <dimen name="dim_425dp">425dp</dimen>
+
     <dimen name="stroke_small">4dp</dimen>
     <dimen name="round_button_medium">64dp</dimen>
     <dimen name="text_24">24sp</dimen>

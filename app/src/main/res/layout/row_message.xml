@@ -5,25 +5,25 @@
     android:id="@+id/errormessage_row"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/dim_3dp"
-    android:layout_marginRight="@dimen/dim_8dp"
+    android:layout_marginTop="@dimen/_3sdp"
+    android:layout_marginRight="@dimen/_8sdp"
     android:clickable="true"
     app:cardBackgroundColor="@color/magenta"
-    app:cardCornerRadius="@dimen/dim_8dp">
+    app:cardCornerRadius="@dimen/_8sdp">
 
     <RelativeLayout
-        android:padding="@dimen/dim_3dp"
+        android:padding="@dimen/_3sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_message"
-            android:paddingEnd="@dimen/dim_5dp"
+            android:paddingEnd="@dimen/_5sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:fontFamily="@font/helvetica"
-            android:padding="@dimen/dim_3dp"
+            android:padding="@dimen/_3sdp"
             android:textSize="@dimen/text_11"
             android:text="@string/tuck_hips"
             android:textColor="@color/white" />
@@ -34,13 +34,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginRight="@dimen/dim_5dp"
+            android:layout_marginRight="@dimen/_5sdp"
             android:background="@drawable/round_button_red"
             android:fontFamily="@font/helvetica"
-            android:paddingLeft="@dimen/dim_5dp"
-            android:paddingRight="@dimen/dim_5dp"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp"
             android:text="21"
-            android:textSize="@dimen/text_11"
+            android:textSize="@dimen/_11ssp"
             android:textColor="#fff"></TextView>
 
     </RelativeLayout>

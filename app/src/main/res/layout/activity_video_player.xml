@@ -22,11 +22,11 @@
         android:id="@+id/back_btn"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="@dimen/dim_20dp"
-        android:layout_marginTop="@dimen/dim_30dp"
-        android:padding="@dimen/dim_3dp"
-        android:layout_width="@dimen/dim_35dp"
-        android:layout_height="@dimen/dim_35dp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:padding="@dimen/_3sdp"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
         android:src="@drawable/ic_back_arrow"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

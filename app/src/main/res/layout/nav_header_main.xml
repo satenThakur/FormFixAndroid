@@ -4,18 +4,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dim_195dp"
+    android:layout_height="@dimen/_195sdp"
     android:gravity="bottom"
-    android:padding="16dp"
+    android:padding="@dimen/_16sdp"
     android:background="@color/purple_700">
     <androidx.cardview.widget.CardView
         android:id="@+id/profile_img"
-        android:layout_width="@dimen/dim_70dp"
-        android:layout_height="@dimen/dim_70dp"
-        android:elevation="12dp"
-        app:cardCornerRadius="40dp">
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:elevation="@dimen/_12sdp"
+        app:cardCornerRadius="@dimen/_40sdp">
         <ImageView
-            android:layout_height="80dp"
+            android:layout_height="@dimen/_80sdp"
             android:layout_width="match_parent"
             android:id="@+id/imageView1"
             android:src="@mipmap/ic_launcher"
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Form Fix"
-        android:textSize="@dimen/text_14"
+        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/helvetica_bold"
         android:textColor="@color/white" />
     <TextView
@@ -38,6 +38,6 @@
         android:text="contact@formfix.com"
         android:fontFamily="@font/helvetica"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_14"
-        android:layout_marginBottom="14dp"/>
+        android:textSize="@dimen/_14ssp"
+        android:layout_marginBottom="@dimen/_14sdp"/>
 </RelativeLayout>

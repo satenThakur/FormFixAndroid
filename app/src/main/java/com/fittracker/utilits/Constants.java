@@ -4,6 +4,15 @@ import android.os.Environment;
 
 public interface Constants {
     long SPLASH_DELAY=3000;
+    int SELECT_TAG_1=1;
+    int SELECT_TAG_0=0;
+
+    float tagRadiousTab =16f;
+    float tagBorderTab =4f;
+    float tagTextTab =22f;
+    float tagRadiousPhone =10f;
+    float tagBorderPhone =2f;
+    float tagTextPhone =14f;
     int LINE_LENGTH=300;
     int HEEL_MESSAGE=111;
     int KNEE_MESSAGE=222;

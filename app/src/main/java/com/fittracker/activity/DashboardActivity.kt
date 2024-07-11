@@ -16,14 +16,13 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import com.cunoraz.tagview.Tag
-import com.cunoraz.tagview.TagView.OnTagClickListener
 import com.fittracker.R
 import com.fittracker.databinding.ActivityDashboardBinding
 import com.fittracker.utilits.Constants
@@ -34,13 +33,17 @@ import com.fittracker.utilits.Constants.PERMISSION_REQ_ID_RECORD_AUDIO
 import com.fittracker.utilits.Constants.PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE
 import com.fittracker.utilits.Constants.PERMISSION_REQ_POST_NOTIFICATIONS
 import com.fittracker.utilits.Constants.SELECTED_EXERCISE
+import com.fittracker.utilits.Constants.SELECT_TAG_0
+import com.fittracker.utilits.Constants.SELECT_TAG_1
 import com.fittracker.utilits.Utility
 
 class DashboardActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
     private lateinit var activityMainBinding: ActivityDashboardBinding
-private var selectedTag=-1;
-    lateinit var  tags:ArrayList<Tag>
+    private var selectedTag=-SELECT_TAG_1
+    private lateinit var  tags:ArrayList<Tag>
+    private  var isTablet:Boolean = false
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,15 +57,16 @@ private var selectedTag=-1;
         val toggle = ActionBarDrawerToggle(this, activityMainBinding.drawerLayout, activityMainBinding.toolbar, R.string.nav_open, R.string.nav_close)
         activityMainBinding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+         isTablet = Utility.isTablet(this)
 
 
         //  activityMainBinding.tagGroup.addTags(resources.getStringArray(R.array.tags))
         activityMainBinding.btnStartCamera.setOnClickListener {
-            if(selectedTag!=-1){
-                if(selectedTag==0) {
+            if(selectedTag!=-SELECT_TAG_1){
+                if(selectedTag==SELECT_TAG_0) {
                     val intent = Intent(this, CameraActivity::class.java)
                     intent.putExtra(EXERCISE_TYPE, tags[selectedTag].text.toString())
-                    if(selectedTag==0)
+                    if(selectedTag==SELECT_TAG_0)
                     intent.putExtra(SELECTED_EXERCISE, FRONT_FACE)
                     else {
                         intent.putExtra(SELECTED_EXERCISE, LEFT_FACE)
@@ -76,16 +80,16 @@ private var selectedTag=-1;
             }
 
         }
-        activityMainBinding.tagGroup.setOnTagClickListener(OnTagClickListener { tag, position ->
+        activityMainBinding.tagGroup.setOnTagClickListener { _, position ->
             setTags(position)
-        })
+        }
 
         setTags(selectedTag)
         /*Grant Storage Permissions */
         requestForStoragePermissions()
         /*Request Other Permissions*/
         requestPermissions(
-            arrayOf<String>(
+            arrayOf(
                 Manifest.permission.RECORD_AUDIO,
                 Manifest.permission.POST_NOTIFICATIONS,
             ),
@@ -96,21 +100,28 @@ private var selectedTag=-1;
 
     }
 
-    fun setTags(selected: Int) {
+    private fun setTags(selected: Int) {
         selectedTag=selected
-         tags = ArrayList<Tag>()
+         tags = ArrayList()
         var tag: Tag
 
-        var tagList = resources.getStringArray(R.array.tags)
-        for (i in 0 until tagList.size) {
-            tag = Tag(tagList.get(i))
-            tag.radius = 10f
-            tag.layoutBorderSize = 2f
-
-
+        val tagList = resources.getStringArray(R.array.tags)
+        for (i in tagList.indices) {
+            tag = Tag(tagList[i])
+            if(isTablet){
+                tag.radius = Constants.tagRadiousTab
+                tag.layoutBorderSize = Constants.tagBorderTab
+                tag.tagTextSize=Constants.tagTextTab
+            }else{
+                tag.radius = Constants.tagRadiousPhone
+                tag.layoutBorderSize = Constants.tagBorderPhone
+                tag.tagTextSize=Constants.tagTextPhone
+            }
             tag.layoutColor = Color.parseColor("#FFFFFF")
             tag.tagTextColor = Color.parseColor("#FF3700B3")
-            tag.tagTextSize=14f
+
+            System.out.println("radiussss="+resources.getDimension(R.dimen.dim_tag_radious)+" tagTextSize="+resources.getDimension(R.dimen.dim_tag_text)+" layoutBorderSize="+resources.getDimension(R.dimen.dim_tag_border))
+            System.out.println("radiussssTTTT="+tag.radius+" tagTextSize="+tag.tagTextSize+" layoutBorderSize="+tag.layoutBorderSize)
             tag.layoutBorderColor = Color.parseColor("#FF3700B3")
             if (selected == i) {
                 tag.layoutColor = Color.parseColor("#FF3700B3")
@@ -174,17 +185,17 @@ private var selectedTag=-1;
             }
         }else if(requestCode == PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE){
             if(grantResults.isNotEmpty()){
-                var write = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                var read = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                val write = grantResults[0] == PackageManager.PERMISSION_GRANTED
+                val read = grantResults[1] == PackageManager.PERMISSION_GRANTED
                 if(read && write){
-                    Toast.makeText(this@DashboardActivity, "Storage Permissions Granted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this@DashboardActivity, "Storage Permissions Granted", Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(this@DashboardActivity, "Storage Permissions Denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this@DashboardActivity, "Storage Permissions Denied", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
-    private val storageActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private val storageActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             // Android is 11 (R) or above
             if (Environment.isExternalStorageManager()) {
@@ -214,6 +225,7 @@ private var selectedTag=-1;
         activityMainBinding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         if (activityMainBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             activityMainBinding.drawerLayout.closeDrawer(GravityCompat.START)

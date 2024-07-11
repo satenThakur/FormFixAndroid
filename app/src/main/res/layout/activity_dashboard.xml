@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:elevation="10dp">
+            android:elevation="@dimen/_10sdp">
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -36,34 +36,34 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/btn_start_camera"
             android:layout_below="@+id/app_bar_layout"
-            android:layout_marginStart="@dimen/dim_20dp"
-            android:layout_marginTop="@dimen/dim_24dp"
-            android:layout_marginEnd="@dimen/dim_20dp"
-            android:layout_marginBottom="@dimen/dim_14dp"
-            app:lineMargin="@dimen/dim_20dp"
-            app:tagMargin="@dimen/dim_10dp"
-            app:textPaddingBottom="@dimen/dim_8dp"
-            app:textPaddingLeft="@dimen/dim_10dp"
-            app:textPaddingRight="@dimen/dim_10dp"
-            app:textPaddingTop="@dimen/dim_8dp" />
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_14sdp"
+            app:lineMargin="@dimen/_20sdp"
+            app:tagMargin="@dimen/_10sdp"
+            app:textPaddingBottom="@dimen/_8sdp"
+            app:textPaddingLeft="@dimen/_10sdp"
+            app:textPaddingRight="@dimen/_10sdp"
+            app:textPaddingTop="@dimen/_8sdp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_start_camera"
-            android:layout_width="@dimen/dim_128dp"
-            android:layout_height="@dimen/dim_128dp"
+            android:layout_width="@dimen/_128sdp"
+            android:layout_height="@dimen/_128sdp"
             android:layout_centerInParent="true"
-            android:elevation="@dimen/dim_50dp"
+            android:elevation="@dimen/_50sdp"
             android:background="@drawable/rectangle_shadow"
             android:fontFamily="@font/helvetica_rounded_bold"
             android:gravity="center_vertical|center_horizontal"
             android:letterSpacing="0.05"
-            android:paddingLeft="@dimen/dim_20dp"
-            android:paddingTop="@dimen/dim_12dp"
-            android:paddingRight="@dimen/dim_20dp"
-            android:paddingBottom="@dimen/dim_12dp"
+            android:paddingLeft="@dimen/_20sdp"
+            android:paddingTop="@dimen/_12sdp"
+            android:paddingRight="@dimen/_20sdp"
+            android:paddingBottom="@dimen/_12sdp"
             android:text="Push\nTo\nStart"
             android:textColor="#fff"
-            android:textSize="@dimen/text_15"></androidx.appcompat.widget.AppCompatButton>
+            android:textSize="@dimen/_15ssp"></androidx.appcompat.widget.AppCompatButton>
 
 
 
@@ -77,6 +77,7 @@
         android:background="@color/white"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/drawer_menu"
+        app:itemTextAppearance="@style/menu_text_style"
         app:itemIconTint="@color/colorPrimary"
         app:itemTextColor="@color/colorPrimary"/>
 

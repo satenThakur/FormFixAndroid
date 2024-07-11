@@ -1,5 +1,7 @@
 package com.fittracker.utilits
 
+import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Environment
 import android.util.Log
@@ -35,11 +37,7 @@ object Utility {
             .toString() + "/" + Constants.FOLDER_NAME + "/" + filename + ".mp4"
         Log.e("VideoPlayer", "fileToPlay=" + fileToPlay)
         var file = File(fileToPlay)
-        if (file.exists()) {
-            return true
-        } else {
-            return false
-        }
+        return file.exists()
     }
 
     fun generateFileName(): String {
@@ -150,7 +148,7 @@ object Utility {
         Log.e("Angle", "DIFF_Knee_toeX=" + abs(toeX - knneX))
         return (abs(toeX - knneX) > KNEE_TOE_THRESHOLD)
     }
-    fun isKneeAndHipAnglesDiffCrossedThredHold(kneeAngle: Float, hipAngle: Float,): Boolean {
+    private fun isKneeAndHipAnglesDiffCrossedThredHold(kneeAngle: Float, hipAngle: Float): Boolean {
         if (Math.abs(kneeAngle-hipAngle)>KNEE_HIP_DIFF_THRESHOLD) {
             Log.e("Angle","DIFF_Kneeangle_HIPangle="+Math.abs(kneeAngle-hipAngle))
             return true
@@ -159,7 +157,7 @@ object Utility {
         }
     }
 
-    fun kneeHipAnglesDiff(kneeAngle: Float, hipAngle: Float,): Boolean {
+    fun kneeHipAnglesDiff(kneeAngle: Float, hipAngle: Float): Boolean {
         Log.e("NEWAGNGELS_DIFF","="+Math.abs(kneeAngle-hipAngle))
         Log.e("NEWAGNGELS_DIFF","kneeAngle="+kneeAngle+" hipAngle="+hipAngle)
         if (Math.abs(kneeAngle-hipAngle)>KNEE_HIP_DIFF_NEW_THRESHOLD) {
@@ -245,5 +243,12 @@ object Utility {
         } else {
             Math.toDegrees(radianAngle).toFloat()
         }
+    }
+    fun isTablet(context: Context): Boolean {
+        val xlarge = context.resources
+            .configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK === 4
+        val large = context.resources
+            .configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK === Configuration.SCREENLAYOUT_SIZE_LARGE
+        return xlarge || large
     }
 }

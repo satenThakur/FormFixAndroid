@@ -45,10 +45,10 @@
         android:scaleType="fitCenter" />
     <ImageView
         android:id="@+id/back_btn"
-        android:layout_margin="@dimen/dim_22dp"
+        android:layout_margin="@dimen/_2sdp"
         android:layout_alignParentTop="true"
-        android:layout_width="@dimen/dim_35dp"
-        android:layout_height="@dimen/dim_35dp"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
         android:src="@drawable/ic_back_arrow"
         app:tint="@color/colorPrimary" />
 
