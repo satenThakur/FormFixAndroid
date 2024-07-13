@@ -18,10 +18,11 @@
             android:id="@+id/video"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_60sdp"
-            android:src="@drawable/ic_video_placeholder"
+            android:layout_marginLeft="@dimen/_minus5sdp"
+            android:src="@drawable/iv_video_placeholder"
              android:layout_centerVertical="true"
             android:scaleType="fitXY"
-            android:tint="@color/lavender"
+            android:tint="@color/lavendrrr"
             tools:ignore="UseAppTint">
         </ImageView>
 
@@ -34,12 +35,11 @@
             android:layout_toEndOf="@+id/video"
             android:singleLine="true"
             android:text="Squats"
-            android:textColor="@color/black_color"
-            android:textSize="@dimen/text_13"
+            android:textSize="@dimen/_11ssp"
             android:fontFamily="@font/helvetica_bold"/>
         <ImageView
             android:id="@+id/btn_delete"
-            android:src="@drawable/ic_delete"
+            android:src="@drawable/iv_delete"
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_alignParentRight="true"
@@ -48,28 +48,30 @@
         <ImageView
             android:id="@+id/btn_share"
             android:layout_below="@+id/btn_delete"
-            android:src="@mipmap/ic_share"
+            android:layout_alignEnd="@+id/btn_delete"
+            android:src="@drawable/iv_share"
             android:layout_marginTop="@dimen/_6sdp"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/tv_date"
-            android:drawableLeft="@drawable/ic_calender"
+            android:drawableLeft="@drawable/iv_calender"
+            android:layout_alignStart="@+id/tv_exercise"
             android:layout_below="@+id/tv_exercise"
+            android:layout_marginLeft="@dimen/_minus5sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-           android:layout_alignLeft="@+id/tv_exercise"
             android:singleLine="true"
             android:text="Monday, 16, May, 2024"
             android:textColor="@color/black_color"
-            android:textSize="@dimen/text_11"
+            android:textSize="@dimen/_9ssp"
             android:fontFamily="@font/helvetica"/>
         <TextView
             android:id="@+id/tv_time"
             android:layout_toRightOf="@+id/tv_date"
-            android:drawableLeft="@drawable/ic_time"
+            android:layout_marginLeft="@dimen/_3sdp"
+            android:drawableLeft="@drawable/iv_time"
             android:layout_below="@+id/tv_exercise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,7 +79,7 @@
             android:singleLine="true"
             android:text="10:10 am"
             android:textColor="@color/black_color"
-            android:textSize="@dimen/text_11"
+            android:textSize="@dimen/_9ssp"
             android:fontFamily="@font/helvetica"/>
 
 

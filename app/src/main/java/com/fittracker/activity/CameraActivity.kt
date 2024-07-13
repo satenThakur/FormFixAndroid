@@ -59,7 +59,7 @@ class CameraActivity : AppCompatActivity() , HBRecorderListener {
             //When the user returns to the application, some UI changes might be necessary,
             //check if recording is in progress and make changes accordingly
             if (hbRecorder.isBusyRecording) {
-                activityCameraBinding.btnRecord.setImageDrawable(resources.getDrawable(R.drawable.ic_record))
+                activityCameraBinding.btnRecord.setImageDrawable(resources.getDrawable(R.drawable.iv_record))
             }
         }
            userSelectedFace=intent.getIntExtra(Constants.SELECTED_EXERCISE,0)
@@ -118,7 +118,7 @@ class CameraActivity : AppCompatActivity() , HBRecorderListener {
             if (hasPermissions) {
                 if (hbRecorder.isBusyRecording) {
                     hbRecorder.stopScreenRecording()
-                    activityCameraBinding.btnRecord.setImageDrawable(resources.getDrawable(R.drawable.ic_start_record))
+                    activityCameraBinding.btnRecord.setImageDrawable(resources.getDrawable(R.drawable.iv_start_record))
                     //activityCameraBinding.start.text = getString(R.string.start_recording)
                 } else {
                     startRecordingScreen()
@@ -289,7 +289,7 @@ class CameraActivity : AppCompatActivity() , HBRecorderListener {
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private fun setOutputPath() {
-        activityCameraBinding.btnRecord.setImageDrawable(resources.getDrawable(R.drawable.ic_record))
+        activityCameraBinding.btnRecord.setImageDrawable(resources.getDrawable(R.drawable.iv_record))
         val filename: String = Utility.generateFileName()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             resolver = contentResolver

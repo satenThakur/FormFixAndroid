@@ -7,12 +7,15 @@ public interface Constants {
     int SELECT_TAG_1=1;
     int SELECT_TAG_0=0;
 
-    float tagRadiousTab =16f;
-    float tagBorderTab =4f;
-    float tagTextTab =22f;
+    float tagRadiousTab =18f;
     float tagRadiousPhone =10f;
-    float tagBorderPhone =2f;
+    float tagBorderTab =2.5f;
+    float tagBorderPhone =1.5f;
+    float tagTextTab =20f;
     float tagTextPhone =14f;
+
+
+
     int LINE_LENGTH=300;
     int HEEL_MESSAGE=111;
     int KNEE_MESSAGE=222;

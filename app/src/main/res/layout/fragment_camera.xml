@@ -16,19 +16,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|top"
-        android:layout_marginTop="@dimen/_45sdp">
+        android:layout_marginTop="@dimen/_42sdp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/camera_button"
             android:layout_gravity="right"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
-            android:layout_marginRight="-5dp"
+            android:layout_marginRight="@dimen/_2sdp"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="@dimen/_38sdp"
             android:src="@drawable/ic_cameraswitch"
             android:tint="@color/red_color" />
         <RelativeLayout
             android:id="@+id/relay_1"
             android:visibility="gone"
+            android:layout_marginTop="@dimen/_4sdp"
             android:background="@drawable/rounded_button_bg"
             android:layout_alignParentRight="true"
             android:padding="@dimen/_3sdp"
@@ -42,8 +43,8 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:fontFamily="@font/helvetica"
-                android:padding="@dimen/_3sdp"
-                android:textSize="@dimen/text_11"
+                android:padding="@dimen/_2sdp"
+                android:textSize="@dimen/_10ssp"
                 android:text="@string/tuck_hips"
                 android:textColor="@color/white" />
 
@@ -59,7 +60,7 @@
                 android:paddingLeft="@dimen/_5sdp"
                 android:paddingRight="@dimen/_5sdp"
                 android:text="21"
-                android:textSize="@dimen/text_11"
+                android:textSize="@dimen/_10ssp"
                 android:textColor="#fff"></TextView>
 
         </RelativeLayout>
@@ -80,8 +81,8 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:fontFamily="@font/helvetica"
-                android:padding="@dimen/_3sdp"
-                android:textSize="@dimen/text_11"
+                android:padding="@dimen/_2sdp"
+                android:textSize="@dimen/_10ssp"
                 android:text="@string/knee_crossing_toes"
                 android:textColor="@color/white" />
 
@@ -97,7 +98,7 @@
                 android:paddingLeft="@dimen/_5sdp"
                 android:paddingRight="@dimen/_5sdp"
                 android:text="34"
-                android:textSize="@dimen/text_11"
+                android:textSize="@dimen/_10ssp"
                 android:textColor="#fff"></TextView>
 
         </RelativeLayout>
@@ -118,8 +119,8 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:fontFamily="@font/helvetica"
-                android:padding="@dimen/_3sdp"
-                android:textSize="@dimen/text_11"
+                android:padding="@dimen/_2sdp"
+                android:textSize="@dimen/_10ssp"
                 android:text="@string/externally_rotate_feet"
                 android:textColor="@color/white" />
 
@@ -135,7 +136,7 @@
                 android:paddingLeft="@dimen/_5sdp"
                 android:paddingRight="@dimen/_5sdp"
                 android:text="11"
-                android:textSize="@dimen/text_11"
+                android:textSize="@dimen/_10ssp"
                 android:textColor="#fff"></TextView>
 
         </RelativeLayout>
@@ -156,8 +157,8 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:fontFamily="@font/helvetica"
-                android:padding="@dimen/_3sdp"
-                android:textSize="@dimen/text_11"
+                android:padding="@dimen/_2sdp"
+                android:textSize="@dimen/_10ssp"
                 android:text="@string/externally_rotate_feet"
                 android:textColor="@color/white" />
 
@@ -173,7 +174,7 @@
                 android:paddingLeft="@dimen/_5sdp"
                 android:paddingRight="@dimen/_5sdp"
                 android:text="11"
-                android:textSize="@dimen/text_11"
+                android:textSize="@dimen/_10ssp"
                 android:textColor="#fff"></TextView>
 
         </RelativeLayout>

@@ -23,7 +23,7 @@
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_back_arrow"/>
+                android:src="@drawable/iv_back_arrow"/>
 
             <TextView
                 android:id="@+id/title"
@@ -31,10 +31,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:text="Exercise Media Files"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_17ssp"
+                android:textSize="@dimen/_14ssp"
                 android:textStyle="bold"></TextView>
 
         </RelativeLayout>

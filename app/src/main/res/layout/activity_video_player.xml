@@ -25,8 +25,8 @@
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_30sdp"
         android:padding="@dimen/_3sdp"
-        android:layout_width="@dimen/_35sdp"
-        android:layout_height="@dimen/_35sdp"
-        android:src="@drawable/ic_back_arrow"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/iv_back_arrow"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

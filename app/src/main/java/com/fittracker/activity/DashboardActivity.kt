@@ -119,14 +119,11 @@ class DashboardActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
             }
             tag.layoutColor = Color.parseColor("#FFFFFF")
             tag.tagTextColor = Color.parseColor("#FF3700B3")
-
-            System.out.println("radiussss="+resources.getDimension(R.dimen.dim_tag_radious)+" tagTextSize="+resources.getDimension(R.dimen.dim_tag_text)+" layoutBorderSize="+resources.getDimension(R.dimen.dim_tag_border))
-            System.out.println("radiussssTTTT="+tag.radius+" tagTextSize="+tag.tagTextSize+" layoutBorderSize="+tag.layoutBorderSize)
             tag.layoutBorderColor = Color.parseColor("#FF3700B3")
             if (selected == i) {
-                tag.layoutColor = Color.parseColor("#FF3700B3")
+                tag.layoutColor = Color.parseColor("#8692f7")
                 tag.tagTextColor = Color.parseColor("#FFFFFF")
-                tag.layoutBorderColor = Color.parseColor("#FF3700B3")
+                tag.layoutBorderColor = Color.parseColor("#8692f7")
             }
 
             tags.add(tag)
