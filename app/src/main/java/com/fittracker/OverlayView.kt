@@ -163,6 +163,19 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
             canvas.drawBitmap(it, 0f, 0f, pointPaint)
         }*/
         results?.let { poseLandmarkResult ->
+
+            canvas.drawText(
+                resources.getString(R.string.reps) + respCountTotal,
+                TEXT_X,
+                TEXT_TOTAL_RESP_Y,
+                repsPaint
+            )
+            canvas.drawText(
+                resources.getString(R.string.incorrect_reps) + respCountIncorrect,
+                TEXT_X,
+                TEXT_INCORRECT_RESP_Y,
+                incorrectRepsPaint
+            )
             for (landmark in poseLandmarkResult.landmarks()) {
                 if(!Utility.isUserFullyVisible(landmark,windowWidth,windowHeight)){
                     Log.e("UserVisibility","Fully Not Visible windowWidth="+windowWidth+",windowHeight="+windowHeight)
@@ -401,35 +414,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
                 }
                 /* LEFT/RIGHT FACE CASE */
             } else if (xHip > 0 && yHip > 0 && xKnee > 0 && yKnee > 0 && (userFaceType == Constants.LEFT_FACE || userFaceType == Constants.RIGHT_FACE)) {
-                if (knee > 0 && hip > 0) {
-                    canvas.drawText(
-                        knee.toString(),
-                        xKnee * imageWidth * scaleFactor,
-                        yKnee * imageHeight * scaleFactor,
-                        anglePaint
-                    )
 
-
-                    canvas.drawText(
-                        hip.toString(),
-                        xHip * imageWidth * scaleFactor,
-                        yHip * imageHeight * scaleFactor,
-                        anglePaint
-                    )
-                } else {
-                    canvas.drawText(
-                        resources.getString(R.string.empty_string),
-                        xKnee * imageWidth * scaleFactor,
-                        yKnee * imageHeight * scaleFactor,
-                        anglePaint
-                    )
-                    canvas.drawText(
-                        resources.getString(R.string.empty_string),
-                        xHip * imageWidth * scaleFactor,
-                        yHip * imageHeight * scaleFactor,
-                        anglePaint
-                    )
-                }
 
 
                 canvas.drawText(
@@ -447,6 +432,20 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
                 when (Utility.getState(leftKneeAngle, leftHipAngle, Constants.LEFT_FACE)) {
                     STATE_MOVING -> {
                         canvas.drawText(
+                            knee.toString(),
+                            xKnee * imageWidth * scaleFactor,
+                            yKnee * imageHeight * scaleFactor,
+                            anglePaint
+                        )
+
+
+                        canvas.drawText(
+                            hip.toString(),
+                            xHip * imageWidth * scaleFactor,
+                            yHip * imageHeight * scaleFactor,
+                            anglePaint
+                        )
+                        canvas.drawText(
                             resources.getString(R.string.state_moving),
                             TEXT_X,
                             TEXT_STATE_Y,
@@ -459,6 +458,20 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
                     }
 
                     STATE_UP -> {
+                        canvas.drawText(
+                            knee.toString(),
+                            xKnee * imageWidth * scaleFactor,
+                            yKnee * imageHeight * scaleFactor,
+                            anglePaint
+                        )
+
+
+                        canvas.drawText(
+                            hip.toString(),
+                            xHip * imageWidth * scaleFactor,
+                            yHip * imageHeight * scaleFactor,
+                            anglePaint
+                        )
                         canvas.drawText(
                             resources.getString(R.string.state_up),
                             TEXT_X,
@@ -493,6 +506,22 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
 
                     STATE_DOWN -> {
                       //  stopSpeaking()
+                        var kneeNangle=(kneeNewAngle * 10).roundToInt() / 10
+                        var hipNangle=(hipNewAngle * 10).roundToInt() / 10
+                        canvas.drawText(
+                            kneeNangle.toString(),
+                            xKnee * imageWidth * scaleFactor,
+                            yKnee * imageHeight * scaleFactor,
+                            anglePaint
+                        )
+
+
+                        canvas.drawText(
+                            hipNangle.toString(),
+                            xHip * imageWidth * scaleFactor,
+                            yHip * imageHeight * scaleFactor,
+                            anglePaint
+                        )
                         canvas.drawText(
                             resources.getString(R.string.state_down),
                             TEXT_X,
