@@ -5,10 +5,12 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.Toast
 import androidx.camera.core.AspectRatio
 import androidx.camera.core.Camera
@@ -25,7 +27,6 @@ import com.fittracker.MainViewModel
 import com.fittracker.PoseLandmarkerHelper
 import com.fittracker.R
 import com.fittracker.activity.CameraActivity
-import com.fittracker.activity.ImageActivity
 import com.fittracker.activity.VideoPlayerActivity
 import com.fittracker.databinding.FragmentCameraBinding
 import com.fittracker.model.ErrorMessage
@@ -76,6 +77,8 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     private var ankleX=-100f
     private var ankleY=-100f
     private var isTimerCompleted = false
+    private var windowHeight=0
+    private var windowWidth=0
 
     /** Blocking ML operations are performed using this executor */
     private lateinit var backgroundExecutor: ExecutorService
@@ -186,6 +189,7 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         }
         })
     }
+    @SuppressLint("SuspiciousIndentation")
     private fun errorMessageClick(msg:String){
          var intent = Intent(context, VideoPlayerActivity::class.java)
               intent.putExtra(Constants.FILE_NAME, "hipcorrection")
@@ -205,6 +209,7 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initialiseScreenWidthAndHeight()
         startTimer()
         // Initialize our background executor
         backgroundExecutor = Executors.newSingleThreadExecutor()
@@ -491,7 +496,7 @@ Log.e("ANGELS_DIFF","="+(kneeAngle-hipAngle))
                     yHeel,
                     userFaceType,
                     xHip, yHip, xKnee, yKnee, toeX, isTimerCompleted,xofLeftKnee,xofRightKnee,xofLeftToe,xofRightToe,
-                        (activity as CameraActivity).userSelectedFace,yOfToe,yoFShoulder,yForNose,shoulderx,shulderY,ankleX,ankleY)
+                        (activity as CameraActivity).userSelectedFace,yOfToe,yoFShoulder,yForNose,shoulderx,shulderY,ankleX,ankleY,windowWidth,windowHeight)
                 setAdapterData(fragmentCameraBinding.overlay.errorMessageList)
                 fragmentCameraBinding.overlay.invalidate()
             }
@@ -509,4 +514,13 @@ Log.e("ANGELS_DIFF","="+(kneeAngle-hipAngle))
     }
 
 
+    fun initialiseScreenWidthAndHeight() {
+        val window: Window? = activity?.window
+        val displayMetrics = DisplayMetrics()
+        window?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
+
+        windowHeight = displayMetrics.heightPixels
+        windowWidth = displayMetrics.widthPixels
+
+    }
 }

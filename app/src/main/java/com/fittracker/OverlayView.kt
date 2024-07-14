@@ -110,6 +110,8 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
     private var hipNewAngle=0f;
     public var errorMessageList = ArrayList<ErrorMessage>()
    var userSelectedFace=11;
+    private var windowHeight=0
+    private var windowWidth=0
     init {
         initPaints()
         errorMessageList.clear()
@@ -157,11 +159,17 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
         Log.e("timeDiff=", "draw")
-        scaleBitmap?.let {
+        /*scaleBitmap?.let {
             canvas.drawBitmap(it, 0f, 0f, pointPaint)
-        }
+        }*/
         results?.let { poseLandmarkResult ->
             for (landmark in poseLandmarkResult.landmarks()) {
+                if(!Utility.isUserFullyVisible(landmark,windowWidth,windowHeight)){
+                    Log.e("UserVisibility","Fully Not Visible windowWidth="+windowWidth+",windowHeight="+windowHeight)
+                   return
+                }else{
+                    Log.e("UserVisibility","Fully Visible windowWidth="+windowWidth+",windowHeight="+windowHeight)
+                }
               /*  for (normalizedLandmark in landmark) {
                     canvas.drawPoint(
                         normalizedLandmark.x() * imageWidth * scaleFactor,
@@ -674,7 +682,9 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
         shoulderx: Float,
         shulderY: Float,
         ankleX: Float,
-        ankleY: Float
+        ankleY: Float,
+        windowWidth: Int,
+        windowHeight: Int
 
     ) {
         results = poseLandmarkResults
@@ -704,6 +714,8 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
         this.shulderY=shulderY
         this.ankleX=ankleX
         this.ankleY=ankleY
+        this.windowHeight=windowHeight
+        this.windowWidth=windowWidth
         if (this.cameraFacing != cameraFacing) {
             respCountTotal = 0
             respCountIncorrect = 0

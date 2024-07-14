@@ -12,6 +12,7 @@ import com.fittracker.utilits.Constants.KNEE_HIP_DIFF_THRESHOLD
 import com.fittracker.utilits.Constants.KNEE_TOE_THRESHOLD
 import com.fittracker.utilits.Constants.STATE_UN_DECIDED
 import com.google.android.material.snackbar.Snackbar
+import com.google.mediapipe.tasks.components.containers.NormalizedLandmark
 import java.io.File
 import java.sql.Date
 import java.text.SimpleDateFormat
@@ -250,5 +251,24 @@ object Utility {
         val large = context.resources
             .configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK === Configuration.SCREENLAYOUT_SIZE_LARGE
         return xlarge || large
+    }
+
+
+    fun isUserFullyVisible(
+        poseLandmarks: List<NormalizedLandmark>,
+        screenWidth: Int,
+        screenHeight: Int
+    ): Boolean {
+        val visibleThreshold = 0.95 // Adjust as needed
+        for (landmark in poseLandmarks) {
+            val landmarkX: Float = landmark.x()* screenWidth
+            val landmarkY: Float = landmark.y() * screenHeight
+
+            // Check if the landmark is within the visible portion of the screen
+            if (landmarkX < 0 || landmarkX > screenWidth || landmarkY < 0 || landmarkY > screenHeight) {
+                return false
+            }
+        }
+        return true
     }
 }
