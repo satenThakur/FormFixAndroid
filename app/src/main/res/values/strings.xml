@@ -54,5 +54,6 @@
     <string name="spine_Kyphosis" tools:ignore="ExtraTranslation">Retract shoulder blades</string>
 
     <string name="squat_down_further" tools:ignore="ExtraTranslation">Squat deeper</string>
+    <string name="bend_at_the_knees" tools:ignore="ExtraTranslation">Bend at the Knees.</string>
 
 </resources>

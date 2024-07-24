@@ -455,6 +455,9 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
                         if(leftHipAngle<100 && leftHipAngle>90 && !statesSet.contains(STATE_DOWN)){
                             speakOut(resources.getString(R.string.squat_down_further))
                         }
+                        if(leftHipAngle<85 && leftKneeAngle>110 && !statesSet.contains(STATE_DOWN)){
+                            speakOut(resources.getString(R.string.bend_at_the_knees))
+                        }
                     }
 
                     STATE_UP -> {
@@ -501,7 +504,9 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
                             )
                             statesSet.clear()
                         }
-
+                        if(leftHipAngle<85 && leftKneeAngle>110 && !statesSet.contains(STATE_DOWN)){
+                            speakOut(resources.getString(R.string.bend_at_the_knees))
+                        }
                     }
 
                     STATE_DOWN -> {
