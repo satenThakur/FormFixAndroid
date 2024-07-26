@@ -87,10 +87,10 @@ public interface Constants {
 
     int MESSAGE_TYPE_TOE_HIP_X_DIFF=114;
     /* Error messages Constants */
-    float HEEL_MIN_ANGLE =40;
-    float HEEL_MAX_ANGLE =70;
+    float HEEL_MIN_ANGLE =29; // earlier it was 33 to 70 // todo correcting angles 40 to 33;
+    float HEEL_MAX_ANGLE =66;
 
-    float KNEE_TOE_THRESHOLD = 0.072F;//0.03F;
+    float KNEE_TOE_THRESHOLD = 0.082F;//0.072F;
 
     float KNEE_HIP_DIFF_THRESHOLD=40;
     float KNEE_HIP_DIFF_NEW_THRESHOLD=34;

@@ -8,8 +8,8 @@
     <string name="start_recording">Start Recording</string>
 
     <string-array name="tags">
-        <item><!--Front -->Squat</item>
-       <!-- <item>Left/Right Squat</item>-->
+        <item>Squat</item>
+        <item>Push Up</item>
         <item>Bench</item>
         <item>Dead Lift</item>
         <item>Shoulder Press</item>
@@ -55,5 +55,6 @@
 
     <string name="squat_down_further" tools:ignore="ExtraTranslation">Squat deeper</string>
     <string name="bend_at_the_knees" tools:ignore="ExtraTranslation">Bend at the Knees.</string>
+    <string name="tap_here_for_form_correction">Tap here for Form Correction</string>
 
 </resources>

@@ -26,7 +26,7 @@ object Utility {
     fun deleteMediaFile(filename: String) {
         var fileToPlay = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
             .toString() + "/" + Constants.FOLDER_NAME + "/" + filename + ".mp4"
-        Log.e("VideoPlayer", "fileToPlay=" + fileToPlay)
+        Log("VideoPlayer", "fileToPlay=" + fileToPlay)
         var file = File(fileToPlay)
         if (file.exists()) {
             file.delete()
@@ -36,7 +36,7 @@ object Utility {
     fun checkIfFileExist(filename: String): Boolean {
         var fileToPlay = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
             .toString() + "/" + Constants.FOLDER_NAME + "/" + filename + ".mp4"
-        Log.e("VideoPlayer", "fileToPlay=" + fileToPlay)
+        Log("VideoPlayer", "fileToPlay=" + fileToPlay)
         var file = File(fileToPlay)
         return file.exists()
     }
@@ -75,28 +75,34 @@ object Utility {
         snackbar.show()
     }
 
-    fun getState(kneeAngle: Float, hipAngle: Float,faceType:Int): Int {
-        Log.e("Angels", "KneeAngle=$kneeAngle")
-        Log.e("Angels", "HipAngle=$hipAngle")
+    fun getState(kneeAngle: Int, hipAngle: Int,faceType:Int): Int {
+       if(faceType==2){
+           Log("Angels", "FaceType= FRONT")
+       }else{
+           Log("Angels", "FaceType=LEFT/RIGHT")
+       }
+
+        Log("Angels", "KneeAngle=$kneeAngle")
+        Log("Angels", "HipAngle=$hipAngle")
 
 
         return  if ((/*kneeAngle > 140 ||   */hipAngle>150) && faceType==Constants.FRONT_FACE) {
-            Log.e("Angels", "STATE_UP FRONT_FACE")
+            Log("Angels", "STATE_UP FRONT_FACE")
             Constants.STATE_UP
         } else if (hipAngle < 140 && hipAngle > 90 && faceType==Constants.FRONT_FACE) {
-            Log.e("Angels", "STATE_MOVING FRONT_FACE")
+            Log("Angels", "STATE_MOVING FRONT_FACE")
             Constants.STATE_MOVING
         }else   if(hipAngle<90 && hipAngle>0 && faceType==Constants.FRONT_FACE) {
-            Log.e("Angels", "STATE_DOWN FRONT_FACE")
+            Log("Angels", "STATE_DOWN FRONT_FACE")
             Constants.STATE_DOWN
         } else if (kneeAngle > 150 && (faceType==Constants.LEFT_FACE||faceType==Constants.RIGHT_FACE)) {
-            Log.e("Angels", "STATE_UP")
+            Log("Angels", "STATE_UP")
             Constants.STATE_UP
         }else if (kneeAngle < 150 && kneeAngle > 90 && hipAngle < 150 && (faceType==Constants.LEFT_FACE||faceType==Constants.RIGHT_FACE)) {
-            Log.e("Angels", "STATE_MOVING")
+            Log("Angels", "STATE_MOVING")
             Constants.STATE_MOVING
         } else   if(kneeAngle<90 && kneeAngle>0 && (faceType==Constants.LEFT_FACE||faceType==Constants.RIGHT_FACE)) {
-            Log.e("Angels", "STATE_DOWN")
+            Log("Angels", "STATE_DOWN")
             Constants.STATE_DOWN
         } else{
             return STATE_UN_DECIDED
@@ -108,16 +114,16 @@ object Utility {
         if(kneeAngle<=0 || hipAngle<=0)
             return STATE_UN_DECIDED
         return if (kneeAngle > 150) {
-            Log.e("Angels", "STATE_UP")
+            Log("Angels", "STATE_UP")
             Constants.STATE_UP
         } else if (kneeAngle < 82 && kneeAngle > 46 && faceType==Constants.FRONT_FACE) {
-            Log.e("Angels", "STATE_MOVING")
+            Log("Angels", "STATE_MOVING")
             Constants.STATE_MOVING
         }else if (kneeAngle < 90 && kneeAngle > 56 && hipAngle < 95 && (faceType==Constants.LEFT_FACE||faceType==Constants.RIGHT_FACE)) {
-            Log.e("Angels", "STATE_MOVING")
+            Log("Angels", "STATE_MOVING")
             Constants.STATE_MOVING
         } else  *//* if(kneeAngle<56 && kneeAngle>0){*//* {
-            Log.e("Angels", "STATE_DOWN")
+            Log("Angels", "STATE_DOWN")
             Constants.STATE_DOWN
         }*/
         /* }else {
@@ -137,32 +143,33 @@ object Utility {
                 knneX,
                 userFaceType
             )/*toeX - knneX >= 0*/) {
-            // Log.e("Angles", "SQUAT_CORRECT")
+            // Log("Angles", "SQUAT_CORRECT")
             Constants.SQUAT_CORRECT
         } else {
-            // Log.e("Angles", "SQUAT_INCORRECT")
+            // Log("Angles", "SQUAT_INCORRECT")
             Constants.SQUAT_INCORRECT
         }
     }
 
     fun isKneeCrossesToes(toeX: Float, knneX: Float, userFaceType: Int): Boolean {
-        Log.e("Angle", "DIFF_Knee_toeX=" + abs(toeX - knneX))
-        return (abs(toeX - knneX) > KNEE_TOE_THRESHOLD)
+        var kneeToeXDiff=abs(toeX - knneX)
+        Log("Angle", "KneeX and ToeX diff=$kneeToeXDiff threshold is=$KNEE_TOE_THRESHOLD")
+        return (kneeToeXDiff > KNEE_TOE_THRESHOLD)
     }
     private fun isKneeAndHipAnglesDiffCrossedThredHold(kneeAngle: Float, hipAngle: Float): Boolean {
         if (Math.abs(kneeAngle-hipAngle)>KNEE_HIP_DIFF_THRESHOLD) {
-            Log.e("Angle","DIFF_Kneeangle_HIPangle="+Math.abs(kneeAngle-hipAngle))
+            Log("Angle","DIFF_Kneeangle_HIPangle="+Math.abs(kneeAngle-hipAngle))
             return true
         } else {
             return false
         }
     }
 
-    fun kneeHipAnglesDiff(kneeAngle: Float, hipAngle: Float): Boolean {
-        Log.e("NEWAGNGELS_DIFF","="+Math.abs(kneeAngle-hipAngle))
-        Log.e("NEWAGNGELS_DIFF","kneeAngle="+kneeAngle+" hipAngle="+hipAngle)
+    fun kneeHipAnglesDiff(kneeAngle: Int, hipAngle: Int): Boolean {
+        Log("parallelAngles","diff="+ abs(kneeAngle-hipAngle))
+        Log("parallelAngles", "parallelKnee=$kneeAngle parallelHip=$hipAngle")
         if (Math.abs(kneeAngle-hipAngle)>KNEE_HIP_DIFF_NEW_THRESHOLD) {
-            Log.e("Angle","DIFF_Kneeangle_HIPangle="+Math.abs(kneeAngle-hipAngle))
+            Log("parallelAngles","DIFF cross threshold="+KNEE_HIP_DIFF_NEW_THRESHOLD+"<"+ abs(kneeAngle-hipAngle))
             return true
         } else {
             return false
@@ -239,7 +246,7 @@ object Utility {
         val radianAngle = acos((p1c * p1c + p0c * p0c - p0p1 * p0p1) / (2 * p1c * p0c))
 
         return if (radianAngle.isNaN()) {
-            Log.e("Angle Radian is Nan", "" + 200.0f)
+            Log("Angle Radian is Nan", "" + 200.0f)
             200.0f
         } else {
             Math.toDegrees(radianAngle).toFloat()
@@ -270,5 +277,8 @@ object Utility {
             }
         }
         return true
+    }
+    fun Log(tag:String,message:String){
+        Log.e(tag,message)
     }
 }

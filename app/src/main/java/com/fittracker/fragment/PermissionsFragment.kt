@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.fittracker.R
+import com.fittracker.activity.CameraActivity
 
 private val PERMISSIONS_REQUIRED = arrayOf(Manifest.permission.CAMERA)
 
@@ -70,12 +71,27 @@ class PermissionsFragment : Fragment() {
 
     private fun navigateToCamera() {
         lifecycleScope.launchWhenStarted {
-            Navigation.findNavController(
-                requireActivity(),
-                R.id.fragment_container
-            ).navigate(
-                R.id.action_permissions_to_camera
-            )
+            when((activity as CameraActivity).exerciseType){
+                "Squat" ->{
+                    Navigation.findNavController(
+                        requireActivity(),
+                        R.id.fragment_container
+                    ).navigate(
+                        R.id.action_permissions_to_Squat
+                    )
+                }
+                "Push Up" ->{
+                    Navigation.findNavController(
+                        requireActivity(),
+                        R.id.fragment_container
+                    ).navigate(
+                        R.id.action_permissions_to_PushUps
+                    )
+                }
+
+            }
+
+
         }
     }
 

@@ -37,11 +37,11 @@ import com.fittracker.utilits.Constants.SELECT_TAG_0
 import com.fittracker.utilits.Constants.SELECT_TAG_1
 import com.fittracker.utilits.Utility
 
-class DashboardActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
+class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var activityMainBinding: ActivityDashboardBinding
-    private var selectedTag=-SELECT_TAG_1
-    private lateinit var  tags:ArrayList<Tag>
-    private  var isTablet:Boolean = false
+    private var selectedTag = -SELECT_TAG_1
+    private lateinit var tags: ArrayList<Tag>
+    private var isTablet: Boolean = false
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @SuppressLint("SuspiciousIndentation")
@@ -54,29 +54,33 @@ class DashboardActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
         setSupportActionBar(activityMainBinding.toolbar)
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
-        val toggle = ActionBarDrawerToggle(this, activityMainBinding.drawerLayout, activityMainBinding.toolbar, R.string.nav_open, R.string.nav_close)
+        val toggle = ActionBarDrawerToggle(
+            this,
+            activityMainBinding.drawerLayout,
+            activityMainBinding.toolbar,
+            R.string.nav_open,
+            R.string.nav_close
+        )
         activityMainBinding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-         isTablet = Utility.isTablet(this)
+        isTablet = Utility.isTablet(this)
 
-
-        //  activityMainBinding.tagGroup.addTags(resources.getStringArray(R.array.tags))
         activityMainBinding.btnStartCamera.setOnClickListener {
-            if(selectedTag!=-SELECT_TAG_1){
-                if(selectedTag==SELECT_TAG_0) {
-                    val intent = Intent(this, CameraActivity::class.java)
-                    intent.putExtra(EXERCISE_TYPE, tags[selectedTag].text.toString())
-                    if(selectedTag==SELECT_TAG_0)
-                    intent.putExtra(SELECTED_EXERCISE, FRONT_FACE)
-                    else {
-                        intent.putExtra(SELECTED_EXERCISE, LEFT_FACE)
-                    }
-                    startActivity(intent)
-                } else{
-                    Utility.onSNACK(activityMainBinding.root,resources.getString(R.string.coming_soon))
+            if (selectedTag != -1) {
+                if (selectedTag == 0 /*|| selectedTag == 1*/) {
+                    moveToCameraActivity(tags[selectedTag].text.toString())
+                } else {
+                    Utility.onSNACK(
+                        activityMainBinding.root,
+                        resources.getString(R.string.coming_soon)
+                    )
                 }
-            }else{
-               Utility.onSNACK(activityMainBinding.root,resources.getString(R.string.select_exercise))
+
+            } else {
+                Utility.onSNACK(
+                    activityMainBinding.root,
+                    resources.getString(R.string.select_exercise)
+                )
             }
 
         }
@@ -97,25 +101,31 @@ class DashboardActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
         )
 
 
+    }
 
+
+    fun moveToCameraActivity(exerciseType: String) {
+        val intent = Intent(this, CameraActivity::class.java)
+        intent.putExtra(EXERCISE_TYPE, exerciseType)
+        startActivity(intent)
     }
 
     private fun setTags(selected: Int) {
-        selectedTag=selected
-         tags = ArrayList()
+        selectedTag = selected
+        tags = ArrayList()
         var tag: Tag
 
         val tagList = resources.getStringArray(R.array.tags)
         for (i in tagList.indices) {
             tag = Tag(tagList[i])
-            if(isTablet){
+            if (isTablet) {
                 tag.radius = Constants.tagRadiousTab
                 tag.layoutBorderSize = Constants.tagBorderTab
-                tag.tagTextSize=Constants.tagTextTab
-            }else{
+                tag.tagTextSize = Constants.tagTextTab
+            } else {
                 tag.radius = Constants.tagRadiousPhone
                 tag.layoutBorderSize = Constants.tagBorderPhone
-                tag.tagTextSize=Constants.tagTextPhone
+                tag.tagTextSize = Constants.tagTextPhone
             }
             tag.layoutColor = Color.parseColor("#FFFFFF")
             tag.tagTextColor = Color.parseColor("#FF3700B3")
@@ -132,11 +142,10 @@ class DashboardActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
     }
 
 
-
     private fun requestForStoragePermissions() {
         //Android is 11 (R) or above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if(Environment.isExternalStorageManager())
+            if (Environment.isExternalStorageManager())
                 return
             try {
                 val intent = Intent()
@@ -151,7 +160,11 @@ class DashboardActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
             }
         } else {
             //Below android 11
-            if (ContextCompat.checkSelfPermission(this@DashboardActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+            if (ContextCompat.checkSelfPermission(
+                    this@DashboardActivity,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED
+            )
                 return
 
             ActivityCompat.requestPermissions(
@@ -164,48 +177,79 @@ class DashboardActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>,
-                                            grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQ_POST_NOTIFICATIONS) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this@DashboardActivity, "Notification Permission Granted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@DashboardActivity,
+                    "Notification Permission Granted",
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
-                Toast.makeText(this@DashboardActivity, "Notification Permission Denied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@DashboardActivity,
+                    "Notification Permission Denied",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         } else if (requestCode == PERMISSION_REQ_ID_RECORD_AUDIO) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this@DashboardActivity, "Audio Permission Granted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@DashboardActivity,
+                    "Audio Permission Granted",
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
-                Toast.makeText(this@DashboardActivity, "Audio Permission Denied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@DashboardActivity,
+                    "Audio Permission Denied",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-        }else if(requestCode == PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE){
-            if(grantResults.isNotEmpty()){
+        } else if (requestCode == PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE) {
+            if (grantResults.isNotEmpty()) {
                 val write = grantResults[0] == PackageManager.PERMISSION_GRANTED
                 val read = grantResults[1] == PackageManager.PERMISSION_GRANTED
-                if(read && write){
-                    Toast.makeText(this@DashboardActivity, "Storage Permissions Granted", Toast.LENGTH_SHORT).show()
-                }else{
-                    Toast.makeText(this@DashboardActivity, "Storage Permissions Denied", Toast.LENGTH_SHORT).show()
+                if (read && write) {
+                    Toast.makeText(
+                        this@DashboardActivity,
+                        "Storage Permissions Granted",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        this@DashboardActivity,
+                        "Storage Permissions Denied",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
     }
-    private val storageActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            // Android is 11 (R) or above
-            if (Environment.isExternalStorageManager()) {
-                // Manage External Storage Permissions Granted
-                Log.d("TAG", "onActivityResult: Manage External Storage Permissions Granted")
-            } else {
-                Toast.makeText(this@DashboardActivity, "Storage Permissions Denied", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            // Below android 11
-        }
-    }
 
+    private val storageActivityResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                // Android is 11 (R) or above
+                if (Environment.isExternalStorageManager()) {
+                    // Manage External Storage Permissions Granted
+                    Log.d("TAG", "onActivityResult: Manage External Storage Permissions Granted")
+                } else {
+                    Toast.makeText(
+                        this@DashboardActivity,
+                        "Storage Permissions Denied",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else {
+                // Below android 11
+            }
+        }
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -213,7 +257,8 @@ class DashboardActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
             R.id.nav_home -> {
 
             }
-            R.id.nav_files ->{
+
+            R.id.nav_files -> {
                 val intent = Intent(this, RecordedVideoListActivity::class.java)
                 startActivity(intent)
             }
@@ -222,6 +267,7 @@ class DashboardActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
         activityMainBinding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         if (activityMainBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {

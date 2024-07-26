@@ -16,16 +16,30 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="-Bug Fixes">
+    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="-Bug Fixes Squat Exercise">
+      <change afterPath="$PROJECT_DIR$/.idea/navEditor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewPushups.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/PushUpFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_pushup.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewSquats.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/CameraActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/CameraActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/DashboardActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/DashboardActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/CameraFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/SquatFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/PermissionsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/PermissionsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Utility.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Utility.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_camera.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_squats.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/row_message.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/row_message.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +47,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[RZCX608VTBE]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[adb-RZCX608VTBE-xCu7sZ._adb-tls-connect._tcp.]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -81,10 +95,14 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/CameraActivity.kt" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/DashboardActivity.kt" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2ipkbVSzaTgO8bVcv5Jlu1okBXa" />
   <component name="ProjectViewState">
@@ -96,17 +114,25 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;android-custom-view/Users/swatiraghav/Documents/ChipView-master/gradle/wrapper/caches/modules-2/files-2.1/com.github.Cutta/TagView/1.3/51d51fa6bcc16ef936662de750d77a1fb38f729/TagView-1.3-sources.jar!/com/cunoraz/tagview/TagView.java_SELECTED&quot;: &quot;TagView&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayView.kt_SELECTED&quot;: &quot;OverlayView&quot;,
+    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayView.kt_SELECTED&quot;: &quot;OverlayViewSquats&quot;,
+    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushups.kt_SELECTED&quot;: &quot;OverlayViewPushups&quot;,
+    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewSquats.kt_SELECTED&quot;: &quot;OverlayViewSquats&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/res/raw&quot;
+    &quot;last_opened_file_path&quot;: &quot;/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/res/layout&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
       <recent name="$PROJECT_DIR$/app/src/main/res/raw" />
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable-anydpi" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.fittracker" />
+      <recent name="com.fittracker.fragment" />
     </key>
   </component>
   <component name="RunManager">
@@ -235,14 +261,32 @@
       <option name="project" value="LOCAL" />
       <updated>1720964797471</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="-Bug Fixes Squat Exercise">
+      <created>1721832356813</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1721832356813</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="-Final Code upto 05 July 2024" />
     <MESSAGE value="-Launcher icon changed&#10;-Splash UI improvement&#10;-Tablet UI changes in progress" />
     <MESSAGE value="-Tablet and Phone UI" />
     <MESSAGE value="-Bug Fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="-Bug Fixes" />
+    <MESSAGE value="-Bug Fixes Squat Exercise" />
+    <option name="LAST_COMMIT_MESSAGE" value="-Bug Fixes Squat Exercise" />
   </component>
 </project>

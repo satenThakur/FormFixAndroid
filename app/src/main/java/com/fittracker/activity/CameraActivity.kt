@@ -45,24 +45,23 @@ class CameraActivity : AppCompatActivity() , HBRecorderListener {
     private var hasPermissions = false
     private var wasHDSelected = true
     private var isAudioEnabled = true
-    private var exerciseType="";
-    public var userSelectedFace=0;
+     var exerciseType="";
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityCameraBinding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(activityCameraBinding.root)
         val navHostFragment = supportFragmentManager.findFragmentById(com.fittracker.R.id.fragment_container) as NavHostFragment
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             //Init HBRecorder
             hbRecorder = HBRecorder(this, this)
-
             //When the user returns to the application, some UI changes might be necessary,
             //check if recording is in progress and make changes accordingly
             if (hbRecorder.isBusyRecording) {
                 activityCameraBinding.btnRecord.setImageDrawable(resources.getDrawable(R.drawable.iv_record))
             }
         }
-           userSelectedFace=intent.getIntExtra(Constants.SELECTED_EXERCISE,0)
            exerciseType= intent.getStringExtra(Constants.EXERCISE_TYPE).toString()
         // Examples of how to use the HBRecorderCodecInfo class to get codec info
 
