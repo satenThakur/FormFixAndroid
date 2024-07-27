@@ -16,11 +16,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="-Bug Fixes Squat Exercise">
-      <change afterPath="$PROJECT_DIR$/.idea/navEditor.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewPushups.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/PushUpFragment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_pushup.xml" afterDir="false" />
+    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="-Soloman's Feedback changes">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/bend_the_knees.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/knees_crossing_toes.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/knees_inwards.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/squat_deeper.mp4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.bin" afterDir="false" />
@@ -30,16 +30,19 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewSquats.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/CameraActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/CameraActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/DashboardActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/DashboardActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/CameraFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/SquatFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/PermissionsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/PermissionsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewPushups.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewPushups.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewSquats.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewSquats.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/VideoPlayerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/VideoPlayerActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/PushUpFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/PushUpFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/SquatFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/SquatFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Utility.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Utility.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_camera.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_squats.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/row_message.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/row_message.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_squats.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_squats.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/backround.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/keeninwards.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/kneescrossingtoes.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/rotatefeet.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/tuck_hips.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/raw/tuck_hips.mp4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,7 +50,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[adb-RZCX608VTBE-xCu7sZ._adb-tls-connect._tcp.]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[RZCX608VTBE]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -268,7 +271,14 @@
       <option name="project" value="LOCAL" />
       <updated>1721832356813</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="-Soloman's Feedback changes">
+      <created>1722009445520</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1722009445520</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -287,6 +297,7 @@
     <MESSAGE value="-Tablet and Phone UI" />
     <MESSAGE value="-Bug Fixes" />
     <MESSAGE value="-Bug Fixes Squat Exercise" />
-    <option name="LAST_COMMIT_MESSAGE" value="-Bug Fixes Squat Exercise" />
+    <MESSAGE value="-Soloman's Feedback changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="-Soloman's Feedback changes" />
   </component>
 </project>

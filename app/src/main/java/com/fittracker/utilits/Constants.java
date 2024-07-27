@@ -17,10 +17,14 @@ public interface Constants {
 
 
     int LINE_LENGTH=300;
-    int HEEL_MESSAGE=111;
-    int KNEE_MESSAGE=222;
-    int HIP_MESSAGE=333;
-    int KNEE_TOE_X_MESSAGE=444;
+
+
+    int TUCK_HIPS =1;
+    int KNEES_CROSSING_TOES =2;
+    int SQUAT_DEEPER=3;
+    int BEND_AT_THE_KNEES=4;
+    int EXTERNALLY_ROTATE_FEET=5;
+    int KNEES_GOING_INWARDS=6;
     int TOAST_LENGTH=100;
 
 
@@ -91,7 +95,7 @@ public interface Constants {
     float HEEL_MAX_ANGLE =66;
 
     float KNEE_TOE_THRESHOLD = 0.082F;//0.072F;
-
+    float KNEE_TOE_THRESHOLD_TO_IGNORE_TUCK_HIPS =0.052F;
     float KNEE_HIP_DIFF_THRESHOLD=40;
     float KNEE_HIP_DIFF_NEW_THRESHOLD=34;
 

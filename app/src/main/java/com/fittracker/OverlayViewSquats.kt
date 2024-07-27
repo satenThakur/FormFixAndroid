@@ -16,18 +16,20 @@ import androidx.core.content.ContextCompat
 import com.fittracker.model.ErrorMessage
 import com.fittracker.utilits.Constants
 import com.fittracker.utilits.Constants.ANGLE_TEXT
+import com.fittracker.utilits.Constants.BEND_AT_THE_KNEES
 import com.fittracker.utilits.Constants.ERROR_STROKE_WIDTH
 import com.fittracker.utilits.Constants.HEEL_MAX_ANGLE
 import com.fittracker.utilits.Constants.HEEL_MIN_ANGLE
 import com.fittracker.utilits.Constants.CIRCLE_RADIUS
-import com.fittracker.utilits.Constants.HEEL_MESSAGE
-import com.fittracker.utilits.Constants.HIP_MESSAGE
-import com.fittracker.utilits.Constants.KNEE_MESSAGE
-import com.fittracker.utilits.Constants.KNEE_TOE_X_MESSAGE
+import com.fittracker.utilits.Constants.EXTERNALLY_ROTATE_FEET
+import com.fittracker.utilits.Constants.TUCK_HIPS
+import com.fittracker.utilits.Constants.KNEES_CROSSING_TOES
+import com.fittracker.utilits.Constants.KNEES_GOING_INWARDS
 import com.fittracker.utilits.Constants.LANDMARK_LINE_WIDTH
 import com.fittracker.utilits.Constants.LANDMARK_STROKE_WIDTH
 import com.fittracker.utilits.Constants.LINE_LENGTH
 import com.fittracker.utilits.Constants.MASK_TEXT
+import com.fittracker.utilits.Constants.SQUAT_DEEPER
 import com.fittracker.utilits.Constants.SQUAT_INCORRECT
 import com.fittracker.utilits.Constants.STATE_DOWN
 import com.fittracker.utilits.Constants.STATE_MOVING
@@ -102,8 +104,8 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
     private var hipMessageTimeStamp: Long = 0
     private var heelMessageTimeStamp: Long = 0
     private var heelxToeXMessageTimeStamp: Long = 0
-    private var kneeNewAngle = 0
-    private var hipNewAngle = 0
+    private var kneeNewAngle = 0f
+    private var hipNewAngle = 0f
     var errorMessageList = ArrayList<ErrorMessage>()
     private var windowHeight = 0
     private var windowWidth = 0
@@ -183,39 +185,69 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                 }
 
             }
-            var phip1x =0f
-            phip1x = if(userFaceType==Constants.RIGHT_FACE)
+
+
+            var phip1x=imageWidth * scaleFactor*xHip-LINE_LENGTH
+            var phip1y=imageHeight * scaleFactor*yHip
+            var phip2x=imageWidth * scaleFactor*xHip
+            var phip2y=imageHeight * scaleFactor*yHip
+
+            var pShoulderx=imageWidth * scaleFactor*shoulderx
+            var pShouldery=imageHeight * scaleFactor*shulderY
+
+
+            var pKnee1x=imageWidth * scaleFactor*xKnee+LINE_LENGTH
+            var pKnee1y=imageHeight * scaleFactor*yKnee;
+            var pKnee2x=imageWidth * scaleFactor*xKnee
+            var pKnee2y=imageHeight * scaleFactor*yKnee
+
+            var pAnkleX=imageWidth * scaleFactor*ankleX
+            var pAnkleY=imageHeight * scaleFactor*ankleY
+
+            //canvas.drawLine(phip1x,phip1y,phip2x,phip2y,pLinePaint)
+            // canvas.drawLine(pKnee1x,pKnee1y,pKnee2x,pKnee2y,pLinePaint)
+            //canvas.drawLine(p2x,p2y, p3x,p3y,pLinePaint)
+            if(pAnkleX>0 && pAnkleY>0 && pShoulderx>0 && pShouldery>0) {
+                kneeNewAngle =
+                    Utility.calculateAngles(pAnkleX, pAnkleY, pKnee2x, pKnee2y, pKnee1x, pKnee1y)
+                hipNewAngle =
+                    Utility.calculateAngles(phip1x, phip1y, phip2x, phip2y, pShoulderx, pShouldery)
+            }
+
+
+            /*  var phip1x =    imageWidth * scaleFactor * xHip + LINE_LENGTH
+          phip1x = if(userFaceType==Constants.RIGHT_FACE)
                 imageWidth * scaleFactor * xHip + LINE_LENGTH
             else {
                 imageWidth * scaleFactor * xHip -LINE_LENGTH
-            }
-            var phip1y = imageHeight * scaleFactor * yHip
+            }*/
+            /*var phip1y = imageHeight * scaleFactor * yHip
             var phip2x = imageWidth * scaleFactor * xHip
             var phip2y = imageHeight * scaleFactor * yHip
 
             var pShoulderx = imageWidth * scaleFactor * shoulderx
             var pShouldery = imageHeight * scaleFactor * shulderY
 
-            var pKnee1x = 0f
-            pKnee1x = if(userFaceType==Constants.RIGHT_FACE)
+            var pKnee1x =   imageWidth * scaleFactor * xKnee - LINE_LENGTH*/
+         /*   pKnee1x = if(userFaceType==Constants.RIGHT_FACE)
                 imageWidth * scaleFactor * xKnee - LINE_LENGTH
             else
                 imageWidth * scaleFactor * xKnee + LINE_LENGTH
-
-            var pKnee1y = imageHeight * scaleFactor * yKnee;
+*/
+            /*var pKnee1y = imageHeight * scaleFactor * yKnee;
             var pKnee2x = imageWidth * scaleFactor * xKnee
             var pKnee2y = imageHeight * scaleFactor * yKnee
 
             var pAnkleX = imageWidth * scaleFactor * ankleX
             var pAnkleY = imageHeight * scaleFactor * ankleY
+*/
+            /* canvas.drawLine(phip1x,phip1y,phip2x,phip2y,pLinePaint)
+            canvas.drawLine(pShoulderx,pShouldery, phip2x,phip2y,pLinePaint)
 
-           //  canvas.drawLine(phip1x,phip1y,phip2x,phip2y,pLinePaint)
-            //canvas.drawLine(pShoulderx,pShouldery, phip2x,phip2y,pLinePaint)
-
-            // canvas.drawLine(pKnee1x,pKnee1y,pKnee2x,pKnee2y,pLinePaint)
-            //canvas.drawLine(pAnkleX,pAnkleY, pKnee2x,pKnee2y,pLinePaint)
-
-            if (pAnkleX > 0 && pAnkleY > 0 && pShoulderx > 0 && pShouldery > 0) {
+             canvas.drawLine(pKnee1x,pKnee1y,pKnee2x,pKnee2y,pLinePaint)
+            canvas.drawLine(pAnkleX,pAnkleY, pKnee2x,pKnee2y,pLinePaint)
+*/
+          /*  if (pAnkleX > 0 && pAnkleY > 0 && pShoulderx > 0 && pShouldery > 0) {
                 kneeNewAngle =
                     Utility.calculateAngles(pAnkleX, pAnkleY, pKnee2x, pKnee2y, pKnee1x, pKnee1y)
                         .toInt()
@@ -223,7 +255,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                     Utility.calculateAngles(phip1x, phip1y, phip2x, phip2y, pShoulderx, pShouldery)
                         .toInt()
                 Utility.Log("ParallelAnglesss","kneeNewAngle="+kneeNewAngle+" hipNewAngle="+hipNewAngle)
-            }
+            }*/
 
 
             /*Check if Timer is Completed*/
@@ -255,18 +287,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                 )
 
                 when (Utility.getState(kneeAngle, hipAngle, Constants.FRONT_FACE)) {
-                    STATE_MOVING -> {
-                        canvas.drawText(
-                            resources.getString(R.string.state_moving),
-                            TEXT_X,
-                            TEXT_STATE_Y,
-                            statePaint
-                        )
-                        statesSet.add(STATE_MOVING)
-                        if ((hipAngle in 85..100) && !statesSet.contains(STATE_DOWN)&& statesSet.contains(STATE_UP)) {
-                            speakOut(resources.getString(R.string.squat_down_further))
-                        }
-                    }
+
 
                     STATE_UP -> {
                         canvas.drawText(
@@ -303,7 +324,26 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                         }
 
                     }
+                    STATE_MOVING -> {
+                        canvas.drawText(
+                            resources.getString(R.string.state_moving),
+                            TEXT_X,
+                            TEXT_STATE_Y,
+                            statePaint
+                        )
+                        statesSet.add(STATE_MOVING)
+                        if ((hipAngle in 90..100) && !statesSet.contains(STATE_DOWN)) {
 
+                            drawMessageOnScreen(
+                                (xKnee - Constants.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
+                                yKnee * imageHeight * scaleFactor,
+                                context.resources.getString(R.string.squat_deeper),
+                                SQUAT_DEEPER,
+                                canvas, true,false
+                            )
+
+                        }
+                    }
                     STATE_DOWN -> {
                         canvas.drawText(
                             resources.getString(R.string.state_down),
@@ -326,8 +366,8 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                     xHeel * imageWidth * scaleFactor,
                                     yHeel * imageHeight * scaleFactor,
                                     context.resources.getString(R.string.externally_rotate_feet),
-                                    HEEL_MESSAGE,
-                                    canvas, needToSpeak
+                                    EXTERNALLY_ROTATE_FEET,
+                                    canvas, needToSpeak,true
                                 )
 
 
@@ -348,8 +388,8 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                         xofRightKnee * imageWidth * scaleFactor,
                                         yKnee * imageHeight * scaleFactor,
                                         context.resources.getString(R.string.knees_going_inwards),
-                                        KNEE_TOE_X_MESSAGE,
-                                        canvas, needToSpeak
+                                        KNEES_GOING_INWARDS,
+                                        canvas, needToSpeak,true
                                     )
                                 }
                             } else {
@@ -399,36 +439,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                     incorrectRepsPaint
                 )
                 when (Utility.getState(kneeAngle, hipAngle, Constants.LEFT_FACE)) {
-                    STATE_MOVING -> {
-                        //Right/Left Face STATE_MOVING
-                        canvas.drawText(
-                            kneeAngle.toString(),
-                            xKnee * imageWidth * scaleFactor,
-                            yKnee * imageHeight * scaleFactor,
-                            anglePaint
-                        )
 
-
-                        canvas.drawText(
-                            hipAngle.toString(),
-                            xHip * imageWidth * scaleFactor,
-                            yHip * imageHeight * scaleFactor,
-                            anglePaint
-                        )
-                        canvas.drawText(
-                            resources.getString(R.string.state_moving),
-                            TEXT_X,
-                            TEXT_STATE_Y,
-                            statePaint
-                        )
-                        statesSet.add(STATE_MOVING)
-                        if ((hipAngle in 85..100) && !statesSet.contains(STATE_DOWN) && statesSet.contains(STATE_UP)) {
-                            speakOut(resources.getString(R.string.squat_down_further))
-                        }
-                        if (hipAngle < 80 && kneeAngle > 110 && !statesSet.contains(STATE_DOWN) &&  statesSet.contains(STATE_UP)) {
-                            speakOut(resources.getString(R.string.bend_at_the_knees))
-                        }
-                    }
 
                     STATE_UP -> {
                         //Right/Left Face STATE_UP
@@ -475,14 +486,12 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             )
                             statesSet.clear()
                         }
-                        if (hipAngle < 85 && kneeAngle > 110 && !statesSet.contains(STATE_DOWN)) {
-                            speakOut(resources.getString(R.string.bend_at_the_knees))
-                        }
-                    }
 
-                    STATE_DOWN -> {
+                    }
+                    STATE_MOVING -> {
+                        //Right/Left Face STATE_MOVING
                         canvas.drawText(
-                            kneeNewAngle.toString(),
+                            kneeAngle.toString(),
                             xKnee * imageWidth * scaleFactor,
                             yKnee * imageHeight * scaleFactor,
                             anglePaint
@@ -490,7 +499,49 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
 
 
                         canvas.drawText(
-                            hipNewAngle.toString(),
+                            hipAngle.toString(),
+                            xHip * imageWidth * scaleFactor,
+                            yHip * imageHeight * scaleFactor,
+                            anglePaint
+                        )
+                        canvas.drawText(
+                            resources.getString(R.string.state_moving),
+                            TEXT_X,
+                            TEXT_STATE_Y,
+                            statePaint
+                        )
+                        statesSet.add(STATE_MOVING)
+                        if ((hipAngle in 90..100) && !statesSet.contains(STATE_DOWN)) {
+                              drawMessageOnScreen(
+                                  (xKnee - Constants.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
+                                  yKnee * imageHeight * scaleFactor,
+                                  context.resources.getString(R.string.squat_deeper),
+                                  SQUAT_DEEPER,
+                                  canvas, true,false
+                              )
+
+                        }
+                        if (hipAngle < 95 && kneeAngle > 120 && !statesSet.contains(STATE_DOWN)) {
+                            drawMessageOnScreen(
+                                (xKnee - Constants.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
+                                yKnee * imageHeight * scaleFactor,
+                                context.resources.getString(R.string.bend_at_the_knees),
+                                BEND_AT_THE_KNEES,
+                                canvas, true,false
+                            )
+                        }
+                    }
+                    STATE_DOWN -> {
+                        canvas.drawText(
+                            kneeAngle.toString(),
+                            xKnee * imageWidth * scaleFactor,
+                            yKnee * imageHeight * scaleFactor,
+                            anglePaint
+                        )
+
+
+                        canvas.drawText(
+                            hipAngle.toString(),
                             xHip * imageWidth * scaleFactor,
                             yHip * imageHeight * scaleFactor,
                             anglePaint
@@ -502,8 +553,8 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             statePaint
                         )
                         statesSet.add(STATE_DOWN)
-                        /*check knee crossing toes when both angles are below 80 and stack contains MOVING_STATE and DOWN_STATE*/
-                        if (hipAngle < 80 && kneeAngle < 80 && statesSet.contains(STATE_MOVING) && statesSet.contains(STATE_UP) && Utility.isKneeCrossesToes(
+                        /*check knee crossing toes when both angles are below 80 and stack contains MOVING_STATE and UP_STATE*/
+                        if (Utility.isKneeCrossesToes(
                                 toeX,
                                 xKnee,
                                 userFaceType
@@ -524,12 +575,12 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             if (needToSpeak) {
                                 statesSet.add(SQUAT_INCORRECT)
                             }
-                            drawMessageOnScreen(
+                           drawMessageOnScreen(
                                 (xKnee - Constants.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
                                 yKnee * imageHeight * scaleFactor,
                                 context.resources.getString(R.string.knee_crossing_toes),
-                                KNEE_MESSAGE,
-                                canvas, needToSpeak
+                               KNEES_CROSSING_TOES,
+                                canvas, needToSpeak,true
                             )
 
 
@@ -538,7 +589,8 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                         }
                         if (Utility.kneeHipAnglesDiff(
                                 kneeNewAngle,
-                                hipNewAngle
+                                hipNewAngle, toeX,
+                                xKnee,
                             )
                         ) {
                             canvas.drawCircle(
@@ -561,8 +613,8 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                 (xHip + Constants.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
                                 yHip * imageHeight * scaleFactor,
                                 context.resources.getString(R.string.tuck_hips),
-                                HIP_MESSAGE,
-                                canvas, needToSpeak
+                                TUCK_HIPS,
+                                canvas, needToSpeak,true
                             )
 
 
@@ -739,12 +791,17 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
         yPos: Float,
         message: String,
         messageType: Int,
-        canvas: Canvas, needtoSpeak: Boolean
+        canvas: Canvas, needtoSpeak: Boolean,needtoDraw:Boolean
     ) {
         if (needtoSpeak) {
-            saveErrorMessages(message, messageType)
+            saveErrorMessages(message, messageType,true)
             speakOut(message)
+        }else{
+            saveErrorMessages(message, messageType,false)
         }
+
+        if(!needtoDraw)
+            return
         val textHeight = abs(maskPaint.fontMetrics.top)
         val padding = 10
         var bgRect = RectF(
@@ -760,7 +817,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
         canvas.drawText(message, xPos, yPos, maskPaint)
     }
 
-    private fun saveErrorMessages(message: String, messageType: Int) {
+    private fun saveErrorMessages(message: String, messageType: Int,needToIncreaseCount:Boolean) {
         if (errorMessageList.isEmpty() || checkIfMessageTypeNotExist(messageType)) {
             var errorMsgModel = ErrorMessage();
             errorMsgModel.messageType = messageType;
@@ -769,6 +826,8 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
             errorMsgModel.count = 1
             errorMessageList.add(errorMsgModel)
         } else {
+            if(!needToIncreaseCount)
+                return
             for (i in 0 until errorMessageList.size) {
                 if (errorMessageList[i].messageType == messageType) {
                     if (errorMessageList[i].repsCount < respCountTotal) {

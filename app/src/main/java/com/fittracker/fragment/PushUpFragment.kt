@@ -484,7 +484,7 @@ Log.e("ANGELS_DIFF","="+(kneeAngle-hipAngle))
 
             }
 
-            if (_fragmentpushupsBinding != null) {
+          /*  if (_fragmentpushupsBinding != null) {
                 // Pass necessary information to OverlayView for drawing on the canvas
                 fragmentpushupsBinding.overlay.setResults(
                     resultBundle.results.first(),
@@ -502,7 +502,7 @@ Log.e("ANGELS_DIFF","="+(kneeAngle-hipAngle))
                         yOfToe,yoFShoulder,yForNose,shoulderx,shulderY,ankleX,ankleY,windowWidth,windowHeight)
                 setAdapterData(fragmentpushupsBinding.overlay.errorMessageList)
                 fragmentpushupsBinding.overlay.invalidate()
-            }
+            }*/
         }
     }
 

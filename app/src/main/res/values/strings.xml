@@ -46,15 +46,19 @@
     <string name="face_type">Face:</string>
     <string name="nav_open">Nav Open</string>
     <string name="nav_close">Nav Close</string>
-    <string name="knee_crossing_toes">Knees crossing toes</string>
-    <string name="externally_rotate_feet">Externally Rotate Feet</string>
-    <string name="tuck_hips">Tuck hips</string>
-    <string name="knees_going_inwards">Knees going inwards</string>
     <string name="spine_goes_into_lordosis">Tuck Hips</string>
     <string name="spine_Kyphosis" tools:ignore="ExtraTranslation">Retract shoulder blades</string>
 
-    <string name="squat_down_further" tools:ignore="ExtraTranslation">Squat deeper</string>
-    <string name="bend_at_the_knees" tools:ignore="ExtraTranslation">Bend at the Knees.</string>
     <string name="tap_here_for_form_correction">Tap here for Form Correction</string>
+     <!-- Left/Right Squat Messages-->
+    <string name="knee_crossing_toes">Knees crossing toes</string>
+    <string name="tuck_hips">Tuck hips</string>
+    <string name="bend_at_the_knees" tools:ignore="ExtraTranslation">Bend at the knees.</string>
+    <string name="squat_deeper" tools:ignore="ExtraTranslation">Squat deeper</string>
+
+    <!-- Front Squat Messages-->
+<!--    <string name="squat_deeper" tools:ignore="ExtraTranslation">Squat deeper</string>-->
+    <string name="externally_rotate_feet">Externally Rotate Feet</string>
+    <string name="knees_going_inwards">Knees going inwards</string>
 
 </resources>

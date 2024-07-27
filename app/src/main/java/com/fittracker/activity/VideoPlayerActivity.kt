@@ -16,8 +16,6 @@ import com.fittracker.utilits.Constants
 
 class VideoPlayerActivity : AppCompatActivity() {
     private lateinit var activityVideoPlayerBinding: ActivityVideoPlayerBinding
-
-
     // declaring a null variable for MediaController
     var mediaControls: MediaController? = null
 
@@ -33,40 +31,31 @@ class VideoPlayerActivity : AppCompatActivity() {
             )
 
         }
-        activityVideoPlayerBinding.backBtn.setOnClickListener{
+        activityVideoPlayerBinding.backBtn.setOnClickListener {
             onBackPressed()
         }
 
-  var uriToPlay:Uri
-        if(intent.getIntExtra(Constants.FILE_TYPE,0)==0){
-            var filename=intent?.getStringExtra(Constants.FILE_NAME);
-            var fileToPlay= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).toString() + "/"+ Constants.FOLDER_NAME+"/"+filename+".mp4"
-            uriToPlay=Uri.parse("file://$fileToPlay")
-        }else{
-            var filename=""
-            if (intent.getStringExtra(Constants.MESSAGE_TYPE)
-                    .equals(getString(R.string.knee_crossing_toes))
-            ) {
-                filename="kneescrossingtoes"
+        var uriToPlay: Uri
+        if (intent.getIntExtra(Constants.FILE_TYPE, 0) == 0) {
+            var filename = intent?.getStringExtra(Constants.FILE_NAME);
+            var fileToPlay =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
+                    .toString() + "/" + Constants.FOLDER_NAME + "/" + filename + ".mp4"
+            uriToPlay = Uri.parse("file://$fileToPlay")
+        } else {
+            var filename = ""
 
-            } else if (intent.getStringExtra(Constants.MESSAGE_TYPE)
-                    .equals(getString(R.string.tuck_hips))
-            ) {
-                filename="tuck_hips"
-            } else if (intent.getStringExtra(Constants.MESSAGE_TYPE)
-                    .equals(getString(R.string.externally_rotate_feet))
-            ) {
-                filename="rotatefeet"
-            } else if (intent.getStringExtra(Constants.MESSAGE_TYPE)
-                    .equals(getString(R.string.knees_going_inwards))
-            ) {
-                filename="keeninwards"
+            when (intent.getStringExtra(Constants.MESSAGE_TYPE)) {
+                getString(R.string.knee_crossing_toes) -> filename = "knees_crossing_toes"
+                getString(R.string.tuck_hips) -> filename = "tuck_hips"
+                getString(R.string.squat_deeper) -> filename = "squat_deeper"
+                getString(R.string.bend_at_the_knees) -> filename = "bend_the_knees"
+                getString(R.string.externally_rotate_feet) -> filename = "knees_inwards"
+                getString(R.string.knees_going_inwards) -> filename = "knees_inwards"
             }
 
-
-
             var path = "android.resource://$packageName/raw/$filename"
-            uriToPlay=Uri.parse(path)
+            uriToPlay = Uri.parse(path)
         }
 
         if (mediaControls == null) {
@@ -81,19 +70,18 @@ class VideoPlayerActivity : AppCompatActivity() {
         activityVideoPlayerBinding.videoView!!.setMediaController(mediaControls)
 
         // set the absolute path of the video file which is going to be played
-       /* activityVideoPlayerBinding.videoView!!.setVideoURI(
-            Uri.parse("android.resource://"
-                + packageName + "/" + R.raw.test))*/
-        var video_name="video"
+        /* activityVideoPlayerBinding.videoView!!.setVideoURI(
+             Uri.parse("android.resource://"
+                 + packageName + "/" + R.raw.test))*/
+        var video_name = "video"
         val path = "android.resource://$packageName/raw/$video_name"
-        var rawId = resources.getIdentifier("video.mp4",  "raw", packageName);
+        var rawId = resources.getIdentifier("video.mp4", "raw", packageName);
         //val path = "android.resource://$packageName/$rawId"
 
 
+        Log.e("VideoPlayer", "path=" + path)
 
-        Log.e("VideoPlayer","path="+path)
-
-        System.out.println("uriToPlay "+uriToPlay);
+        System.out.println("uriToPlay " + uriToPlay);
 
         activityVideoPlayerBinding.videoView!!.setVideoURI(uriToPlay)
 
@@ -107,9 +95,9 @@ class VideoPlayerActivity : AppCompatActivity() {
         // display a toast message
         // after the video is completed
         activityVideoPlayerBinding.videoView!!.setOnCompletionListener {
-          /*  Toast.makeText(applicationContext, "Video completed",
-                Toast.LENGTH_LONG).show()*/
-            Log.e("Video","completed")
+            /*  Toast.makeText(applicationContext, "Video completed",
+                  Toast.LENGTH_LONG).show()*/
+            Log.e("Video", "completed")
             true
         }
 
@@ -118,15 +106,17 @@ class VideoPlayerActivity : AppCompatActivity() {
         activityVideoPlayerBinding.videoView!!.setOnErrorListener { mp, what, extra ->
             /*Toast.makeText(applicationContext, "An Error Occurred " +
                     "While Playing Video !!!", Toast.LENGTH_LONG).show()*/
-            Log.e("Video", "An Error Occurred " +
-                    "While Playing Video !!!")
+            Log.e(
+                "Video", "An Error Occurred " +
+                        "While Playing Video !!!"
+            )
             false
         }
     }
 
     override fun onBackPressed() {
-        Log.e("onBackPressed","called")
-        if (activityVideoPlayerBinding.videoView.isPlaying()){
+        Log.e("onBackPressed", "called")
+        if (activityVideoPlayerBinding.videoView.isPlaying()) {
             activityVideoPlayerBinding.videoView.stopPlayback()
         }
         finish()

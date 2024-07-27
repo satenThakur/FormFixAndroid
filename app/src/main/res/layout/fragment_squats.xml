@@ -218,6 +218,102 @@
                 android:textColor="#fff"></TextView>
 
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relay_5"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:background="@drawable/rounded_button_bg"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/_3sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/lbl_5"
+                android:paddingEnd="@dimen/_3sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:fontFamily="@font/helvetica"
+                android:textSize="@dimen/_9ssp"
+                android:text="@string/tap_here_for_form_correction"
+                android:textColor="@color/black_color" />
+            <TextView
+                android:id="@+id/tv_message_5"
+                android:layout_below="@+id/lbl_5"
+                android:paddingEnd="@dimen/_5sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:fontFamily="@font/helvetica"
+                android:padding="@dimen/_2sdp"
+                android:textSize="@dimen/_10ssp"
+                android:text="@string/externally_rotate_feet"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_count_5"
+                android:layout_toRightOf="@+id/tv_message_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lbl_5"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:background="@drawable/round_button_red"
+                android:fontFamily="@font/helvetica"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:text="11"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="#fff"></TextView>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relay_6"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:background="@drawable/rounded_button_bg"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/_3sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/lbl_6"
+                android:paddingEnd="@dimen/_3sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:fontFamily="@font/helvetica"
+                android:textSize="@dimen/_9ssp"
+                android:text="@string/tap_here_for_form_correction"
+                android:textColor="@color/black_color" />
+            <TextView
+                android:id="@+id/tv_message_6"
+                android:layout_below="@+id/lbl_6"
+                android:paddingEnd="@dimen/_5sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:fontFamily="@font/helvetica"
+                android:padding="@dimen/_2sdp"
+                android:textSize="@dimen/_10ssp"
+                android:text="@string/externally_rotate_feet"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_count_6"
+                android:layout_toRightOf="@+id/tv_message_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lbl_6"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:background="@drawable/round_button_red"
+                android:fontFamily="@font/helvetica"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:text="11"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="#fff"></TextView>
+
+        </RelativeLayout>
     </LinearLayout>
 
     <com.fittracker.OverlayViewSquats

@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.fittracker.utilits.Constants.KNEE_HIP_DIFF_NEW_THRESHOLD
 import com.fittracker.utilits.Constants.KNEE_HIP_DIFF_THRESHOLD
 import com.fittracker.utilits.Constants.KNEE_TOE_THRESHOLD
+import com.fittracker.utilits.Constants.KNEE_TOE_THRESHOLD_TO_IGNORE_TUCK_HIPS
 import com.fittracker.utilits.Constants.STATE_UN_DECIDED
 import com.google.android.material.snackbar.Snackbar
 import com.google.mediapipe.tasks.components.containers.NormalizedLandmark
@@ -75,42 +76,41 @@ object Utility {
         snackbar.show()
     }
 
-    fun getState(kneeAngle: Int, hipAngle: Int,faceType:Int): Int {
-       if(faceType==2){
-           Log("Angels", "FaceType= FRONT")
-       }else{
-           Log("Angels", "FaceType=LEFT/RIGHT")
-       }
+    fun getState(kneeAngle: Int, hipAngle: Int, faceType: Int): Int {
+        if (faceType == 2) {
+            Log("Angels", "FaceType= FRONT")
+        } else {
+            Log("Angels", "FaceType=LEFT/RIGHT")
+        }
 
         Log("Angels", "KneeAngle=$kneeAngle")
         Log("Angels", "HipAngle=$hipAngle")
 
 
-        return  if ((/*kneeAngle > 140 ||   */hipAngle>150) && faceType==Constants.FRONT_FACE) {
+        return if ((/*kneeAngle > 140 ||   */hipAngle > 150) && faceType == Constants.FRONT_FACE) {
             Log("Angels", "STATE_UP FRONT_FACE")
             Constants.STATE_UP
-        } else if (hipAngle < 140 && hipAngle > 90 && faceType==Constants.FRONT_FACE) {
+        } else if (hipAngle < 140 && hipAngle > 90 && faceType == Constants.FRONT_FACE) {
             Log("Angels", "STATE_MOVING FRONT_FACE")
             Constants.STATE_MOVING
-        }else   if(hipAngle<90 && hipAngle>0 && faceType==Constants.FRONT_FACE) {
+        } else if (hipAngle < 90 && hipAngle > 0 && faceType == Constants.FRONT_FACE) {
             Log("Angels", "STATE_DOWN FRONT_FACE")
             Constants.STATE_DOWN
-        } else if (kneeAngle > 150 && (faceType==Constants.LEFT_FACE||faceType==Constants.RIGHT_FACE)) {
+        } else if (kneeAngle > 150 && (faceType == Constants.LEFT_FACE || faceType == Constants.RIGHT_FACE)) {
             Log("Angels", "STATE_UP")
             Constants.STATE_UP
-        }else if (kneeAngle < 150 && kneeAngle > 90 && hipAngle < 150 && (faceType==Constants.LEFT_FACE||faceType==Constants.RIGHT_FACE)) {
+        } else if (kneeAngle < 150 && kneeAngle > 90 && hipAngle < 150 && (faceType == Constants.LEFT_FACE || faceType == Constants.RIGHT_FACE)) {
             Log("Angels", "STATE_MOVING")
             Constants.STATE_MOVING
-        } else   if(kneeAngle<90 && kneeAngle>0 && (faceType==Constants.LEFT_FACE||faceType==Constants.RIGHT_FACE)) {
+        } else if (kneeAngle < 90 && kneeAngle > 0 && (faceType == Constants.LEFT_FACE || faceType == Constants.RIGHT_FACE)) {
             Log("Angels", "STATE_DOWN")
             Constants.STATE_DOWN
-        } else{
+        } else {
             return STATE_UN_DECIDED
         }
 
 
-
-      /*
+        /*
         if(kneeAngle<=0 || hipAngle<=0)
             return STATE_UN_DECIDED
         return if (kneeAngle > 150) {
@@ -138,7 +138,10 @@ object Utility {
         knneX: Float,
         userFaceType: Int
     ): Int {
-        return if (kneeAngle < 90 && kneeAngle > 0 && !isKneeAndHipAnglesDiffCrossedThredHold(kneeAngle,hipAngle) && !isKneeCrossesToes(
+        return if (kneeAngle < 90 && kneeAngle > 0 && !isKneeAndHipAnglesDiffCrossedThredHold(
+                kneeAngle,
+                hipAngle
+            ) && !isKneeCrossesToes(
                 toeX,
                 knneX,
                 userFaceType
@@ -152,29 +155,35 @@ object Utility {
     }
 
     fun isKneeCrossesToes(toeX: Float, knneX: Float, userFaceType: Int): Boolean {
-        var kneeToeXDiff=abs(toeX - knneX)
+        var kneeToeXDiff = abs(toeX - knneX)
         Log("Angle", "KneeX and ToeX diff=$kneeToeXDiff threshold is=$KNEE_TOE_THRESHOLD")
         return (kneeToeXDiff > KNEE_TOE_THRESHOLD)
     }
-    private fun isKneeAndHipAnglesDiffCrossedThredHold(kneeAngle: Float, hipAngle: Float): Boolean {
-        if (Math.abs(kneeAngle-hipAngle)>KNEE_HIP_DIFF_THRESHOLD) {
-            Log("Angle","DIFF_Kneeangle_HIPangle="+Math.abs(kneeAngle-hipAngle))
+
+
+    fun kneeHipAnglesDiff(kneeAngle: Float, hipAngle: Float, toeX:Float,
+                          knneX:Float,): Boolean {
+        if(abs(toeX - knneX)>KNEE_TOE_THRESHOLD_TO_IGNORE_TUCK_HIPS)
+            return false
+        var diff= abs(kneeAngle-hipAngle)
+        Log.e("parallelAngels","kneeAngle="+kneeAngle+" hipAngle="+hipAngle+"diff="+diff)
+        if (diff>KNEE_HIP_DIFF_NEW_THRESHOLD) {
+            Log.e("parallelAngels","kneeAngle="+kneeAngle+" hipAngle="+hipAngle+"diff="+diff+">"+KNEE_HIP_DIFF_NEW_THRESHOLD)
             return true
         } else {
             return false
         }
     }
 
-    fun kneeHipAnglesDiff(kneeAngle: Int, hipAngle: Int): Boolean {
-        Log("parallelAngles","diff="+ abs(kneeAngle-hipAngle))
-        Log("parallelAngles", "parallelKnee=$kneeAngle parallelHip=$hipAngle")
-        if (Math.abs(kneeAngle-hipAngle)>KNEE_HIP_DIFF_NEW_THRESHOLD) {
-            Log("parallelAngles","DIFF cross threshold="+KNEE_HIP_DIFF_NEW_THRESHOLD+"<"+ abs(kneeAngle-hipAngle))
+    private fun isKneeAndHipAnglesDiffCrossedThredHold(kneeAngle: Float, hipAngle: Float): Boolean {
+        if (Math.abs(kneeAngle - hipAngle) > KNEE_HIP_DIFF_THRESHOLD) {
+            Log("Angle", "DIFF_Kneeangle_HIPangle=" + Math.abs(kneeAngle - hipAngle))
             return true
         } else {
             return false
         }
     }
+
 
     /*Screen Recorder Functions */
 
@@ -219,8 +228,7 @@ object Utility {
     }
 
 
-
-     fun calculateAngles(
+    fun calculateAngles(
         p0x: Float,
         p0y: Float,
         cx: Float,
@@ -252,6 +260,7 @@ object Utility {
             Math.toDegrees(radianAngle).toFloat()
         }
     }
+
     fun isTablet(context: Context): Boolean {
         val xlarge = context.resources
             .configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK === 4
@@ -268,7 +277,7 @@ object Utility {
     ): Boolean {
         val visibleThreshold = 0.95 // Adjust as needed
         for (landmark in poseLandmarks) {
-            val landmarkX: Float = landmark.x()* screenWidth
+            val landmarkX: Float = landmark.x() * screenWidth
             val landmarkY: Float = landmark.y() * screenHeight
 
             // Check if the landmark is within the visible portion of the screen
@@ -278,7 +287,11 @@ object Utility {
         }
         return true
     }
-    fun Log(tag:String,message:String){
-        Log.e(tag,message)
+
+    fun Log(tag: String, message: String) {
+      //  Log.e(tag, message)
     }
 }
+
+
+
