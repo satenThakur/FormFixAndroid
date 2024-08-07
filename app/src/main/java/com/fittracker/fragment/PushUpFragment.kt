@@ -1,7 +1,6 @@
 package com.fittracker.fragment
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -26,12 +25,9 @@ import androidx.navigation.Navigation
 import com.fittracker.MainViewModel
 import com.fittracker.PoseLandmarkerHelper
 import com.fittracker.R
-import com.fittracker.activity.VideoPlayerActivity
 import com.fittracker.databinding.FragmentPushupBinding
-import com.fittracker.model.ErrorMessage
 import com.fittracker.model.LandMarkModel
 import com.fittracker.utilits.Constants
-import com.fittracker.utilits.Constants.MESSAGE_TYPE
 import com.fittracker.utilits.Constants.timerInterval
 import com.fittracker.utilits.Constants.timerLimit
 import com.fittracker.utilits.Utility
@@ -56,43 +52,19 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     private var cameraFacing = CameraSelector.LENS_FACING_BACK
     private var landMarkList = ArrayList<LandMarkModel>()
     private var worldLandMarkList = ArrayList<LandMarkModel>()
-    private var userFaceType = 0
-    private var xKnee = -100F
-    private var yKnee = -100F
-    private var xHip = -100F
-    private var yHip = -100F
-    private var toeX = -100F
-    private var xHeel = -100F
-    private var yHeel = -100F
-    private var xofLeftKnee=-100F
-    private var xofRightKnee=-100F
-    private var xofLeftToe=-100F
-    private var xofRightToe=-100F
-    private var yOfToe=-100f
-    private var yoFShoulder=-100f;
-    private var yForNose=-100f;
-    private var shulderY=-100f
-    private var shoulderx=-100f
-    private var ankleX=-100f
-    private var ankleY=-100f
     private var isTimerCompleted = false
-    private var windowHeight=0
-    private var windowWidth=0
+    private var windowHeight = 0
+    private var windowWidth = 0
 
     /** Blocking ML operations are performed using this executor */
     private lateinit var backgroundExecutor: ExecutorService
     override fun onResume() {
         super.onResume()
-        // Make sure that all permissions are still present, since the
-        // user could have removed them while the app was in paused state.
         if (!PermissionsFragment.hasPermissions(requireContext())) {
             Navigation.findNavController(
                 requireActivity(), R.id.fragment_container
             ).navigate(R.id.action_pushUp_to_permissions)
         }
-
-        // Start the PoseLandmarkHelper again when users come back
-        // to the foreground.
         if (this::backgroundExecutor.isInitialized) {
             backgroundExecutor.execute {
                 if (this::poseLandmarkHelper.isInitialized) {
@@ -107,12 +79,11 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
     override fun onPause() {
         super.onPause()
-       if (this::poseLandmarkHelper.isInitialized) {
+        if (this::poseLandmarkHelper.isInitialized) {
             viewModelPoseLan.setMinPoseDetectionConfidence(poseLandmarkHelper.minPoseDetectionConfidence)
             viewModelPoseLan.setMinPoseTrackingConfidence(poseLandmarkHelper.minPoseTrackingConfidence)
             viewModelPoseLan.setMinPosePresenceConfidence(poseLandmarkHelper.minPosePresenceConfidence)
             viewModelPoseLan.setDelegate(poseLandmarkHelper.currentDelegate)
-            // Close the PoseLandmarkHelper and release resources
             backgroundExecutor.execute { poseLandmarkHelper.clearPoseLandmarker() }
         }
     }
@@ -137,81 +108,14 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         return fragmentpushupsBinding.root
     }
 
-    private fun setAdapterData(errorMessageList: List<ErrorMessage>) {
-        activity?.runOnUiThread(Runnable {
-        if(errorMessageList.isEmpty()){
-            fragmentpushupsBinding.relay1.visibility=View.GONE
-            fragmentpushupsBinding.relay2.visibility=View.GONE
-            fragmentpushupsBinding.relay3.visibility=View.GONE
-            fragmentpushupsBinding.relay4.visibility=View.GONE
-        }else if(errorMessageList.size==1){
-            fragmentpushupsBinding.tvMessage1.text= errorMessageList[0].message
-            fragmentpushupsBinding.tvCount1.text=""+ errorMessageList[0].count
-            fragmentpushupsBinding.relay1.visibility=View.VISIBLE
-            fragmentpushupsBinding.relay2.visibility=View.GONE
-            fragmentpushupsBinding.relay3.visibility=View.GONE
-            fragmentpushupsBinding.relay4.visibility=View.GONE
-        }else if(errorMessageList.size==2){
-            fragmentpushupsBinding.relay1.visibility=View.VISIBLE
-            fragmentpushupsBinding.relay2.visibility=View.VISIBLE
-            fragmentpushupsBinding.relay3.visibility=View.GONE
-            fragmentpushupsBinding.relay4.visibility=View.GONE
-            fragmentpushupsBinding.tvMessage1.text= errorMessageList[0].message
-            fragmentpushupsBinding.tvCount1.text=""+ errorMessageList[0].count
-            fragmentpushupsBinding.tvMessage2.text= errorMessageList[1].message
-            fragmentpushupsBinding.tvCount2.text=""+ errorMessageList[1].count
-        }else if(errorMessageList.size==3){
-            fragmentpushupsBinding.relay1.visibility=View.VISIBLE
-            fragmentpushupsBinding.relay2.visibility=View.VISIBLE
-            fragmentpushupsBinding.relay3.visibility=View.VISIBLE
-            fragmentpushupsBinding.relay4.visibility=View.GONE
-            fragmentpushupsBinding.tvMessage1.text= errorMessageList[0].message
-            fragmentpushupsBinding.tvCount1.text=""+ errorMessageList[0].count
-            fragmentpushupsBinding.tvMessage2.text= errorMessageList[1].message
-            fragmentpushupsBinding.tvCount2.text=""+ errorMessageList[1].count
-            fragmentpushupsBinding.tvMessage3.text= errorMessageList[2].message
-            fragmentpushupsBinding.tvCount3.text=""+ errorMessageList[2].count
-        }
-        else if(errorMessageList.size==4){
-            fragmentpushupsBinding.relay1.visibility=View.VISIBLE
-            fragmentpushupsBinding.relay2.visibility=View.VISIBLE
-            fragmentpushupsBinding.relay3.visibility=View.VISIBLE
-            fragmentpushupsBinding.relay4.visibility=View.VISIBLE
-            fragmentpushupsBinding.tvMessage1.text= errorMessageList[0].message
-            fragmentpushupsBinding.tvCount1.text=""+ errorMessageList[0].count
-            fragmentpushupsBinding.tvMessage2.text= errorMessageList[1].message
-            fragmentpushupsBinding.tvCount2.text=""+ errorMessageList[1].count
-            fragmentpushupsBinding.tvMessage3.text= errorMessageList[2].message
-            fragmentpushupsBinding.tvCount3.text=""+ errorMessageList[2].count
-            fragmentpushupsBinding.tvMessage4.text= errorMessageList[3].message
-            fragmentpushupsBinding.tvCount4.text=""+ errorMessageList[3].count
-        }
-        })
-    }
-    @SuppressLint("SuspiciousIndentation")
-    private fun errorMessageClick(msg:String){
-         var intent = Intent(context, VideoPlayerActivity::class.java)
-              intent.putExtra(Constants.FILE_NAME, "hipcorrection")
-              intent.putExtra(Constants.FILE_TYPE, 1)
-              intent.putExtra(MESSAGE_TYPE,msg)
-              startActivity(intent)
-             // activity?.finish()
-/*      var intent = Intent(context, ImageActivity::class.java)
-         intent.putExtra(Constants.FILE_NAME, "hipcorrection")
-         intent.putExtra(Constants.FILE_TYPE, 1)
-         intent.putExtra(MESSAGE_TYPE,msg)
-         activity?.startActivity(intent)*/
-      //  activity?.finish()
-
-    }
 
     @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialiseScreenWidthAndHeight()
-        try{
+        try {
             startTimer()
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         // Initialize our background executor
@@ -224,18 +128,7 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             }
         }
 
-        fragmentpushupsBinding.relay1.setOnClickListener {
-            errorMessageClick(fragmentpushupsBinding.tvMessage1.text.toString())
-        }
-        fragmentpushupsBinding.relay2.setOnClickListener {
-            errorMessageClick(fragmentpushupsBinding.tvMessage2.text.toString())
-        }
-        fragmentpushupsBinding.relay3.setOnClickListener {
-            errorMessageClick(fragmentpushupsBinding.tvMessage3.text.toString())
-        }
-        fragmentpushupsBinding.relay4.setOnClickListener {
-            errorMessageClick(fragmentpushupsBinding.tvMessage4.text.toString())
-        }
+
 
         backgroundExecutor.execute {
             poseLandmarkHelper = PoseLandmarkerHelper(
@@ -363,9 +256,6 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         activity?.runOnUiThread {
             landMarkList.clear()
             worldLandMarkList.clear()
-            var kneeAngle = 0.0f
-            var hipAngle = 0.0f
-            var heelAngle = 0.0f
             if (resultBundle.results.first().landmarks() != null && resultBundle.results.first()
                     .landmarks().size > 0 && resultBundle.results.first().landmarks()[0] != null
             ) {
@@ -381,38 +271,22 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 }
             }
 
-            if (landMarkList.size > 0) {
-                userFaceType = 0
-                val leftShoulder = landMarkList[11].x
-                val rightShoulder = landMarkList[12].x
-                val nose = landMarkList[0].x
-                val leftShoulderDistance = leftShoulder - nose
-                val rightShoulderDistance = rightShoulder - nose
-                val leftNoseDistance = nose - leftShoulder
-                val rightNoseDistance = nose - rightShoulder
-                userFaceType = if (leftShoulderDistance > 0 && rightShoulderDistance > 0)
-                    Constants.LEFT_FACE
-                else if (leftNoseDistance > 0 && rightNoseDistance > 0)
-                    Constants.RIGHT_FACE
-                else
-                    Constants.FRONT_FACE
 
+            if (landMarkList.size > 0) {
+                var userFaceType = Utility.getFaceType(landMarkList[11].x, landMarkList[12].x, landMarkList[0].x)
 
                 val cordHip: Int
                 val cordKnee: Int
                 val cordAnkle: Int
                 val cordShoulder: Int
-                val cordToe: Int
-                val rHeelCord = 30
-                val lHeelCord = 29
-                val lfiCord = 31
-                val rfICord = 32
+                val cordElbow:Int
+                val wrist:Int
 
 
                 if (userFaceType == Constants.LEFT_FACE) {
-                    cordHip = 23;cordKnee = 25;cordAnkle = 27;cordShoulder = 11;cordToe = 31
+                    cordHip = 23;cordKnee = 25;cordAnkle = 27; cordShoulder = 11;cordElbow=13;wrist=15
                 } else {
-                    cordHip = 24;cordKnee = 26;cordAnkle = 28;cordShoulder = 12;cordToe = 32
+                    cordHip = 24;cordKnee = 26;cordAnkle = 28;cordShoulder = 12;cordElbow=14;wrist=16
                 }
                 val hipPoint = doubleArrayOf(
                     landMarkList[cordHip].x.toDouble(),
@@ -435,74 +309,52 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                     landMarkList[cordShoulder].z.toDouble()
                 )
 
-                kneeAngle = Utility.angleBetweenPoints(hipPoint, kneePoint, anklePoint).toFloat()
-                hipAngle = Utility.angleBetweenPoints(shoulderPoint, hipPoint, kneePoint).toFloat()
-Log.e("ANGELS_DIFF","="+(kneeAngle-hipAngle))
-                val leftFootPoint = doubleArrayOf(
-                    landMarkList[lfiCord].x.toDouble(),
-                    landMarkList[lfiCord].y.toDouble(),
-                    landMarkList[lfiCord].z.toDouble()
-                )
-                val heelPoint = doubleArrayOf(
-                    (landMarkList[lHeelCord].x.toDouble() + landMarkList[lHeelCord].x.toDouble()) / 2,
-                    (landMarkList[lHeelCord].y.toDouble() + landMarkList[lHeelCord].y.toDouble()) / 2,
-                    (landMarkList[lHeelCord].z.toDouble() + landMarkList[lHeelCord].z.toDouble()) / 2,
-                )
-                val rightFootPoint = doubleArrayOf(
-                    landMarkList[rfICord].x.toDouble(),
-                    landMarkList[rfICord].y.toDouble(),
-                    landMarkList[rfICord].z.toDouble()
+                val elbowPoint = doubleArrayOf(
+                    landMarkList[cordElbow].x.toDouble(),
+                    landMarkList[cordElbow].y.toDouble(),
+                    landMarkList[cordElbow].z.toDouble()
                 )
 
-                heelAngle =
-                    Utility.angleBetweenPoints(leftFootPoint, heelPoint, rightFootPoint).toFloat()
-                /*    heelAngle=  Utility.calculateAngles(
-                          landMarkList[lfiCord].x, landMarkList[lfiCord].y,
-                          landMarkList[0].x, landMarkList[0].y,
-                          landMarkList[rfICord].x, landMarkList[rfICord].y
-                      )*/
-                xHip = landMarkList[cordHip].x
-                yHip = landMarkList[cordHip].y
-                xKnee = landMarkList[cordKnee].x
-                yKnee = landMarkList[cordKnee].y
-                shoulderx = landMarkList[cordShoulder].x
-                shulderY=landMarkList[cordShoulder].y
-                ankleX = landMarkList[cordAnkle].x
-                ankleY=landMarkList[cordAnkle].y
-                toeX = landMarkList[cordToe].x
-                xHeel = (landMarkList[lHeelCord].x + landMarkList[rHeelCord].x) / 2
-                yHeel = landMarkList[lHeelCord].y
-                xofLeftKnee=landMarkList[25].x
-                xofRightKnee=landMarkList[26].x
-                xofLeftToe=landMarkList[29].x
-                xofRightToe=landMarkList[30].x
-                yOfToe=landMarkList[32].y
-                yoFShoulder=landMarkList[11].y
-                yForNose=landMarkList[0].y
-                Log.e("rrrrr","yOfToe="+yOfToe)
-                Log.e("rrrrr","yoFShoulder="+yoFShoulder)
+                val wristPoint = doubleArrayOf(
+                    landMarkList[wrist].x.toDouble(),
+                    landMarkList[wrist].y.toDouble(),
+                    landMarkList[wrist].z.toDouble()
+                )
+
+                var kneeAngle =
+                    Utility.angleBetweenPoints(hipPoint, kneePoint, anklePoint).toFloat()
+                var hipAngle =
+                    Utility.angleBetweenPoints(shoulderPoint, hipPoint, kneePoint).toFloat()
+
+
+                var shoulderAngle = Utility.angleBetweenPoints(hipPoint, shoulderPoint, elbowPoint).toFloat()
+                var elbowAngle = Utility.angleBetweenPoints(shoulderPoint, elbowPoint, wristPoint).toFloat()
+
+                var xKnee = landMarkList[cordKnee].x
+                var yKnee = landMarkList[cordKnee].y
+                var xHip = landMarkList[cordHip].x
+                var yHip = landMarkList[cordHip].y
+                var xShoulder = landMarkList[cordShoulder].x
+                var yShoulder  = landMarkList[cordShoulder].y
+                var xElbow=landMarkList[cordElbow].x
+                var yElbow=landMarkList[cordElbow].y
+
+
+                if (_fragmentpushupsBinding != null) {
+                    Log.e("PushUPS","setResults called")
+                    fragmentpushupsBinding.overlay.setResults(
+                        resultBundle.results.first(),
+                        resultBundle.inputImageHeight,
+                        resultBundle.inputImageWidth,
+                        RunningMode.LIVE_STREAM,
+                        cameraFacing, userFaceType,isTimerCompleted,kneeAngle, hipAngle, shoulderAngle, elbowAngle,xKnee,yKnee,xHip,yHip,xShoulder,yShoulder,xElbow,yElbow
+                    )
+                    fragmentpushupsBinding.overlay.invalidate()
+                }
 
             }
 
-          /*  if (_fragmentpushupsBinding != null) {
-                // Pass necessary information to OverlayView for drawing on the canvas
-                fragmentpushupsBinding.overlay.setResults(
-                    resultBundle.results.first(),
-                    resultBundle.inputImageHeight,
-                    resultBundle.inputImageWidth,
-                    RunningMode.LIVE_STREAM,
-                    cameraFacing,
-                    kneeAngle,
-                    hipAngle,
-                    heelAngle,
-                    xHeel,
-                    yHeel,
-                    userFaceType,
-                    xHip, yHip, xKnee, yKnee, toeX, isTimerCompleted,xofLeftKnee,xofRightKnee,xofLeftToe,xofRightToe,
-                        yOfToe,yoFShoulder,yForNose,shoulderx,shulderY,ankleX,ankleY,windowWidth,windowHeight)
-                setAdapterData(fragmentpushupsBinding.overlay.errorMessageList)
-                fragmentpushupsBinding.overlay.invalidate()
-            }*/
+
         }
     }
 

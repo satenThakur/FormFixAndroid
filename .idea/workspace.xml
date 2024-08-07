@@ -16,11 +16,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="-Soloman's Feedback changes">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/bend_the_knees.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/knees_crossing_toes.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/knees_inwards.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/squat_deeper.mp4" afterDir="false" />
+    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="-Changes in logics and new Videos updated">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewPushUps.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/iv_pause.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/iv_play.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.bin" afterDir="false" />
@@ -29,20 +28,17 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewPushups.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewPushups.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewPushups.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewSquats.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewSquats.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/VideoPlayerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/VideoPlayerActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/DashboardActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/DashboardActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/PushUpFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/PushUpFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/SquatFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/SquatFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Utility.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Utility.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_pushup.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_pushup.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_squats.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_squats.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/backround.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/keeninwards.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/kneescrossingtoes.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/rotatefeet.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/tuck_hips.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/raw/tuck_hips.mp4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,7 +46,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[RZCX608VTBE]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[adb-RZCX608VTBE-xCu7sZ._adb-tls-connect._tcp.]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -120,10 +116,17 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;android-custom-view/Users/swatiraghav/Documents/ChipView-master/gradle/wrapper/caches/modules-2/files-2.1/com.github.Cutta/TagView/1.3/51d51fa6bcc16ef936662de750d77a1fb38f729/TagView-1.3-sources.jar!/com/cunoraz/tagview/TagView.java_SELECTED&quot;: &quot;TagView&quot;,
     &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayView.kt_SELECTED&quot;: &quot;OverlayViewSquats&quot;,
+    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushUps.kt_SELECTED&quot;: &quot;OverlayViewPushUps&quot;,
     &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushups.kt_SELECTED&quot;: &quot;OverlayViewPushups&quot;,
     &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewSquats.kt_SELECTED&quot;: &quot;OverlayViewSquats&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/res/layout&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushUps.kt_OverlayViewPushUps_DIMENSIONS&quot;: [
+      &quot;1080&quot;,
+      &quot;1920&quot;
+    ]
   }
 }</component>
   <component name="RecentsManager">
@@ -278,7 +281,14 @@
       <option name="project" value="LOCAL" />
       <updated>1722009445520</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="-Changes in logics and new Videos updated">
+      <created>1722066489266</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1722066489266</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -298,6 +308,7 @@
     <MESSAGE value="-Bug Fixes" />
     <MESSAGE value="-Bug Fixes Squat Exercise" />
     <MESSAGE value="-Soloman's Feedback changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="-Soloman's Feedback changes" />
+    <MESSAGE value="-Changes in logics and new Videos updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="-Changes in logics and new Videos updated" />
   </component>
 </project>

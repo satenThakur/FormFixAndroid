@@ -76,9 +76,9 @@ object Utility {
         snackbar.show()
     }
 
-    fun getState(kneeAngle: Int, hipAngle: Int, faceType: Int): Int {
+    fun getSquatState(kneeAngle: Int, hipAngle: Int, faceType: Int): Int {
         if (faceType == 2) {
-            Log("Angels", "FaceType= FRONT")
+            Log("Angels", "FaceType=FRONT")
         } else {
             Log("Angels", "FaceType=LEFT/RIGHT")
         }
@@ -106,6 +106,7 @@ object Utility {
             Log("Angels", "STATE_DOWN")
             Constants.STATE_DOWN
         } else {
+            Log("Angels", "STATE_UN_DECIDED")
             return STATE_UN_DECIDED
         }
 
@@ -129,6 +130,32 @@ object Utility {
         /* }else {
             return STATE_UN_DECIDED;
         }*/
+    }
+
+
+    fun getPushUpState(elbowAngle: Int, shouldrAngle: Int, faceType: Int):Int {
+        if (faceType == 2) {
+            Log("Angels", "FaceType=FRONT")
+        } else {
+            Log("Angels", "FaceType=LEFT/RIGHT")
+        }
+
+        Log("Angels", "elbowAngle=$elbowAngle")
+        Log("Angels", "shouldrAngle=$shouldrAngle")
+
+        if (elbowAngle > 90) {
+            Log("Angels", "STATE_UP")
+            return  Constants.STATE_UP
+        } else if (elbowAngle in 70..90) {
+            Log("Angels", "STATE_MOVING")
+            return  Constants.STATE_MOVING
+        } else if (elbowAngle in 1..70) {
+            Log("Angels", "STATE_DOWN")
+            return  Constants.STATE_DOWN
+        }
+
+        Log("Angels", "STATE_UN_DECIDED")
+        return STATE_UN_DECIDED
     }
 
     fun getSquatPosition(
@@ -156,7 +183,7 @@ object Utility {
 
     fun isKneeCrossesToes(toeX: Float, knneX: Float, userFaceType: Int): Boolean {
         var kneeToeXDiff = abs(toeX - knneX)
-        Log("Angle", "KneeX and ToeX diff=$kneeToeXDiff threshold is=$KNEE_TOE_THRESHOLD")
+        Log.e("Angle", "KneeX and ToeX diff=$kneeToeXDiff threshold is=$KNEE_TOE_THRESHOLD")
         return (kneeToeXDiff > KNEE_TOE_THRESHOLD)
     }
 
@@ -289,7 +316,35 @@ object Utility {
     }
 
     fun Log(tag: String, message: String) {
-      //  Log.e(tag, message)
+       Log.e(tag, message)
+    }
+
+    fun getFaceType(leftShoulder:Float,rightShoulder:Float,nose:Float) :Int{
+        val leftShoulderDistance = leftShoulder - nose
+        val rightShoulderDistance = rightShoulder - nose
+        val leftNoseDistance = nose - leftShoulder
+        val rightNoseDistance = nose - rightShoulder
+        if (leftShoulderDistance > 0 && rightShoulderDistance > 0)
+            return Constants.LEFT_FACE
+        else if (leftNoseDistance > 0 && rightNoseDistance > 0)
+            return Constants.RIGHT_FACE
+        else
+            return  Constants.FRONT_FACE
+    }
+    fun isHipsAlign(xOfLeftAnkle:Float,xOfRightAnkle:Float,xOfLeftHip:Float,xOfRightHip:Float,scalFactor:Float):Boolean
+    {
+
+
+        var ankleAverage=((xOfLeftAnkle+xOfRightAnkle)*scalFactor)/2
+        var hipsAverage=((xOfLeftHip+xOfRightHip)*scalFactor)/2
+        var avergaeDiff=abs(ankleAverage-hipsAverage)
+        Log.e("isHipsAlign", "ankleAverage=$ankleAverage, hipsAverage$hipsAverage")
+        Log.e("isHipsAlign",""+ abs(ankleAverage-hipsAverage))
+       var isHipsAlign=false
+        if(avergaeDiff>Constants.HIPS_ANKLE_AVARGE_DIFF) {
+            isHipsAlign =true
+        }
+            return isHipsAlign
     }
 }
 

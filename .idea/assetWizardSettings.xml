@@ -326,7 +326,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/share/baseline_share_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/pause_circle/baseline_pause_circle_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -336,8 +336,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_share" />
+                            <entry key="color" value="4437ff" />
+                            <entry key="outputName" value="iv_pause" />
                           </map>
                         </option>
                       </PersistentState>

@@ -18,6 +18,7 @@
     </string-array>
 
     <string name="select_exercise">Please Select Exercise</string>
+    <string name="timer_not_completed">Timer not completed</string>
     <string name="coming_soon">Coming Soon</string>
     <string name="file_not_exist">Media File not Exist</string>
     <string name="key_record_audio">key_record_audio</string>
@@ -52,7 +53,7 @@
     <string name="tap_here_for_form_correction">Tap here for Form Correction</string>
      <!-- Left/Right Squat Messages-->
     <string name="knee_crossing_toes">Knees crossing toes</string>
-    <string name="tuck_hips">Tuck hips</string>
+    <string name="tuck_hips">Leaning Forwards, Tuck hip</string>
     <string name="bend_at_the_knees" tools:ignore="ExtraTranslation">Bend at the knees.</string>
     <string name="squat_deeper" tools:ignore="ExtraTranslation">Squat deeper</string>
 
@@ -60,5 +61,6 @@
 <!--    <string name="squat_deeper" tools:ignore="ExtraTranslation">Squat deeper</string>-->
     <string name="externally_rotate_feet">Externally Rotate Feet</string>
     <string name="knees_going_inwards">Knees going inwards</string>
+    <string name="hips_not_in_centre">Hips not in centre</string>
 
 </resources>

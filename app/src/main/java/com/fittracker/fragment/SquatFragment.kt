@@ -6,7 +6,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +38,7 @@ import com.google.mediapipe.tasks.vision.core.RunningMode
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 
 class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     companion object {
@@ -64,6 +64,10 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     private var toeX = -100F
     private var xHeel = -100F
     private var yHeel = -100F
+    private var xofRightAnkle=-100F
+    private var xofLeftAnkle=-100F
+    private var xofRightHip=-100F
+    private var xofLeftHip=-100F
     private var xofLeftKnee=-100F
     private var xofRightKnee=-100F
     private var xofLeftToe=-100F
@@ -78,6 +82,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     private var isTimerCompleted = false
     private var windowHeight=0
     private var windowWidth=0
+    private var isPlaying=true
 
     /** Blocking ML operations are performed using this executor */
     private lateinit var backgroundExecutor: ExecutorService
@@ -146,6 +151,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.relay4.visibility=View.GONE
             fragmentSquatsBinding.relay5.visibility=View.GONE
             fragmentSquatsBinding.relay6.visibility=View.GONE
+            fragmentSquatsBinding.relay7.visibility=View.GONE
         }else if(errorMessageList.size==1){
             fragmentSquatsBinding.tvMessage1.text= errorMessageList[0].message
             fragmentSquatsBinding.tvCount1.text=""+ errorMessageList[0].count
@@ -155,6 +161,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.relay4.visibility=View.GONE
             fragmentSquatsBinding.relay5.visibility=View.GONE
             fragmentSquatsBinding.relay6.visibility=View.GONE
+            fragmentSquatsBinding.relay7.visibility=View.GONE
         }else if(errorMessageList.size==2){
             fragmentSquatsBinding.relay1.visibility=View.VISIBLE
             fragmentSquatsBinding.relay2.visibility=View.VISIBLE
@@ -162,6 +169,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.relay4.visibility=View.GONE
             fragmentSquatsBinding.relay5.visibility=View.GONE
             fragmentSquatsBinding.relay6.visibility=View.GONE
+            fragmentSquatsBinding.relay7.visibility=View.GONE
             fragmentSquatsBinding.tvMessage1.text= errorMessageList[0].message
             fragmentSquatsBinding.tvCount1.text=""+ errorMessageList[0].count
             fragmentSquatsBinding.tvMessage2.text= errorMessageList[1].message
@@ -173,6 +181,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.relay4.visibility=View.GONE
             fragmentSquatsBinding.relay5.visibility=View.GONE
             fragmentSquatsBinding.relay6.visibility=View.GONE
+            fragmentSquatsBinding.relay7.visibility=View.GONE
             fragmentSquatsBinding.tvMessage1.text= errorMessageList[0].message
             fragmentSquatsBinding.tvCount1.text=""+ errorMessageList[0].count
             fragmentSquatsBinding.tvMessage2.text= errorMessageList[1].message
@@ -187,6 +196,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.relay4.visibility=View.VISIBLE
             fragmentSquatsBinding.relay5.visibility=View.GONE
             fragmentSquatsBinding.relay6.visibility=View.GONE
+            fragmentSquatsBinding.relay7.visibility=View.GONE
             fragmentSquatsBinding.tvMessage1.text= errorMessageList[0].message
             fragmentSquatsBinding.tvCount1.text=""+ errorMessageList[0].count
             fragmentSquatsBinding.tvMessage2.text=errorMessageList[1].message
@@ -202,6 +212,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.relay4.visibility=View.VISIBLE
             fragmentSquatsBinding.relay5.visibility=View.VISIBLE
             fragmentSquatsBinding.relay6.visibility=View.GONE
+            fragmentSquatsBinding.relay7.visibility=View.GONE
             fragmentSquatsBinding.tvMessage1.text= errorMessageList[0].message
             fragmentSquatsBinding.tvCount1.text=""+ errorMessageList[0].count
             fragmentSquatsBinding.tvMessage2.text=errorMessageList[1].message
@@ -219,6 +230,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.relay4.visibility=View.VISIBLE
             fragmentSquatsBinding.relay5.visibility=View.VISIBLE
             fragmentSquatsBinding.relay6.visibility=View.VISIBLE
+            fragmentSquatsBinding.relay7.visibility=View.GONE
             fragmentSquatsBinding.tvMessage1.text= errorMessageList[0].message
             fragmentSquatsBinding.tvCount1.text=""+ errorMessageList[0].count
             fragmentSquatsBinding.tvMessage2.text=errorMessageList[1].message
@@ -231,6 +243,28 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.tvCount5.text=""+ errorMessageList[4].count
             fragmentSquatsBinding.tvMessage6.text= errorMessageList[5].message
             fragmentSquatsBinding.tvCount6.text=""+ errorMessageList[5].count
+        }else if(errorMessageList.size==7){
+            fragmentSquatsBinding.relay1.visibility=View.VISIBLE
+            fragmentSquatsBinding.relay2.visibility=View.VISIBLE
+            fragmentSquatsBinding.relay3.visibility=View.VISIBLE
+            fragmentSquatsBinding.relay4.visibility=View.VISIBLE
+            fragmentSquatsBinding.relay5.visibility=View.VISIBLE
+            fragmentSquatsBinding.relay6.visibility=View.VISIBLE
+            fragmentSquatsBinding.relay7.visibility=View.VISIBLE
+            fragmentSquatsBinding.tvMessage1.text= errorMessageList[0].message
+            fragmentSquatsBinding.tvCount1.text=""+ errorMessageList[0].count
+            fragmentSquatsBinding.tvMessage2.text=errorMessageList[1].message
+            fragmentSquatsBinding.tvCount2.text=""+ errorMessageList[1].count
+            fragmentSquatsBinding.tvMessage3.text= errorMessageList[2].message
+            fragmentSquatsBinding.tvCount3.text=""+ errorMessageList[2].count
+            fragmentSquatsBinding.tvMessage4.text= errorMessageList[3].message
+            fragmentSquatsBinding.tvCount4.text=""+ errorMessageList[3].count
+            fragmentSquatsBinding.tvMessage5.text= errorMessageList[4].message
+            fragmentSquatsBinding.tvCount5.text=""+ errorMessageList[4].count
+            fragmentSquatsBinding.tvMessage6.text= errorMessageList[5].message
+            fragmentSquatsBinding.tvCount6.text=""+ errorMessageList[5].count
+            fragmentSquatsBinding.tvMessage6.text= errorMessageList[6].message
+            fragmentSquatsBinding.tvCount6.text=""+ errorMessageList[6].count
         }
         })
     }
@@ -270,6 +304,22 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 setUpCamera(CameraSelector.LENS_FACING_FRONT)
             }
         }
+        fragmentSquatsBinding.btnPlaypause.setOnClickListener {
+            if(isTimerCompleted) {
+                if (isPlaying) {
+                    isPlaying = false
+                    fragmentSquatsBinding.btnPlaypause.setImageDrawable(resources.getDrawable(R.drawable.iv_play))
+                }else{
+                    fragmentSquatsBinding.btnPlaypause.setImageDrawable(resources.getDrawable(R.drawable.iv_pause))
+                    isPlaying = true
+                }
+            }else{
+                Utility.onSNACK(
+                    fragmentSquatsBinding.root,
+                    resources.getString(R.string.timer_not_completed)
+                )
+            }
+        }
 
         fragmentSquatsBinding.relay1.setOnClickListener {
             errorMessageClick(fragmentSquatsBinding.tvMessage1.text.toString())
@@ -287,6 +337,9 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             errorMessageClick(fragmentSquatsBinding.tvMessage5.text.toString())
         }
         fragmentSquatsBinding.relay6.setOnClickListener {
+            errorMessageClick(fragmentSquatsBinding.tvMessage6.text.toString())
+        }
+        fragmentSquatsBinding.relay7.setOnClickListener {
             errorMessageClick(fragmentSquatsBinding.tvMessage6.text.toString())
         }
 
@@ -439,17 +492,48 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 val leftShoulder = landMarkList[11].x
                 val rightShoulder = landMarkList[12].x
                 val nose = landMarkList[0].x
-                val leftShoulderDistance = leftShoulder - nose
-                val rightShoulderDistance = rightShoulder - nose
+                val leftSdoulder_node_distance = leftShoulder - nose
+                val rightSdoulder_node_distance = rightShoulder - nose
                 val leftNoseDistance = nose - leftShoulder
                 val rightNoseDistance = nose - rightShoulder
-                userFaceType = if (leftShoulderDistance > 0 && rightShoulderDistance > 0)
+                Utility.Log("FACETYPE","leftSdoulder_node_distance="+leftSdoulder_node_distance)
+                Utility.Log("FACETYPE","rightSdoulder_node_distance="+rightSdoulder_node_distance)
+                Utility.Log("FACETYPE","leftNoseDistance="+leftNoseDistance)
+                Utility.Log("FACETYPE","rightNoseDistance="+rightNoseDistance)
+                Utility.Log("FACETYPE","leftShoulder="+leftShoulder+", rightShoulde="+rightShoulder)
+                Utility.Log("FACETYPE","shouldersDiff="+Math.abs(leftShoulder-rightShoulder))
+               var shouldersDiff= abs(leftShoulder-rightShoulder)
+              /*  userFaceType = if (leftSdoulder_node_distance > 0 && rightSdoulder_node_distance > 0) {
                     Constants.LEFT_FACE
-                else if (leftNoseDistance > 0 && rightNoseDistance > 0)
+                }
+                else if (leftNoseDistance > 0 && rightNoseDistance > 0) {
                     Constants.RIGHT_FACE
-                else
+                }
+                else {
                     Constants.FRONT_FACE
+                }*/
 
+                if (shouldersDiff > Constants.SHOULDERSDIFF_CONSTANT) {
+                   userFaceType= Constants.FRONT_FACE
+                }
+                else{
+                    if(leftSdoulder_node_distance > 0 && rightSdoulder_node_distance > 0) {
+                        userFaceType=Constants.LEFT_FACE
+                    }
+                    else  {
+                        userFaceType= Constants.RIGHT_FACE
+                    }
+                }
+
+                if(userFaceType==1)
+                Utility.Log("FACETYPE","LEFT_FACE")
+                else if(userFaceType==2){
+                    Utility.Log("FACETYPE","FRONT_FACE")
+                }else if(userFaceType==3){
+                    Utility.Log("FACETYPE","RIGHT_FACE")
+                }else{
+                    Utility.Log("FACETYPE","NOT_DECIDED")
+                }
 
                 val cordHip: Int
                 val cordKnee: Int
@@ -532,6 +616,11 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 yoFShoulder=landMarkList[11].y
                 yForNose=landMarkList[0].y
 
+                xofLeftAnkle=landMarkList[27].x
+                xofRightAnkle=landMarkList[28].x
+                xofLeftHip=landMarkList[23].x
+                xofRightHip=landMarkList[24].x
+
             }
 
             if (_fragmentSquatsBinding != null) {
@@ -549,7 +638,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                     yHeel,
                     userFaceType,
                     xHip, yHip, xKnee, yKnee, toeX, isTimerCompleted,xofLeftKnee,xofRightKnee,xofLeftToe,xofRightToe,
-                        yOfToe,yoFShoulder,yForNose,shoulderx,shulderY,ankleX,ankleY,windowWidth,windowHeight)
+                        yOfToe,yoFShoulder,yForNose,shoulderx,shulderY,ankleX,ankleY,windowWidth,windowHeight,isPlaying,xofLeftAnkle,xofRightAnkle,xofLeftHip,xofRightHip)
                 setAdapterData(fragmentSquatsBinding.overlay.errorMessageList)
                 fragmentSquatsBinding.overlay.invalidate()
             }

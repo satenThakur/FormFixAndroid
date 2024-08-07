@@ -67,7 +67,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         activityMainBinding.btnStartCamera.setOnClickListener {
             if (selectedTag != -1) {
-                if (selectedTag == 0 /*|| selectedTag == 1*/) {
+                if (selectedTag == 0 || selectedTag == 1) {
                     moveToCameraActivity(tags[selectedTag].text.toString())
                 } else {
                     Utility.onSNACK(
