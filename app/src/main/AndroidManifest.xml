@@ -61,8 +61,16 @@
                 android:value="true" />
         </activity>
         <activity
-            android:name="com.fittracker.activity.CameraActivity"
+            android:name="com.fittracker.activity.CamPortraitActivity"
             android:screenOrientation="portrait"
+            android:exported="true">
+            <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name="com.fittracker.activity.CamLandscapeActivity"
+            android:screenOrientation="landscape"
             android:exported="true">
             <meta-data
                 android:name="android.notch_support"

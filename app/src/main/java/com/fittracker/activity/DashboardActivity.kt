@@ -27,13 +27,10 @@ import com.fittracker.R
 import com.fittracker.databinding.ActivityDashboardBinding
 import com.fittracker.utilits.Constants
 import com.fittracker.utilits.Constants.EXERCISE_TYPE
-import com.fittracker.utilits.Constants.FRONT_FACE
-import com.fittracker.utilits.Constants.LEFT_FACE
 import com.fittracker.utilits.Constants.PERMISSION_REQ_ID_RECORD_AUDIO
 import com.fittracker.utilits.Constants.PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE
 import com.fittracker.utilits.Constants.PERMISSION_REQ_POST_NOTIFICATIONS
-import com.fittracker.utilits.Constants.SELECTED_EXERCISE
-import com.fittracker.utilits.Constants.SELECT_TAG_0
+import com.fittracker.utilits.Constants.PUSh_UPS
 import com.fittracker.utilits.Constants.SELECT_TAG_1
 import com.fittracker.utilits.Utility
 
@@ -67,7 +64,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         activityMainBinding.btnStartCamera.setOnClickListener {
             if (selectedTag != -1) {
-                if (selectedTag == 0 /*|| selectedTag == 1*/) {
+                if (selectedTag == 0 || selectedTag == 1) {
                     moveToCameraActivity(tags[selectedTag].text.toString())
                 } else {
                     Utility.onSNACK(
@@ -105,7 +102,12 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
 
     fun moveToCameraActivity(exerciseType: String) {
-        val intent = Intent(this, CameraActivity::class.java)
+        var intent: Intent? =null
+        if(exerciseType.equals(PUSh_UPS)){
+            intent = Intent(this, CamLandscapeActivity::class.java)
+        }else{
+            intent = Intent(this, CamPortraitActivity::class.java)
+        }
         intent.putExtra(EXERCISE_TYPE, exerciseType)
         startActivity(intent)
     }

@@ -4,8 +4,10 @@ import android.os.Environment;
 
 public interface Constants {
     long SPLASH_DELAY=3000;
+    long SPEAKERWAITTIMEFORSAMEMESSAGE=2500;
     int SELECT_TAG_1=1;
     int SELECT_TAG_0=0;
+    float SHOULDERSDIFF_CONSTANT=0.1f;
 
     float tagRadiousTab =18f;
     float tagRadiousPhone =10f;
@@ -25,11 +27,15 @@ public interface Constants {
     int BEND_AT_THE_KNEES=4;
     int EXTERNALLY_ROTATE_FEET=5;
     int KNEES_GOING_INWARDS=6;
+
+    int HIPS_NOT_CENTERED=7;
     int TOAST_LENGTH=100;
 
 
     float CIRCLE_RADIUS = 5.0F;
     long timerLimit = 10000;
+    long squatdepertimerLimit = 4000;
+   int  SquatTimerLimit=5;
     long timerInterval = 1000;
     int LEFT_FACE = 1;
     int FRONT_FACE = 2;
@@ -57,7 +63,7 @@ public interface Constants {
     float TEXT_TOTAL_RESP_Y = 150f;
 
     float TEXT_INCORRECT_RESP_Y = 225;
-    float TEXT_FACE_Y = 280f;
+    float TEXT_HIPANKLEAVERAGE = 280f;
 
     /*Screen Recording Work */
     int SCREEN_RECORD_REQUEST_CODE = 777;
@@ -71,6 +77,7 @@ public interface Constants {
     String MEDIA_FILES_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES) + "/" + Constants.FOLDER_NAME;
     String VIDEO_TYPE = "video/mp4";
     String EXERCISE_TYPE = "exerciseType";
+    String PUSh_UPS="Push Up";
     String SELECTED_EXERCISE = "SELECTED_EXERCISE";
     String FILENAME_DATE_FORMATTER = "yyyy-MM-dd-HH-mm-ss";
     String DATE_FORMAT = "E, dd MMM yyyy";
@@ -94,12 +101,14 @@ public interface Constants {
     float HEEL_MIN_ANGLE =29; // earlier it was 33 to 70 // todo correcting angles 40 to 33;
     float HEEL_MAX_ANGLE =66;
 
-    float KNEE_TOE_THRESHOLD = 0.082F;//0.072F;
+    float KNEE_TOE_THRESHOLD = 0.070F;//0.082F;//0.072F;
     float KNEE_TOE_THRESHOLD_TO_IGNORE_TUCK_HIPS =0.052F;
     float KNEE_HIP_DIFF_THRESHOLD=40;
     float KNEE_HIP_DIFF_NEW_THRESHOLD=34;
 
-    float TOE_KNEE_X_DIFFS_MIN_THRESHOLD =55;
+    float TOE_KNEE_X_DIFFS_MIN_THRESHOLD =42;//55;
     float TOE_KNEE_X_DIFFS_MAX_THRESHOLD=100;
+    float HIPS_ANKLE_AVARGE_DIFF=110;
+
 
 }
