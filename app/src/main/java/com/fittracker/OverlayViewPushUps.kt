@@ -159,6 +159,7 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                 return
             if (yoFShoulder > yOfToe)
                 return
+
             Log.e("PushUPS","yoFShoulder > yOfToe condition passed")
             for (landmark in poseLandmarkResult.landmarks()) {
                  for (normalizedLandmark in landmark) {
@@ -204,31 +205,7 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
 
 
 
-            canvas.drawText(
-                kneeAngle.toString(),
-                xKnee * imageWidth * scaleFactor,
-                yKnee * imageHeight * scaleFactor,
-                anglePaint
-            )
-            canvas.drawText(
-                hipAngle.toString(),
-                xHip * imageWidth * scaleFactor,
-                yHip * imageHeight * scaleFactor,
-                anglePaint
-            )
-            canvas.drawText(
-                shoulderAngle.toString(),
-                xShoulder * imageWidth * scaleFactor,
-                yShoulder * imageHeight * scaleFactor,
-                anglePaint
-            )
 
-            canvas.drawText(
-                elbowAngle.toString(),
-                xElbow * imageWidth * scaleFactor,
-                yElbow * imageHeight * scaleFactor,
-                anglePaint
-            )
             Log.e("PushUPS","userFaceType"+userFaceType)
 
             when(userFaceType){
@@ -282,7 +259,31 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                     }
                 }
                 Constants.RIGHT_FACE, Constants.LEFT_FACE ->
-                {
+                { canvas.drawText(
+                    kneeAngle.toString(),
+                    xKnee * imageWidth * scaleFactor,
+                    yKnee * imageHeight * scaleFactor,
+                    anglePaint
+                )
+                    canvas.drawText(
+                        hipAngle.toString(),
+                        xHip * imageWidth * scaleFactor,
+                        yHip * imageHeight * scaleFactor,
+                        anglePaint
+                    )
+                    canvas.drawText(
+                        shoulderAngle.toString(),
+                        xShoulder * imageWidth * scaleFactor,
+                        yShoulder * imageHeight * scaleFactor,
+                        anglePaint
+                    )
+
+                    canvas.drawText(
+                        elbowAngle.toString(),
+                        xElbow * imageWidth * scaleFactor,
+                        yElbow * imageHeight * scaleFactor,
+                        anglePaint
+                    )
                     when (Utility.getPushUpState(elbowAngle, shoulderAngle, Constants.LEFT_FACE)) {
                         Constants.STATE_UP -> {
                             canvas.drawText(

@@ -64,8 +64,8 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     private var toeX = -100F
     private var xHeel = -100F
     private var yHeel = -100F
-    private var xofRightAnkle=-100F
-    private var xofLeftAnkle=-100F
+    private var rightToeX=-100F
+    private var leftToeX=-100F
     private var xofRightHip=-100F
     private var xofLeftHip=-100F
     private var xofLeftKnee=-100F
@@ -615,9 +615,8 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 yOfToe=landMarkList[32].y
                 yoFShoulder=landMarkList[11].y
                 yForNose=landMarkList[0].y
-
-                xofLeftAnkle=landMarkList[27].x
-                xofRightAnkle=landMarkList[28].x
+                leftToeX=landMarkList[31].x
+                rightToeX=landMarkList[32].x
                 xofLeftHip=landMarkList[23].x
                 xofRightHip=landMarkList[24].x
 
@@ -638,7 +637,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                     yHeel,
                     userFaceType,
                     xHip, yHip, xKnee, yKnee, toeX, isTimerCompleted,xofLeftKnee,xofRightKnee,xofLeftToe,xofRightToe,
-                        yOfToe,yoFShoulder,yForNose,shoulderx,shulderY,ankleX,ankleY,windowWidth,windowHeight,isPlaying,xofLeftAnkle,xofRightAnkle,xofLeftHip,xofRightHip)
+                        yOfToe,yoFShoulder,yForNose,shoulderx,shulderY,ankleX,ankleY,windowWidth,windowHeight,isPlaying,leftToeX,rightToeX,xofLeftHip,xofRightHip)
                 setAdapterData(fragmentSquatsBinding.overlay.errorMessageList)
                 fragmentSquatsBinding.overlay.invalidate()
             }

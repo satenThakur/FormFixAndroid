@@ -11,7 +11,10 @@ import com.fittracker.utilits.Constants.KNEE_HIP_DIFF_NEW_THRESHOLD
 import com.fittracker.utilits.Constants.KNEE_HIP_DIFF_THRESHOLD
 import com.fittracker.utilits.Constants.KNEE_TOE_THRESHOLD
 import com.fittracker.utilits.Constants.KNEE_TOE_THRESHOLD_TO_IGNORE_TUCK_HIPS
+import com.fittracker.utilits.Constants.STATE_DOWN
+import com.fittracker.utilits.Constants.STATE_MOVING
 import com.fittracker.utilits.Constants.STATE_UN_DECIDED
+import com.fittracker.utilits.Constants.STATE_UP
 import com.google.android.material.snackbar.Snackbar
 import com.google.mediapipe.tasks.components.containers.NormalizedLandmark
 import java.io.File
@@ -331,9 +334,9 @@ object Utility {
         else
             return  Constants.FRONT_FACE
     }
-    fun isHipsNotInCentre(xOfLeftAnkle:Float, xOfRightAnkle:Float, xOfLeftHip:Float, xOfRightHip:Float, scalFactor:Float):Boolean
+    fun isHipsNotInCentre(leftToeX:Float, rightToeX:Float, xOfLeftHip:Float, xOfRightHip:Float, scalFactor:Float):Boolean
     {
-        var avergaeDiff=getHipAnkleDiffAverage(xOfLeftAnkle,xOfRightAnkle,xOfLeftHip,xOfRightHip,scalFactor)
+        var avergaeDiff=getHipAnkleDiffAverage(leftToeX,rightToeX,xOfLeftHip,xOfRightHip,scalFactor)
 
        var isHipNotIncentre=false
         if(Constants.HIPS_ANKLE_AVARGE_DIFF<avergaeDiff) {
@@ -343,13 +346,57 @@ object Utility {
     }
 
     fun getHipAnkleDiffAverage(xOfLeftAnkle:Float,xOfRightAnkle:Float,xOfLeftHip:Float,xOfRightHip:Float,scalFactor:Float):Int{
-        var ankleAverage=abs((xOfRightAnkle-xOfLeftAnkle)/2)*scalFactor
-        var hipsAverage=abs((xOfRightHip-xOfLeftHip)/2)*scalFactor
-        var avergaeDiff=abs(ankleAverage-hipsAverage)
-        Log.e("isHipsAlign", "ankleAverage=$ankleAverage, hipsAverage$hipsAverage")
-        Log.e("isHipsAlign",""+ abs(ankleAverage-hipsAverage))
+        var ankleCentre=abs((xOfRightAnkle+xOfLeftAnkle)/2)
+        var hipCentre=abs((xOfRightHip+xOfLeftHip)/2)
+        var avergaeDiff=abs(ankleCentre-hipCentre)*100
+        Log.e("isHipsAlign", "ankleAverage=$ankleCentre, hipsAverage$hipCentre")
+        Log.e("isHipsAlign",""+ avergaeDiff)
         return avergaeDiff.toInt()
     }
+    fun startPushUpTracking(wristY:Float,toeY:Float,hipAngle:Float,kneeAngle:Float) :Boolean{
+        var diff=abs(wristY - toeY)
+        if(diff<180 && hipAngle>=155 && kneeAngle>=155){
+            return false
+        } else {
+            return false
+        }
+    }
+
+    fun getPushUpState(angle:Float):Int{
+         if(angle>157)
+           return STATE_UP
+        else if(angle<89)
+             return STATE_DOWN
+        else
+            return STATE_MOVING
+
+    }
+    fun isPushUpPoseCorrect(wristY:Float,toeY:Float,hipAngle:Float,state:Int,kneeAngle:Float,shoulderWristDiff:Float,shoulderToeDiff:Float) :Boolean{
+        var diff=abs(wristY - toeY)
+        if(diff<180 && hipAngle>=168 && kneeAngle>=165 && state==1 && shoulderWristDiff>40){
+            return false
+        } else if(diff < 180 && hipAngle >= 168 && kneeAngle >= 165){
+            return true
+        }
+        return false
+    }
+    fun getWristToeYDiff(wristY:Float,toeY:Float):Float{
+        return abs(wristY- toeY)
+    }
+    fun getShoulderElbowXDiff(shoulderX:Float,eldowX:Float):Float{
+        return abs(shoulderX - eldowX)
+    }
+
+    /*
+    def is_pushup_pose_correct(wrist_y, toe_y, hip_angle, knee_angle,state, shoulder_wrist_diff):
+    diff = abs(wrist_y - toe_y)
+    if diff < 180 and hip_angle >= 168 and knee_angle >= 165 and state == 1 and shoulder_wrist_diff > 40:
+        return False
+    elif diff < 180 and hip_angle >= 168 and knee_angle >= 165:
+        return True
+    else:
+        return False
+ */
 }
 
 

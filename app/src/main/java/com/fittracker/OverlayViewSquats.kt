@@ -78,8 +78,8 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
     private var respCountTotal = 0
     private var respCountIncorrect = 0
     private var statesSet = mutableSetOf<Int>()
-    private var xofRightAnkle=-100F
-    private var xofLeftAnkle=-100F
+    private var rightToeX=-100F
+    private var leftToeX=-100F
     private var xofRightHip=-100F
     private var xofLeftHip=-100F
     private var xKnee = -100F
@@ -359,13 +359,13 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             TEXT_STATE_Y,
                             statePaint
                         )
-                        canvas.drawText(
-                            resources.getString(R.string.hips_average) + Utility.getHipAnkleDiffAverage(xofLeftAnkle,xofRightAnkle,xofLeftHip,xofRightHip,(imageWidth * scaleFactor)),
+                        /*canvas.drawText(
+                            resources.getString(R.string.hips_average) + Utility.getHipAnkleDiffAverage(leftToeX,rightToeX,xofLeftHip,xofRightHip,(imageWidth * scaleFactor)),
                             TEXT_X,
                             TEXT_HIPANKLEAVERAGE,
                             repsPaint
-                        )
-                        if(Utility.isHipsNotInCentre(xofLeftAnkle,xofRightAnkle,xofLeftHip,xofRightHip,(imageWidth * scaleFactor))){
+                        )*/
+                        if(Utility.isHipsNotInCentre(leftToeX,rightToeX,xofLeftHip,xofRightHip,(imageWidth * scaleFactor))){
 
                             var needToSpeak = false
                             if (hipsnotincentreTimeStamp == 0.toLong() || System.currentTimeMillis() - hipsnotincentreTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
@@ -752,8 +752,8 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
         windowWidth: Int,
         windowHeight: Int,
         isPlaying: Boolean,
-        xofLeftAnkle: Float,
-        xofRightAnkle: Float,
+        leftToeX: Float,
+        rightToeX: Float,
         xofLeftHip: Float,
         xofRightHip: Float
 
@@ -787,8 +787,8 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
         this.windowHeight = windowHeight
         this.windowWidth = windowWidth
         this.isPlaying=isPlaying
-        this.xofLeftAnkle=xofLeftAnkle
-        this.xofRightAnkle=xofRightAnkle
+        this.leftToeX=leftToeX
+        this.rightToeX=rightToeX
         this.xofLeftHip=xofLeftHip
         this.xofRightHip=xofRightHip
         if (this.cameraFacing != cameraFacing) {

@@ -108,7 +108,7 @@ public interface Constants {
 
     float TOE_KNEE_X_DIFFS_MIN_THRESHOLD =42;//55;
     float TOE_KNEE_X_DIFFS_MAX_THRESHOLD=100;
-    float HIPS_ANKLE_AVARGE_DIFF=110;
+    float HIPS_ANKLE_AVARGE_DIFF=3;
 
 
 }
