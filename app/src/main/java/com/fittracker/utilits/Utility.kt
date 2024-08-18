@@ -90,7 +90,7 @@ object Utility {
         Log("Angels", "HipAngle=$hipAngle")
 
 
-        return if ((/*kneeAngle > 140 ||   */hipAngle > 150) && faceType == Constants.FRONT_FACE) {
+        return if ((/*kneeAngle > 140 ||   */hipAngle > 146) && faceType == Constants.FRONT_FACE) {
             Log("Angels", "STATE_UP FRONT_FACE")
             Constants.STATE_UP
         } else if (hipAngle < 140 && hipAngle > 90 && faceType == Constants.FRONT_FACE) {
@@ -186,7 +186,7 @@ object Utility {
 
     fun isKneeCrossesToes(toeX: Float, knneX: Float, userFaceType: Int): Boolean {
         var kneeToeXDiff = abs(toeX - knneX)
-        Log.e("Angle", "KneeX and ToeX diff=$kneeToeXDiff threshold is=$KNEE_TOE_THRESHOLD")
+        Log("Angle", "KneeX and ToeX diff=$kneeToeXDiff threshold is=$KNEE_TOE_THRESHOLD")
         return (kneeToeXDiff > KNEE_TOE_THRESHOLD)
     }
 
@@ -196,9 +196,9 @@ object Utility {
         if(abs(toeX - knneX)>KNEE_TOE_THRESHOLD_TO_IGNORE_TUCK_HIPS)
             return false
         var diff= abs(kneeAngle-hipAngle)
-        Log.e("parallelAngels","kneeAngle="+kneeAngle+" hipAngle="+hipAngle+"diff="+diff)
+        Log("parallelAngels","kneeAngle="+kneeAngle+" hipAngle="+hipAngle+"diff="+diff)
         if (diff>KNEE_HIP_DIFF_NEW_THRESHOLD) {
-            Log.e("parallelAngels","kneeAngle="+kneeAngle+" hipAngle="+hipAngle+"diff="+diff+">"+KNEE_HIP_DIFF_NEW_THRESHOLD)
+            Log("parallelAngels","kneeAngle="+kneeAngle+" hipAngle="+hipAngle+"diff="+diff+">"+KNEE_HIP_DIFF_NEW_THRESHOLD)
             return true
         } else {
             return false
@@ -319,7 +319,7 @@ object Utility {
     }
 
     fun Log(tag: String, message: String) {
-       Log.e(tag, message)
+       //Log.e(tag, message)
     }
 
     fun getFaceType(leftShoulder:Float,rightShoulder:Float,nose:Float) :Int{
@@ -345,48 +345,65 @@ object Utility {
             return isHipNotIncentre
     }
 
-    fun getHipAnkleDiffAverage(xOfLeftAnkle:Float,xOfRightAnkle:Float,xOfLeftHip:Float,xOfRightHip:Float,scalFactor:Float):Int{
-        var ankleCentre=abs((xOfRightAnkle+xOfLeftAnkle)/2)
-        var hipCentre=abs((xOfRightHip+xOfLeftHip)/2)
-        var avergaeDiff=abs(ankleCentre-hipCentre)*100
-        Log.e("isHipsAlign", "ankleAverage=$ankleCentre, hipsAverage$hipCentre")
-        Log.e("isHipsAlign",""+ avergaeDiff)
+    fun getHipAnkleDiffAverage(lefToeX:Float, rightToeX:Float, leftHipX:Float, rightHipX:Float, scalFactor:Float):Int{
+        var toesCentre=abs((rightToeX+lefToeX)/2)
+        var hipCentre=abs((rightHipX+leftHipX)/2)
+        if(hipCentre<toesCentre){
+            Log("isHipsAlign", "Hips_In_LEFT="+(toesCentre-hipCentre))
+        }else{
+            //Hips in Right
+            Log("isHipsAlign", "Hips_In_RIGHT="+(toesCentre-hipCentre))
+        }
+
+        var avergaeDiff=abs(toesCentre-hipCentre)*100
+        //2.0088553
+        Log("isHipsAlign", "ankleAverage=$toesCentre, hipsAverage$hipCentre")
+        Log("isHipsAlign","avergaeDiff="+ avergaeDiff)
         return avergaeDiff.toInt()
     }
     fun startPushUpTracking(wristY:Float,toeY:Float,hipAngle:Float,kneeAngle:Float) :Boolean{
         var diff=abs(wristY - toeY)
         if(diff<180 && hipAngle>=155 && kneeAngle>=155){
-            return false
+            return true
         } else {
             return false
         }
     }
 
-    fun getPushUpState(angle:Float):Int{
-         if(angle>157)
-           return STATE_UP
-        else if(angle<89)
-             return STATE_DOWN
-        else
-            return STATE_MOVING
 
-    }
-    fun isPushUpPoseCorrect(wristY:Float,toeY:Float,hipAngle:Float,state:Int,kneeAngle:Float,shoulderWristDiff:Float,shoulderToeDiff:Float) :Boolean{
-        var diff=abs(wristY - toeY)
-        if(diff<180 && hipAngle>=168 && kneeAngle>=165 && state==1 && shoulderWristDiff>40){
+    fun isPushUpPoseCorrect(hipAngle:Float,  kneeAngle:Float,state:Int, shoulderElbowDiff:Float, wristToeDiff:Float) :Boolean{
+        //Log.e("isPushUpPoseCorrect","hipAngle="+hipAngle)
+        //Log.e("isPushUpPoseCorrect","kneeAngle="+kneeAngle)
+        if(wristToeDiff<110 && hipAngle>=154 && kneeAngle>=160 && state==1 && shoulderElbowDiff>56){
             return false
-        } else if(diff < 180 && hipAngle >= 168 && kneeAngle >= 165){
+        } else if(wristToeDiff < 110 && hipAngle >= 154 && kneeAngle >= 160){
             return true
         }
         return false
     }
-    fun getWristToeYDiff(wristY:Float,toeY:Float):Float{
-        return abs(wristY- toeY)
+
+    fun getShoulderElbowXDiff(shoulderX:Float,elbowX:Float):Float{
+        var shoulderElbowDiff=abs(shoulderX - elbowX)*1000
+        Log("isPushUpPoseCorrect","shoulderElbowDiff="+shoulderElbowDiff)
+        /*22  to 55 elbow piche rehni chahiye shoulder se*/
+        return shoulderElbowDiff
     }
-    fun getShoulderElbowXDiff(shoulderX:Float,eldowX:Float):Float{
-        return abs(shoulderX - eldowX)
+    fun getWristToeYDiff(wristY:Float,toeY:Float):Float{
+        var wristToeDiff= abs(wristY- toeY)*1000
+        /*74 to 102   wrist and toe on same plane */
+        Log("isPushUpPoseCorrect","wristToeDiff="+wristToeDiff)
+        return wristToeDiff
     }
 
+    fun getPushUpState(angle:Float):Int{
+        if(angle>157)
+            return STATE_UP
+        else if(angle<89)
+            return STATE_DOWN
+        else
+            return STATE_MOVING
+
+    }
     /*
     def is_pushup_pose_correct(wrist_y, toe_y, hip_angle, knee_angle,state, shoulder_wrist_diff):
     diff = abs(wrist_y - toe_y)

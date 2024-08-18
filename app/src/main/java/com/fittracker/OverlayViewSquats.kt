@@ -351,6 +351,26 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             statePaint
                         )
                         statesSet.add(STATE_MOVING)
+                        if(hipAngle<108 &&Utility.isHipsNotInCentre(leftToeX,rightToeX,xofLeftHip,xofRightHip,(imageWidth * scaleFactor))){
+                            var diff = abs(xofLeftKnee - xofRightKnee) - abs(xofLeftToe - xofRightToe)
+                            diff = diff * imageHeight * scaleFactor
+                            Utility.Log("diff","kneesAndToesDiff="+diff)
+                            if (!(diff < -TOE_KNEE_X_DIFFS_MIN_THRESHOLD)) {
+                                isFrontFaceErrorMessage = true
+                                var needToSpeak = false
+                                if (hipsnotincentreTimeStamp == 0.toLong() || System.currentTimeMillis() - hipsnotincentreTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
+                                    hipsnotincentreTimeStamp = System.currentTimeMillis();
+                                    needToSpeak = true
+                                }
+                                drawMessageOnScreen(
+                                    xHeel * imageWidth * scaleFactor,
+                                    yHeel * imageHeight * scaleFactor,
+                                    context.resources.getString(R.string.hips_not_in_centre),
+                                    Constants.HIPS_NOT_CENTERED,
+                                    canvas, needToSpeak, true
+                                )
+                            }
+                        }
                     }
                     STATE_DOWN -> {
                         canvas.drawText(
@@ -365,23 +385,6 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             TEXT_HIPANKLEAVERAGE,
                             repsPaint
                         )*/
-                        if(Utility.isHipsNotInCentre(leftToeX,rightToeX,xofLeftHip,xofRightHip,(imageWidth * scaleFactor))){
-
-                            var needToSpeak = false
-                            if (hipsnotincentreTimeStamp == 0.toLong() || System.currentTimeMillis() - hipsnotincentreTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
-                                hipsnotincentreTimeStamp = System.currentTimeMillis();
-                                needToSpeak = true
-                            }
-                            drawMessageOnScreen(
-                                xHeel * imageWidth * scaleFactor,
-                                yHeel * imageHeight * scaleFactor,
-                                context.resources.getString(R.string.hips_not_in_centre),
-                                Constants.HIPS_NOT_CENTERED,
-                                canvas, needToSpeak,true
-                            )
-
-                        }
-
                         statesSet.add(STATE_DOWN)
                         if (heelAngle > 0) {
                             if (heelAngle < HEEL_MIN_ANGLE) {
@@ -403,11 +406,14 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
 
 
                             }
+
+
+
                             if (HEEL_MIN_ANGLE <= heelAngle || heelAngle <= HEEL_MAX_ANGLE) {
                                 isHeelCorrect = true
                                 var diff = abs(xofLeftKnee - xofRightKnee) - abs(xofLeftToe - xofRightToe)
                                 diff = diff * imageHeight * scaleFactor
-                                Log.e("diff","kneesAndToesDiff="+diff)
+                                Utility.Log("diff","kneesAndToesDiff="+diff)
                                 if (diff < -TOE_KNEE_X_DIFFS_MIN_THRESHOLD) {
                                     isFrontFaceErrorMessage = true
                                     var needToSpeak = false;
@@ -426,6 +432,26 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                 }
                             } else {
                                 isHeelCorrect = false
+                            }
+                            if(Utility.isHipsNotInCentre(leftToeX,rightToeX,xofLeftHip,xofRightHip,(imageWidth * scaleFactor))){
+                                var diff = abs(xofLeftKnee - xofRightKnee) - abs(xofLeftToe - xofRightToe)
+                                diff = diff * imageHeight * scaleFactor
+                                Utility.Log("diff","kneesAndToesDiff="+diff)
+                                if (!(diff < -TOE_KNEE_X_DIFFS_MIN_THRESHOLD)) {
+                                    isFrontFaceErrorMessage = true
+                                    var needToSpeak = false
+                                    if (hipsnotincentreTimeStamp == 0.toLong() || System.currentTimeMillis() - hipsnotincentreTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
+                                        hipsnotincentreTimeStamp = System.currentTimeMillis();
+                                        needToSpeak = true
+                                    }
+                                    drawMessageOnScreen(
+                                        xHeel * imageWidth * scaleFactor,
+                                        yHeel * imageHeight * scaleFactor,
+                                        context.resources.getString(R.string.hips_not_in_centre),
+                                        Constants.HIPS_NOT_CENTERED,
+                                        canvas, needToSpeak, true
+                                    )
+                                }
                             }
                             canvas.drawText(
                                 heelAngle.toString(),
@@ -569,12 +595,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
 
                         statesSet.add(STATE_DOWN)
                         /*check knee crossing toes when both angles are below 80 and stack contains MOVING_STATE and UP_STATE*/
-                        if (Utility.isKneeCrossesToes(
-                                toeX,
-                                xKnee,
-                                userFaceType
-                            )
-                        ) {
+                        if (Utility.isKneeCrossesToes(toeX, xKnee, userFaceType)) {
                             canvas.drawCircle(
                                 (xKnee - Constants.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
                                 yKnee * imageHeight * scaleFactor,
@@ -602,12 +623,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                         } else {
                             canvas.drawCircle(0.0F, 0.0F, 0F, pointErrorPaint)
                         }
-                        if (Utility.kneeHipAnglesDiff(
-                                kneeNewAngle,
-                                hipNewAngle, toeX,
-                                xKnee,
-                            )
-                        ) {
+                        if (Utility.kneeHipAnglesDiff(kneeNewAngle, hipNewAngle, toeX, xKnee)) {
                             canvas.drawCircle(
                                 (xHip + Constants.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
                                 yHip * imageHeight * scaleFactor,

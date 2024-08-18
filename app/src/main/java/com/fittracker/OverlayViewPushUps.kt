@@ -12,6 +12,9 @@ import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import com.fittracker.utilits.Constants
+import com.fittracker.utilits.Constants.SQUAT_INCORRECT
+import com.fittracker.utilits.Constants.TEXT_HIPANKLEAVERAGE
+import com.fittracker.utilits.Constants.TEXT_X
 import com.fittracker.utilits.Utility
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarker
@@ -29,6 +32,7 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
     private var statePaint = Paint()
     private var repsPaint = Paint()
     private var incorrectRepsPaint = Paint()
+    private var correctPosepPaint = Paint()
     private var anglePaint = Paint()
     private var scaleFactor: Float = 1f
     private var imageWidth: Int = 1
@@ -47,14 +51,16 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
     private var yOfToe = -100f
     private var yoFShoulder = -100f
     private var userFaceType = 0
-    var xKnee = 0f
-    var yKnee = 0f
-    var xHip = 0f
-    var yHip = 0f
-    var xShoulder = 0f
-    var yShoulder  = 0f
-    var xElbow=0f
-    var yElbow=0f
+    var kneeX = 0f
+    var kneeY = 0f
+    var hipX = 0f
+    var hipY = 0f
+    var shoulderX = 0f
+    var shoulderY  = 0f
+    var elbowX=0f
+    var elbowY=0f
+    var wristY=0f
+    var toeY=0f
     private var isPlaying=true
     private fun initPaints() {
         linePaint.color = Color.WHITE
@@ -73,6 +79,8 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
 
         incorrectRepsPaint.textSize = Constants.TEXT_SIZE
         incorrectRepsPaint.color = Color.RED
+        correctPosepPaint.textSize = Constants.TEXT_SIZE
+        correctPosepPaint.color = Color.GREEN
 
         anglePaint.textSize = Constants.ANGLE_TEXT
         anglePaint.color = Color.MAGENTA
@@ -104,6 +112,8 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
         xElbow: Float,
         yElbow: Float,
         isPlaying: Boolean,
+        wristY: Float,
+        toeY: Float,
     ) {
         results = poseLandmarkResults
         this.imageHeight = imageHeight
@@ -114,15 +124,17 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
         this.elbowsAngle=elbowAngle
         this.userFaceType = userFaceType
         this.isTimerCompleted=isTimerCompleted
-        this.xKnee=xKnee
-        this.yKnee=yKnee
-        this.xHip=xHip
-        this.yHip=yHip
-        this.xShoulder=xShoulder
-        this.yShoulder=yShoulder
-        this.xElbow=xElbow
-        this.yElbow=yElbow
+        this.kneeX=xKnee
+        this.kneeY=yKnee
+        this.hipX=xHip
+        this.hipY=yHip
+        this.shoulderX=xShoulder
+        this.shoulderY=yShoulder
+        this.elbowX=xElbow
+        this.elbowY=yElbow
         this.isPlaying=isPlaying
+        this.toeY=toeY
+        this.wristY=wristY
         this.cameraFacing = cameraFacing
         scaleFactor = when (runningMode) {
             RunningMode.IMAGE,
@@ -261,29 +273,33 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                 Constants.RIGHT_FACE, Constants.LEFT_FACE ->
                 { canvas.drawText(
                     kneeAngle.toString(),
-                    xKnee * imageWidth * scaleFactor,
-                    yKnee * imageHeight * scaleFactor,
+                    kneeX * imageWidth * scaleFactor,
+                    kneeY * imageHeight * scaleFactor,
                     anglePaint
                 )
                     canvas.drawText(
                         hipAngle.toString(),
-                        xHip * imageWidth * scaleFactor,
-                        yHip * imageHeight * scaleFactor,
+                        hipX * imageWidth * scaleFactor,
+                        hipY * imageHeight * scaleFactor,
                         anglePaint
                     )
                     canvas.drawText(
                         shoulderAngle.toString(),
-                        xShoulder * imageWidth * scaleFactor,
-                        yShoulder * imageHeight * scaleFactor,
+                        shoulderX * imageWidth * scaleFactor,
+                        shoulderY * imageHeight * scaleFactor,
                         anglePaint
                     )
 
                     canvas.drawText(
                         elbowAngle.toString(),
-                        xElbow * imageWidth * scaleFactor,
-                        yElbow * imageHeight * scaleFactor,
+                        elbowX * imageWidth * scaleFactor,
+                        elbowY * imageHeight * scaleFactor,
                         anglePaint
                     )
+
+                    if(!Utility.startPushUpTracking(wristY, toeY,hipsAngle,kneesAngle)){
+                        return
+                    }
                     when (Utility.getPushUpState(elbowAngle, shoulderAngle, Constants.LEFT_FACE)) {
                         Constants.STATE_UP -> {
                             canvas.drawText(
@@ -292,6 +308,23 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                                 Constants.TEXT_STATE_Y,
                                 statePaint
                             )
+
+                            if(!Utility.isPushUpPoseCorrect(hipsAngle, kneesAngle,Constants.STATE_UP,Utility.getShoulderElbowXDiff(shoulderX,elbowX),Utility.getWristToeYDiff(wristY,toeY))){
+                                statesSet.add(SQUAT_INCORRECT)
+                                canvas.drawText(
+                                    "Incorrect Pose",
+                                    TEXT_X,
+                                    TEXT_HIPANKLEAVERAGE,
+                                    incorrectRepsPaint
+                                )
+                            }else {
+                                canvas.drawText(
+                                    "Correct Pose",
+                                    TEXT_X,
+                                    TEXT_HIPANKLEAVERAGE,
+                                    correctPosepPaint
+                                )
+                            }
                             if (statesSet.contains(Constants.STATE_DOWN) && statesSet.contains(Constants.STATE_MOVING)) {
                                 respCountTotal++
                                 if (statesSet.contains(Constants.SQUAT_INCORRECT)) {
@@ -312,7 +345,11 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                                 Constants.TEXT_STATE_Y,
                                 statePaint
                             )
+                           /* if(!Utility.isPushUpPoseCorrect(hipsAngle, kneesAngle,Constants.STATE_UP,Utility.getShoulderElbowXDiff(shoulderX,elbowX),Utility.getWristToeYDiff(wristY,toeY))){
+                                statesSet.add(SQUAT_INCORRECT)
+                            }*/
                             statesSet.add(Constants.STATE_MOVING)
+
                         }
 
                         Constants.STATE_DOWN -> {
@@ -322,6 +359,9 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                                 Constants.TEXT_STATE_Y,
                                 statePaint
                             )
+                           /* if(!Utility.isPushUpPoseCorrect(hipsAngle, kneesAngle,Constants.STATE_UP,Utility.getShoulderElbowXDiff(shoulderX,elbowX),Utility.getWristToeYDiff(wristY,toeY))){
+                                statesSet.add(SQUAT_INCORRECT)
+                            }*/
                             statesSet.add(Constants.STATE_DOWN)
 
 

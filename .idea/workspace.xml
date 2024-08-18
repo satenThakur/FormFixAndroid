@@ -16,7 +16,21 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="-Changes in logics and new Videos updated" />
+    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="-Changes in logics and new Videos updated">
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewPushUps.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewPushUps.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewSquats.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/OverlayViewSquats.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/PushUpFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/PushUpFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Utility.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Utility.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -100,6 +114,7 @@
     &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushups.kt_SELECTED&quot;: &quot;OverlayViewPushups&quot;,
     &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewSquats.kt_SELECTED&quot;: &quot;OverlayViewSquats&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/res/layout&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
@@ -292,7 +307,14 @@
       <option name="project" value="LOCAL" />
       <updated>1723899171571</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="-Changes in logics and new Videos updated">
+      <created>1723944503747</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1723944503747</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">

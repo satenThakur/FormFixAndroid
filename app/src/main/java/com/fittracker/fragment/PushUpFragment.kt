@@ -296,12 +296,13 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 val cordShoulder: Int
                 val cordElbow:Int
                 val wrist:Int
+                val toe:Int
 
 
                 if (userFaceType == Constants.LEFT_FACE) {
-                    cordHip = 23;cordKnee = 25;cordAnkle = 27; cordShoulder = 11;cordElbow=13;wrist=15
+                    cordHip = 23;cordKnee = 25;cordAnkle = 27; cordShoulder = 11;cordElbow=13;wrist=15;toe=31
                 } else {
-                    cordHip = 24;cordKnee = 26;cordAnkle = 28;cordShoulder = 12;cordElbow=14;wrist=16
+                    cordHip = 24;cordKnee = 26;cordAnkle = 28;cordShoulder = 12;cordElbow=14;wrist=16;toe=32
                 }
                 val hipPoint = doubleArrayOf(
                     landMarkList[cordHip].x.toDouble(),
@@ -349,10 +350,12 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 var yKnee = landMarkList[cordKnee].y
                 var xHip = landMarkList[cordHip].x
                 var yHip = landMarkList[cordHip].y
-                var xShoulder = landMarkList[cordShoulder].x
-                var yShoulder  = landMarkList[cordShoulder].y
-                var xElbow=landMarkList[cordElbow].x
-                var yElbow=landMarkList[cordElbow].y
+                var shoulderX = landMarkList[cordShoulder].x
+                var shoulderY  = landMarkList[cordShoulder].y
+                var elbowX=landMarkList[cordElbow].x
+                var elbowY=landMarkList[cordElbow].y
+                var wristY=landMarkList[wrist].y
+                var toeY=landMarkList[toe].y
 
 
                 if (_fragmentpushupsBinding != null) {
@@ -362,7 +365,7 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                         resultBundle.inputImageHeight,
                         resultBundle.inputImageWidth,
                         RunningMode.LIVE_STREAM,
-                        cameraFacing, userFaceType,isTimerCompleted,kneeAngle, hipAngle, shoulderAngle, elbowAngle,xKnee,yKnee,xHip,yHip,xShoulder,yShoulder,xElbow,yElbow,isPlaying
+                        cameraFacing, userFaceType,isTimerCompleted,kneeAngle, hipAngle, shoulderAngle, elbowAngle,xKnee,yKnee,xHip,yHip,shoulderX,shoulderY,elbowX,elbowY,isPlaying,wristY,toeY
                     )
                     fragmentpushupsBinding.overlay.invalidate()
                 }
