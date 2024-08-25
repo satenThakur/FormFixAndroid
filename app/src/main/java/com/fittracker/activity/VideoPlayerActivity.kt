@@ -11,7 +11,7 @@ import android.widget.MediaController
 import androidx.appcompat.app.AppCompatActivity
 import com.fittracker.R
 import com.fittracker.databinding.ActivityVideoPlayerBinding
-import com.fittracker.utilits.Constants
+import com.fittracker.utilits.ConstantsSquats
 
 
 class VideoPlayerActivity : AppCompatActivity() {
@@ -36,22 +36,23 @@ class VideoPlayerActivity : AppCompatActivity() {
         }
 
         var uriToPlay: Uri
-        if (intent.getIntExtra(Constants.FILE_TYPE, 0) == 0) {
-            var filename = intent?.getStringExtra(Constants.FILE_NAME);
+        if (intent.getIntExtra(ConstantsSquats.FILE_TYPE, 0) == 0) {
+            var filename = intent?.getStringExtra(ConstantsSquats.FILE_NAME);
             var fileToPlay =
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
-                    .toString() + "/" + Constants.FOLDER_NAME + "/" + filename + ".mp4"
+                    .toString() + "/" + ConstantsSquats.FOLDER_NAME + "/" + filename + ".mp4"
             uriToPlay = Uri.parse("file://$fileToPlay")
         } else {
             var filename = ""
 
-            when (intent.getStringExtra(Constants.MESSAGE_TYPE)) {
+            when (intent.getStringExtra(ConstantsSquats.MESSAGE_TYPE)) {
                 getString(R.string.knee_crossing_toes) -> filename = "knees_crossing_toes"
                 getString(R.string.tuck_hips) -> filename = "tuck_hips"
                 getString(R.string.squat_deeper) -> filename = "squat_deeper"
                 getString(R.string.bend_at_the_knees) -> filename = "bend_the_knees"
-                getString(R.string.externally_rotate_feet) -> filename = "knees_inwards"
+                getString(R.string.externally_rotate_feet) -> filename = "externally_rotate_feet"
                 getString(R.string.knees_going_inwards) -> filename = "knees_inwards"
+                getString(R.string.hips_not_in_centre) -> filename = "hips_not_centered"
             }
 
             var path = "android.resource://$packageName/raw/$filename"

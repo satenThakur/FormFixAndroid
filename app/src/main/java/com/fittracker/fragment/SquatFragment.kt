@@ -29,10 +29,10 @@ import com.fittracker.activity.VideoPlayerActivity
 import com.fittracker.databinding.FragmentSquatsBinding
 import com.fittracker.model.ErrorMessage
 import com.fittracker.model.LandMarkModel
-import com.fittracker.utilits.Constants
-import com.fittracker.utilits.Constants.MESSAGE_TYPE
-import com.fittracker.utilits.Constants.timerInterval
-import com.fittracker.utilits.Constants.timerLimit
+import com.fittracker.utilits.ConstantsSquats
+import com.fittracker.utilits.ConstantsSquats.MESSAGE_TYPE
+import com.fittracker.utilits.ConstantsSquats.timerInterval
+import com.fittracker.utilits.ConstantsSquats.timerLimit
 import com.fittracker.utilits.Utility
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import java.util.concurrent.ExecutorService
@@ -271,8 +271,8 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     @SuppressLint("SuspiciousIndentation")
     private fun errorMessageClick(msg:String){
          var intent = Intent(context, VideoPlayerActivity::class.java)
-              intent.putExtra(Constants.FILE_NAME, "hipcorrection")
-              intent.putExtra(Constants.FILE_TYPE, 1)
+              intent.putExtra(ConstantsSquats.FILE_NAME, "hipcorrection")
+              intent.putExtra(ConstantsSquats.FILE_TYPE, 1)
               intent.putExtra(MESSAGE_TYPE,msg)
               startActivity(intent)
              // activity?.finish()
@@ -513,15 +513,15 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                     Constants.FRONT_FACE
                 }*/
 
-                if (shouldersDiff > Constants.SHOULDERSDIFF_CONSTANT) {
-                   userFaceType= Constants.FRONT_FACE
+                if (shouldersDiff > ConstantsSquats.SHOULDERSDIFF_CONSTANT) {
+                   userFaceType= ConstantsSquats.FRONT_FACE
                 }
                 else{
                     if(leftSdoulder_node_distance > 0 && rightSdoulder_node_distance > 0) {
-                        userFaceType=Constants.LEFT_FACE
+                        userFaceType= ConstantsSquats.LEFT_FACE
                     }
                     else  {
-                        userFaceType= Constants.RIGHT_FACE
+                        userFaceType= ConstantsSquats.RIGHT_FACE
                     }
                 }
 
@@ -546,7 +546,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 val rfICord = 32
 
 
-                if (userFaceType == Constants.LEFT_FACE) {
+                if (userFaceType == ConstantsSquats.LEFT_FACE) {
                     cordHip = 23;cordKnee = 25;cordAnkle = 27;cordShoulder = 11;cordToe = 31
                 } else {
                     cordHip = 24;cordKnee = 26;cordAnkle = 28;cordShoulder = 12;cordToe = 32

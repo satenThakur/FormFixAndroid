@@ -22,9 +22,8 @@ import androidx.navigation.fragment.NavHostFragment
 import com.fittracker.R
 import com.fittracker.application.FormfitApplication
 import com.fittracker.database.MediaData
-import com.fittracker.databinding.ActivityCamLandscapeBinding
 import com.fittracker.databinding.ActivityCamPortraitBinding
-import com.fittracker.utilits.Constants
+import com.fittracker.utilits.ConstantsSquats
 import com.fittracker.utilits.FormFixSharedPreferences
 import com.fittracker.utilits.Utility
 import com.hbisoft.hbrecorder.HBRecorder
@@ -51,7 +50,7 @@ class CamPortraitActivity : AppCompatActivity() , HBRecorderListener {
         super.onCreate(savedInstanceState)
         activityCamPortraitBinding = ActivityCamPortraitBinding.inflate(layoutInflater)
         setContentView(activityCamPortraitBinding.root)
-        exerciseType= intent?.getStringExtra(Constants.EXERCISE_TYPE).toString()
+        exerciseType= intent?.getStringExtra(ConstantsSquats.EXERCISE_TYPE).toString()
         val navHostFragment = supportFragmentManager.findFragmentById(com.fittracker.R.id.fragment_container) as NavHostFragment
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             //Init HBRecorder
@@ -143,7 +142,7 @@ class CamPortraitActivity : AppCompatActivity() , HBRecorderListener {
             val mediaProjectionManager =
                 getSystemService(MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
             val permissionIntent = mediaProjectionManager?.createScreenCaptureIntent()
-            startActivityForResult(permissionIntent!!, Constants.SCREEN_RECORD_REQUEST_CODE)
+            startActivityForResult(permissionIntent!!, ConstantsSquats.SCREEN_RECORD_REQUEST_CODE)
      //   }
     }
 
@@ -157,13 +156,14 @@ class CamPortraitActivity : AppCompatActivity() , HBRecorderListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (requestCode == Constants.SCREEN_RECORD_REQUEST_CODE) {
+            if (requestCode == ConstantsSquats.SCREEN_RECORD_REQUEST_CODE) {
                 if (resultCode == RESULT_OK) {
                     //Set file path or Uri depending on SDK version
                     setOutputPath()
                     //Start screen recording
                     hbRecorder.startScreenRecording(data, resultCode)
-                    FormFixSharedPreferences.saveSharedPreferencesValue(this@CamPortraitActivity,Constants.PREF_KEY_VIDEO_RECORDER_PERMISSION,true)
+                    FormFixSharedPreferences.saveSharedPreferencesValue(this@CamPortraitActivity,
+                        ConstantsSquats.PREF_KEY_VIDEO_RECORDER_PERMISSION,true)
                 }
             }
         }
@@ -293,10 +293,10 @@ class CamPortraitActivity : AppCompatActivity() , HBRecorderListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             resolver = contentResolver
             contentValues = ContentValues()
-            contentValues!!.put(MediaStore.Video.Media.RELATIVE_PATH, "${Constants.FOLDER_DIRECTORY}/${Constants.FOLDER_NAME}")
+            contentValues!!.put(MediaStore.Video.Media.RELATIVE_PATH, "${ConstantsSquats.FOLDER_DIRECTORY}/${ConstantsSquats.FOLDER_NAME}")
             contentValues!!.put(MediaStore.Video.Media.TITLE, filename)
             contentValues!!.put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
-            contentValues!!.put(MediaStore.MediaColumns.MIME_TYPE, Constants.VIDEO_TYPE)
+            contentValues!!.put(MediaStore.MediaColumns.MIME_TYPE, ConstantsSquats.VIDEO_TYPE)
             mUri = resolver?.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, contentValues)
             //FILE NAME SHOULD BE THE SAME
             hbRecorder.fileName = filename
@@ -313,7 +313,7 @@ class CamPortraitActivity : AppCompatActivity() , HBRecorderListener {
             createFolder()
             hbRecorder.setOutputPath(
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
-                    .toString() + "/"+ Constants.FOLDER_NAME
+                    .toString() + "/"+ ConstantsSquats.FOLDER_NAME
             )
         }
     }
@@ -323,7 +323,7 @@ class CamPortraitActivity : AppCompatActivity() , HBRecorderListener {
     private fun createFolder() {
         val f1 = File(
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES),
-            Constants.FOLDER_NAME
+            ConstantsSquats.FOLDER_NAME
         )
         if (!f1.exists()) {
             if (f1.mkdirs()) {

@@ -10,7 +10,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.fittracker.databinding.ActivitySplashBinding
-import com.fittracker.utilits.Constants.SPLASH_DELAY
+import com.fittracker.utilits.ConstantsSquats.SPLASH_DELAY
 
 
 class SplashActivity : AppCompatActivity() {

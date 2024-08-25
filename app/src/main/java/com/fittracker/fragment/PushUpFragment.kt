@@ -27,9 +27,9 @@ import com.fittracker.PoseLandmarkerHelper
 import com.fittracker.R
 import com.fittracker.databinding.FragmentPushupBinding
 import com.fittracker.model.LandMarkModel
-import com.fittracker.utilits.Constants
-import com.fittracker.utilits.Constants.timerInterval
-import com.fittracker.utilits.Constants.timerLimit
+import com.fittracker.utilits.ConstantsSquats
+import com.fittracker.utilits.ConstantsSquats.timerInterval
+import com.fittracker.utilits.ConstantsSquats.timerLimit
 import com.fittracker.utilits.Utility
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import java.util.concurrent.ExecutorService
@@ -299,7 +299,7 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 val toe:Int
 
 
-                if (userFaceType == Constants.LEFT_FACE) {
+                if (userFaceType == ConstantsSquats.LEFT_FACE) {
                     cordHip = 23;cordKnee = 25;cordAnkle = 27; cordShoulder = 11;cordElbow=13;wrist=15;toe=31
                 } else {
                     cordHip = 24;cordKnee = 26;cordAnkle = 28;cordShoulder = 12;cordElbow=14;wrist=16;toe=32
@@ -359,7 +359,7 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
 
                 if (_fragmentpushupsBinding != null) {
-                    Log.e("PushUPS","setResults called")
+                    Utility.Log("PushUPS","setResults called")
                     fragmentpushupsBinding.overlay.setResults(
                         resultBundle.results.first(),
                         resultBundle.inputImageHeight,

@@ -7,14 +7,23 @@ import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import com.fittracker.utilits.Constants.KNEE_HIP_DIFF_NEW_THRESHOLD
-import com.fittracker.utilits.Constants.KNEE_HIP_DIFF_THRESHOLD
-import com.fittracker.utilits.Constants.KNEE_TOE_THRESHOLD
-import com.fittracker.utilits.Constants.KNEE_TOE_THRESHOLD_TO_IGNORE_TUCK_HIPS
-import com.fittracker.utilits.Constants.STATE_DOWN
-import com.fittracker.utilits.Constants.STATE_MOVING
-import com.fittracker.utilits.Constants.STATE_UN_DECIDED
-import com.fittracker.utilits.Constants.STATE_UP
+import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_HIP_ANGLE
+import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_KNEE_ANGLE
+import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_WRIST_TOY_Y_DIFF
+import com.fittracker.utilits.ConstantsPushUps.PUSH_UP_TAG
+import com.fittracker.utilits.ConstantsPushUps.STRACK_THERES_HIP_ANGLE
+import com.fittracker.utilits.ConstantsPushUps.STRACK_THERES_KNEE_ANGLE
+import com.fittracker.utilits.ConstantsPushUps.STRACK_THERES_WRIST_TOY_Y_DIFF
+import com.fittracker.utilits.ConstantsPushUps.THRESH_SHOULDER_ELBOW_DIFF
+import com.fittracker.utilits.ConstantsSquats.KNEE_HIP_DIFF_NEW_THRESHOLD
+import com.fittracker.utilits.ConstantsSquats.KNEE_HIP_DIFF_THRESHOLD
+import com.fittracker.utilits.ConstantsSquats.KNEE_TOE_THRESHOLD
+import com.fittracker.utilits.ConstantsSquats.KNEE_TOE_THRESHOLD_TO_IGNORE_TUCK_HIPS
+import com.fittracker.utilits.ConstantsSquats.STATE_DOWN
+import com.fittracker.utilits.ConstantsSquats.STATE_MOVING
+import com.fittracker.utilits.ConstantsSquats.STATE_UN_DECIDED
+import com.fittracker.utilits.ConstantsSquats.STATE_UP
+import com.fittracker.utilits.Utility.Log
 import com.google.android.material.snackbar.Snackbar
 import com.google.mediapipe.tasks.components.containers.NormalizedLandmark
 import java.io.File
@@ -29,7 +38,7 @@ import kotlin.math.sqrt
 object Utility {
     fun deleteMediaFile(filename: String) {
         var fileToPlay = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
-            .toString() + "/" + Constants.FOLDER_NAME + "/" + filename + ".mp4"
+            .toString() + "/" + ConstantsSquats.FOLDER_NAME + "/" + filename + ".mp4"
         Log("VideoPlayer", "fileToPlay=" + fileToPlay)
         var file = File(fileToPlay)
         if (file.exists()) {
@@ -39,26 +48,27 @@ object Utility {
 
     fun checkIfFileExist(filename: String): Boolean {
         var fileToPlay = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
-            .toString() + "/" + Constants.FOLDER_NAME + "/" + filename + ".mp4"
+            .toString() + "/" + ConstantsSquats.FOLDER_NAME + "/" + filename + ".mp4"
         Log("VideoPlayer", "fileToPlay=" + fileToPlay)
         var file = File(fileToPlay)
         return file.exists()
     }
 
     fun generateFileName(): String {
-        val formatter = SimpleDateFormat(Constants.FILENAME_DATE_FORMATTER, Locale.getDefault())
+        val formatter =
+            SimpleDateFormat(ConstantsSquats.FILENAME_DATE_FORMATTER, Locale.getDefault())
         val curDate = Date(System.currentTimeMillis())
         return formatter.format(curDate).replace(" ", "")
     }
 
     fun getCurrentDate(): String {
-        val formatter = SimpleDateFormat(Constants.DATE_FORMAT, Locale.getDefault())
+        val formatter = SimpleDateFormat(ConstantsSquats.DATE_FORMAT, Locale.getDefault())
         val curDate = Date(System.currentTimeMillis())
         return formatter.format(curDate)
     }
 
     fun getCurrentTime(): String {
-        val formatter = SimpleDateFormat(Constants.TIME_FORMAT, Locale.getDefault())
+        val formatter = SimpleDateFormat(ConstantsSquats.TIME_FORMAT, Locale.getDefault())
         val curTime = Date(System.currentTimeMillis())
         return formatter.format(curTime)
     }
@@ -90,24 +100,24 @@ object Utility {
         Log("Angels", "HipAngle=$hipAngle")
 
 
-        return if ((/*kneeAngle > 140 ||   */hipAngle > 146) && faceType == Constants.FRONT_FACE) {
+        return if ((/*kneeAngle > 140 ||   */hipAngle > 146) && faceType == ConstantsSquats.FRONT_FACE) {
             Log("Angels", "STATE_UP FRONT_FACE")
-            Constants.STATE_UP
-        } else if (hipAngle < 140 && hipAngle > 90 && faceType == Constants.FRONT_FACE) {
+            ConstantsSquats.STATE_UP
+        } else if (hipAngle < 140 && hipAngle > 90 && faceType == ConstantsSquats.FRONT_FACE) {
             Log("Angels", "STATE_MOVING FRONT_FACE")
-            Constants.STATE_MOVING
-        } else if (hipAngle < 90 && hipAngle > 0 && faceType == Constants.FRONT_FACE) {
+            ConstantsSquats.STATE_MOVING
+        } else if (hipAngle < 90 && hipAngle > 0 && faceType == ConstantsSquats.FRONT_FACE) {
             Log("Angels", "STATE_DOWN FRONT_FACE")
-            Constants.STATE_DOWN
-        } else if (kneeAngle > 150 && (faceType == Constants.LEFT_FACE || faceType == Constants.RIGHT_FACE)) {
+            ConstantsSquats.STATE_DOWN
+        } else if (kneeAngle > 150 && (faceType == ConstantsSquats.LEFT_FACE || faceType == ConstantsSquats.RIGHT_FACE)) {
             Log("Angels", "STATE_UP")
-            Constants.STATE_UP
-        } else if (kneeAngle < 150 && kneeAngle > 90 && hipAngle < 150 && (faceType == Constants.LEFT_FACE || faceType == Constants.RIGHT_FACE)) {
+            ConstantsSquats.STATE_UP
+        } else if (kneeAngle < 150 && kneeAngle > 90 && hipAngle < 150 && (faceType == ConstantsSquats.LEFT_FACE || faceType == ConstantsSquats.RIGHT_FACE)) {
             Log("Angels", "STATE_MOVING")
-            Constants.STATE_MOVING
-        } else if (kneeAngle < 90 && kneeAngle > 0 && (faceType == Constants.LEFT_FACE || faceType == Constants.RIGHT_FACE)) {
+            ConstantsSquats.STATE_MOVING
+        } else if (kneeAngle < 90 && kneeAngle > 0 && (faceType == ConstantsSquats.LEFT_FACE || faceType == ConstantsSquats.RIGHT_FACE)) {
             Log("Angels", "STATE_DOWN")
-            Constants.STATE_DOWN
+            ConstantsSquats.STATE_DOWN
         } else {
             Log("Angels", "STATE_UN_DECIDED")
             return STATE_UN_DECIDED
@@ -136,31 +146,6 @@ object Utility {
     }
 
 
-    fun getPushUpState(elbowAngle: Int, shouldrAngle: Int, faceType: Int):Int {
-        if (faceType == 2) {
-            Log("Angels", "FaceType=FRONT")
-        } else {
-            Log("Angels", "FaceType=LEFT/RIGHT")
-        }
-
-        Log("Angels", "elbowAngle=$elbowAngle")
-        Log("Angels", "shouldrAngle=$shouldrAngle")
-
-        if (elbowAngle > 110) {
-            Log("Angels", "STATE_UP")
-            return  Constants.STATE_UP
-        } else if (elbowAngle in 85..110) {
-            Log("Angels", "STATE_MOVING")
-            return  Constants.STATE_MOVING
-        } else if (elbowAngle in 1..85) {
-            Log("Angels", "STATE_DOWN")
-            return  Constants.STATE_DOWN
-        }
-
-        Log("Angels", "STATE_UN_DECIDED")
-        return STATE_UN_DECIDED
-    }
-
     fun getSquatPosition(
         kneeAngle: Float,
         hipAngle: Float,
@@ -177,10 +162,10 @@ object Utility {
                 userFaceType
             )/*toeX - knneX >= 0*/) {
             // Log("Angles", "SQUAT_CORRECT")
-            Constants.SQUAT_CORRECT
+            ConstantsSquats.SQUAT_CORRECT
         } else {
             // Log("Angles", "SQUAT_INCORRECT")
-            Constants.SQUAT_INCORRECT
+            ConstantsSquats.SQUAT_INCORRECT
         }
     }
 
@@ -191,14 +176,19 @@ object Utility {
     }
 
 
-    fun kneeHipAnglesDiff(kneeAngle: Float, hipAngle: Float, toeX:Float,
-                          knneX:Float,): Boolean {
-        if(abs(toeX - knneX)>KNEE_TOE_THRESHOLD_TO_IGNORE_TUCK_HIPS)
+    fun kneeHipAnglesDiff(
+        kneeAngle: Float, hipAngle: Float, toeX: Float,
+        knneX: Float,
+    ): Boolean {
+        if (abs(toeX - knneX) > KNEE_TOE_THRESHOLD_TO_IGNORE_TUCK_HIPS)
             return false
-        var diff= abs(kneeAngle-hipAngle)
-        Log("parallelAngels","kneeAngle="+kneeAngle+" hipAngle="+hipAngle+"diff="+diff)
-        if (diff>KNEE_HIP_DIFF_NEW_THRESHOLD) {
-            Log("parallelAngels","kneeAngle="+kneeAngle+" hipAngle="+hipAngle+"diff="+diff+">"+KNEE_HIP_DIFF_NEW_THRESHOLD)
+        var diff = abs(kneeAngle - hipAngle)
+        Log("parallelAngels", "kneeAngle=" + kneeAngle + " hipAngle=" + hipAngle + "diff=" + diff)
+        if (diff > KNEE_HIP_DIFF_NEW_THRESHOLD) {
+            Log(
+                "parallelAngels",
+                "kneeAngle=" + kneeAngle + " hipAngle=" + hipAngle + "diff=" + diff + ">" + KNEE_HIP_DIFF_NEW_THRESHOLD
+            )
             return true
         } else {
             return false
@@ -247,11 +237,11 @@ object Utility {
 
     fun getFace(userFaceType: Int): String {
         var usersface = "UnKnown";
-        if (userFaceType == Constants.RIGHT_FACE) {
+        if (userFaceType == ConstantsSquats.RIGHT_FACE) {
             usersface = "Right"
-        } else if (userFaceType == Constants.LEFT_FACE) {
+        } else if (userFaceType == ConstantsSquats.LEFT_FACE) {
             usersface = "Left"
-        } else if (userFaceType == Constants.FRONT_FACE) {
+        } else if (userFaceType == ConstantsSquats.FRONT_FACE) {
             usersface = "Front"
         }
         return usersface
@@ -319,91 +309,153 @@ object Utility {
     }
 
     fun Log(tag: String, message: String) {
-       //Log.e(tag, message)
+        //Log.e(tag, message)
     }
 
-    fun getFaceType(leftShoulder:Float,rightShoulder:Float,nose:Float) :Int{
+    fun getFaceType(leftShoulder: Float, rightShoulder: Float, nose: Float): Int {
         val leftShoulderDistance = leftShoulder - nose
         val rightShoulderDistance = rightShoulder - nose
         val leftNoseDistance = nose - leftShoulder
         val rightNoseDistance = nose - rightShoulder
         if (leftShoulderDistance > 0 && rightShoulderDistance > 0)
-            return Constants.LEFT_FACE
+            return ConstantsSquats.LEFT_FACE
         else if (leftNoseDistance > 0 && rightNoseDistance > 0)
-            return Constants.RIGHT_FACE
+            return ConstantsSquats.RIGHT_FACE
         else
-            return  Constants.FRONT_FACE
+            return ConstantsSquats.FRONT_FACE
     }
-    fun isHipsNotInCentre(leftToeX:Float, rightToeX:Float, xOfLeftHip:Float, xOfRightHip:Float, scalFactor:Float):Boolean
-    {
-        var avergaeDiff=getHipAnkleDiffAverage(leftToeX,rightToeX,xOfLeftHip,xOfRightHip,scalFactor)
 
-       var isHipNotIncentre=false
-        if(Constants.HIPS_ANKLE_AVARGE_DIFF<avergaeDiff) {
-            isHipNotIncentre =true
+    fun isHipsNotInCentre(
+        leftToeX: Float,
+        rightToeX: Float,
+        xOfLeftHip: Float,
+        xOfRightHip: Float,
+        scalFactor: Float
+    ): Boolean {
+        var avergaeDiff =
+            getHipAnkleDiffAverage(leftToeX, rightToeX, xOfLeftHip, xOfRightHip, scalFactor)
+
+        var isHipNotIncentre = false
+        if (ConstantsSquats.HIPS_ANKLE_AVARGE_DIFF < avergaeDiff) {
+            Log("isHipsAlign", "hipsNotInCentre TRUE")
+            isHipNotIncentre = true
         }
-            return isHipNotIncentre
+        return isHipNotIncentre
     }
 
-    fun getHipAnkleDiffAverage(lefToeX:Float, rightToeX:Float, leftHipX:Float, rightHipX:Float, scalFactor:Float):Int{
-        var toesCentre=abs((rightToeX+lefToeX)/2)
-        var hipCentre=abs((rightHipX+leftHipX)/2)
-        if(hipCentre<toesCentre){
-            Log("isHipsAlign", "Hips_In_LEFT="+(toesCentre-hipCentre))
-        }else{
+    fun getHipAnkleDiffAverage(
+        lefToeX: Float,
+        rightToeX: Float,
+        leftHipX: Float,
+        rightHipX: Float,
+        scalFactor: Float
+    ): Int {
+        var toesCentre = abs((rightToeX + lefToeX) / 2)
+        var hipCentre = abs((rightHipX + leftHipX) / 2)
+        if (hipCentre < toesCentre) {
+            Log("isHipsAlign", "Hips_In_LEFT=" + (toesCentre - hipCentre))
+        } else {
             //Hips in Right
-            Log("isHipsAlign", "Hips_In_RIGHT="+(toesCentre-hipCentre))
+            Log("isHipsAlign", "Hips_In_RIGHT=" + (toesCentre - hipCentre))
         }
 
-        var avergaeDiff=abs(toesCentre-hipCentre)*100
+        var averageDiff = abs(toesCentre - hipCentre) * 100
         //2.0088553
         Log("isHipsAlign", "ankleAverage=$toesCentre, hipsAverage$hipCentre")
-        Log("isHipsAlign","avergaeDiff="+ avergaeDiff)
-        return avergaeDiff.toInt()
+        Log("isHipsAlign", "avergaeDiff=" + averageDiff)
+        return averageDiff.toInt()
     }
-    fun startPushUpTracking(wristY:Float,toeY:Float,hipAngle:Float,kneeAngle:Float) :Boolean{
-        var diff=abs(wristY - toeY)
-        if(diff<180 && hipAngle>=155 && kneeAngle>=155){
+
+    fun getPushUpState(elbowAngle: Int, shoulderAngle: Int, faceType: Int): Int {
+        if (faceType == 2) {
+            Log(PUSH_UP_TAG, "FaceType=FRONT")
+        } else {
+            Log(PUSH_UP_TAG, "FaceType=LEFT/RIGHT")
+        }
+        Log(PUSH_UP_TAG, "elbowAngle=$elbowAngle")
+        Log(PUSH_UP_TAG, "shoulderAngle=$shoulderAngle")
+
+        if (elbowAngle > 135) {
+            Log(PUSH_UP_TAG, "STATE_UP")
+            return ConstantsSquats.STATE_UP
+        } else if (elbowAngle < 90) {
+            Log(PUSH_UP_TAG, "STATE_DOWN")
+            return ConstantsSquats.STATE_DOWN
+        } else {
+            //else if (elbowAngle in 90..135) {
+            Log(PUSH_UP_TAG, "STATE_MOVING")
+            return ConstantsSquats.STATE_MOVING
+        }
+    }
+
+    /*Log(PUSH_UP_TAG, "STATE_UN_DECIDED")
+        return STATE_UN_DECIDED*/
+
+
+    /*Push-Ups utility functions*/
+    fun startPushUpTracking(
+        wristY: Float,
+        toeY: Float,
+        hipAngle: Float,
+        kneeAngle: Float
+    ): Boolean {
+        var diff = getWristToeYDiff(wristY, toeY)
+        Utility.Log(PUSH_UP_TAG, "hipAngle=$hipAngle,kneeAngle=$kneeAngle")
+        if (diff < STRACK_THERES_WRIST_TOY_Y_DIFF && hipAngle >= STRACK_THERES_HIP_ANGLE && kneeAngle >= STRACK_THERES_KNEE_ANGLE) {
+            Log(PUSH_UP_TAG, "startPushUpTracking=True")
             return true
         } else {
+            Log(PUSH_UP_TAG, "startPushUpTracking=False")
             return false
         }
     }
 
 
-    fun isPushUpPoseCorrect(hipAngle:Float,  kneeAngle:Float,state:Int, shoulderElbowDiff:Float, wristToeDiff:Float) :Boolean{
-        //Log.e("isPushUpPoseCorrect","hipAngle="+hipAngle)
-        //Log.e("isPushUpPoseCorrect","kneeAngle="+kneeAngle)
-        if(wristToeDiff<110 && hipAngle>=154 && kneeAngle>=160 && state==1 && shoulderElbowDiff>56){
+    fun isPushUpPoseCorrect(
+        hipAngle: Float,
+        kneeAngle: Float,
+        state: Int,
+        shoulderElbowDiff: Float,
+        wristToeDiff: Float
+    ): Boolean {
+        if (wristToeDiff < PUSH_CORRECT_THERES_WRIST_TOY_Y_DIFF && hipAngle >= PUSH_CORRECT_THERES_HIP_ANGLE && kneeAngle >= PUSH_CORRECT_THERES_KNEE_ANGLE && state == 1 && shoulderElbowDiff > THRESH_SHOULDER_ELBOW_DIFF) {
             return false
-        } else if(wristToeDiff < 110 && hipAngle >= 154 && kneeAngle >= 160){
+        } else if (wristToeDiff < PUSH_CORRECT_THERES_WRIST_TOY_Y_DIFF && hipAngle >= PUSH_CORRECT_THERES_HIP_ANGLE && kneeAngle >= PUSH_CORRECT_THERES_KNEE_ANGLE) {
             return true
         }
         return false
     }
 
-    fun getShoulderElbowXDiff(shoulderX:Float,elbowX:Float):Float{
-        var shoulderElbowDiff=abs(shoulderX - elbowX)*1000
-        Log("isPushUpPoseCorrect","shoulderElbowDiff="+shoulderElbowDiff)
+    fun getShoulderElbowXDiff(shoulderX: Float, elbowX: Float, state: Int): Float {
+        var shoulderElbowDiff = abs(shoulderX - elbowX) * 1000
+        if (state == 1)
+            Log.e(
+                "isPushUpPoseCorrect",
+                "shoulderElbowDiff=" + shoulderElbowDiff + "Threshold=" + THRESH_SHOULDER_ELBOW_DIFF + ",state=" + state
+            )
         /*22  to 55 elbow piche rehni chahiye shoulder se*/
         return shoulderElbowDiff
     }
-    fun getWristToeYDiff(wristY:Float,toeY:Float):Float{
-        var wristToeDiff= abs(wristY- toeY)*1000
-        /*74 to 102   wrist and toe on same plane */
-        Log("isPushUpPoseCorrect","wristToeDiff="+wristToeDiff)
-        return wristToeDiff
+
+    fun getWristToeYDiff(wristY: Float, toeY: Float): Float {
+        var diff = abs(wristY - toeY) * 1000
+        Log(
+            "isPushUpPoseCorrect",
+            "wristToeYDiff=" + diff + "Threshold=" + PUSH_CORRECT_THERES_WRIST_TOY_Y_DIFF
+        )
+        return diff
     }
 
-    fun getPushUpState(angle:Float):Int{
-        if(angle>157)
+    fun getPushUpState(angle: Float): Int {
+        if (angle > 157)
             return STATE_UP
-        else if(angle<89)
+        else if (angle < 89)
             return STATE_DOWN
         else
             return STATE_MOVING
 
     }
+}
     /*
     def is_pushup_pose_correct(wrist_y, toe_y, hip_angle, knee_angle,state, shoulder_wrist_diff):
     diff = abs(wrist_y - toe_y)
@@ -414,7 +466,7 @@ object Utility {
     else:
         return False
  */
-}
+
 
 
 

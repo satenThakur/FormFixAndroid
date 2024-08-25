@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fittracker.R
 import com.fittracker.activity.VideoPlayerActivity
 import com.fittracker.model.ErrorMessage
-import com.fittracker.utilits.Constants
+import com.fittracker.utilits.ConstantsSquats
 
 class ErrorMessageAdapter (private val itemList: List<ErrorMessage>, private var context: Context) :
     RecyclerView.Adapter<ErrorMessageAdapter.ModelViewHolder>() {
@@ -32,8 +32,8 @@ class ErrorMessageAdapter (private val itemList: List<ErrorMessage>, private var
         holder.cardview.setOnClickListener{
             Log.e("cardviewError","Cclicked")
             var intent = Intent(context, VideoPlayerActivity::class.java)
-            intent.putExtra(Constants.FILE_NAME, "hipcorrection")
-            intent.putExtra(Constants.FILE_TYPE,itemList[position].messageType)
+            intent.putExtra(ConstantsSquats.FILE_NAME, "hipcorrection")
+            intent.putExtra(ConstantsSquats.FILE_TYPE,itemList[position].messageType)
             context.startActivity(intent)
 
         }

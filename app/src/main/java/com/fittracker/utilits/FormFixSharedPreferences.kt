@@ -2,7 +2,7 @@ package com.fittracker.utilits
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.fittracker.utilits.Constants.sharedPrefFile
+import com.fittracker.utilits.ConstantsSquats.sharedPrefFile
 
 object FormFixSharedPreferences {
     fun getSharedPreferences(context:Context):SharedPreferences{

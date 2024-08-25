@@ -10,39 +10,37 @@ import android.graphics.RectF
 import android.os.Build
 import android.speech.tts.TextToSpeech
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.fittracker.model.ErrorMessage
-import com.fittracker.utilits.Constants
-import com.fittracker.utilits.Constants.ANGLE_TEXT
-import com.fittracker.utilits.Constants.BEND_AT_THE_KNEES
-import com.fittracker.utilits.Constants.ERROR_STROKE_WIDTH
-import com.fittracker.utilits.Constants.HEEL_MAX_ANGLE
-import com.fittracker.utilits.Constants.HEEL_MIN_ANGLE
-import com.fittracker.utilits.Constants.CIRCLE_RADIUS
-import com.fittracker.utilits.Constants.EXTERNALLY_ROTATE_FEET
-import com.fittracker.utilits.Constants.TUCK_HIPS
-import com.fittracker.utilits.Constants.KNEES_CROSSING_TOES
-import com.fittracker.utilits.Constants.KNEES_GOING_INWARDS
-import com.fittracker.utilits.Constants.LANDMARK_LINE_WIDTH
-import com.fittracker.utilits.Constants.LANDMARK_STROKE_WIDTH
-import com.fittracker.utilits.Constants.LINE_LENGTH
-import com.fittracker.utilits.Constants.MASK_TEXT
-import com.fittracker.utilits.Constants.SPEAKERWAITTIMEFORSAMEMESSAGE
-import com.fittracker.utilits.Constants.SQUAT_INCORRECT
-import com.fittracker.utilits.Constants.STATE_DOWN
-import com.fittracker.utilits.Constants.STATE_MOVING
-import com.fittracker.utilits.Constants.STATE_UN_DECIDED
-import com.fittracker.utilits.Constants.STATE_UP
-import com.fittracker.utilits.Constants.TEXT_HIPANKLEAVERAGE
-import com.fittracker.utilits.Constants.TEXT_INCORRECT_RESP_Y
-import com.fittracker.utilits.Constants.TEXT_SIZE
-import com.fittracker.utilits.Constants.TEXT_STATE_Y
-import com.fittracker.utilits.Constants.TEXT_TOTAL_RESP_Y
-import com.fittracker.utilits.Constants.TEXT_X
-import com.fittracker.utilits.Constants.TOE_KNEE_X_DIFFS_MIN_THRESHOLD
+import com.fittracker.utilits.ConstantsSquats
+import com.fittracker.utilits.ConstantsSquats.ANGLE_TEXT
+import com.fittracker.utilits.ConstantsSquats.BEND_AT_THE_KNEES
+import com.fittracker.utilits.ConstantsSquats.ERROR_STROKE_WIDTH
+import com.fittracker.utilits.ConstantsSquats.HEEL_MAX_ANGLE
+import com.fittracker.utilits.ConstantsSquats.HEEL_MIN_ANGLE
+import com.fittracker.utilits.ConstantsSquats.CIRCLE_RADIUS
+import com.fittracker.utilits.ConstantsSquats.EXTERNALLY_ROTATE_FEET
+import com.fittracker.utilits.ConstantsSquats.TUCK_HIPS
+import com.fittracker.utilits.ConstantsSquats.KNEES_CROSSING_TOES
+import com.fittracker.utilits.ConstantsSquats.KNEES_GOING_INWARDS
+import com.fittracker.utilits.ConstantsSquats.LANDMARK_LINE_WIDTH
+import com.fittracker.utilits.ConstantsSquats.LANDMARK_STROKE_WIDTH
+import com.fittracker.utilits.ConstantsSquats.LINE_LENGTH
+import com.fittracker.utilits.ConstantsSquats.MASK_TEXT
+import com.fittracker.utilits.ConstantsSquats.SPEAKERWAITTIMEFORSAMEMESSAGE
+import com.fittracker.utilits.ConstantsSquats.SQUAT_INCORRECT
+import com.fittracker.utilits.ConstantsSquats.STATE_DOWN
+import com.fittracker.utilits.ConstantsSquats.STATE_MOVING
+import com.fittracker.utilits.ConstantsSquats.STATE_UN_DECIDED
+import com.fittracker.utilits.ConstantsSquats.STATE_UP
+import com.fittracker.utilits.ConstantsSquats.TEXT_INCORRECT_RESP_Y
+import com.fittracker.utilits.ConstantsSquats.TEXT_SIZE
+import com.fittracker.utilits.ConstantsSquats.TEXT_STATE_Y
+import com.fittracker.utilits.ConstantsSquats.TEXT_TOTAL_RESP_Y
+import com.fittracker.utilits.ConstantsSquats.TEXT_X
+import com.fittracker.utilits.ConstantsSquats.TOE_KNEE_X_DIFFS_MIN_THRESHOLD
 import com.fittracker.utilits.Utility
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarker
@@ -306,8 +304,8 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
             val heelAngle = (heelAngle * 10).roundToInt() / 10
 
             /* FRONT FACE CASE */
-            if (kneeAngle > 0 && hipAngle > 0 && userFaceType == Constants.FRONT_FACE) {
-                when (Utility.getSquatState(kneeAngle, hipAngle, Constants.FRONT_FACE)) {
+            if (kneeAngle > 0 && hipAngle > 0 && userFaceType == ConstantsSquats.FRONT_FACE) {
+                when (Utility.getSquatState(kneeAngle, hipAngle, ConstantsSquats.FRONT_FACE)) {
                     STATE_UP -> {
                         canvas.drawText(
                             resources.getString(R.string.state_up),
@@ -351,7 +349,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             statePaint
                         )
                         statesSet.add(STATE_MOVING)
-                        if(hipAngle<108 &&Utility.isHipsNotInCentre(leftToeX,rightToeX,xofLeftHip,xofRightHip,(imageWidth * scaleFactor))){
+                        if(hipAngle<112 && Utility.isHipsNotInCentre(leftToeX,rightToeX,xofLeftHip,xofRightHip,(imageWidth * scaleFactor))){
                             var diff = abs(xofLeftKnee - xofRightKnee) - abs(xofLeftToe - xofRightToe)
                             diff = diff * imageHeight * scaleFactor
                             Utility.Log("diff","kneesAndToesDiff="+diff)
@@ -366,7 +364,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                     xHeel * imageWidth * scaleFactor,
                                     yHeel * imageHeight * scaleFactor,
                                     context.resources.getString(R.string.hips_not_in_centre),
-                                    Constants.HIPS_NOT_CENTERED,
+                                    ConstantsSquats.HIPS_NOT_CENTERED,
                                     canvas, needToSpeak, true
                                 )
                             }
@@ -448,7 +446,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                         xHeel * imageWidth * scaleFactor,
                                         yHeel * imageHeight * scaleFactor,
                                         context.resources.getString(R.string.hips_not_in_centre),
-                                        Constants.HIPS_NOT_CENTERED,
+                                        ConstantsSquats.HIPS_NOT_CENTERED,
                                         canvas, needToSpeak, true
                                     )
                                 }
@@ -482,8 +480,8 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
 
                 }
                 /* LEFT/RIGHT FACE CASE */
-            } else if (kneeAngle > 0 && hipAngle > 0 && (userFaceType == Constants.LEFT_FACE || userFaceType == Constants.RIGHT_FACE)) {
-                when (Utility.getSquatState(kneeAngle, hipAngle, Constants.LEFT_FACE)) {
+            } else if (kneeAngle > 0 && hipAngle > 0 && (userFaceType == ConstantsSquats.LEFT_FACE || userFaceType == ConstantsSquats.RIGHT_FACE)) {
+                when (Utility.getSquatState(kneeAngle, hipAngle, ConstantsSquats.LEFT_FACE)) {
                     STATE_UP -> {
                         //Right/Left Face STATE_UP
                         canvas.drawText(
@@ -513,7 +511,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             }
 
                             drawMessageOnScreen(
-                                (xKnee - Constants.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
+                                (xKnee - ConstantsSquats.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
                                 yKnee * imageHeight * scaleFactor,
                                 context.resources.getString(R.string.bend_at_the_knees),
                                 BEND_AT_THE_KNEES,
@@ -597,7 +595,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                         /*check knee crossing toes when both angles are below 80 and stack contains MOVING_STATE and UP_STATE*/
                         if (Utility.isKneeCrossesToes(toeX, xKnee, userFaceType)) {
                             canvas.drawCircle(
-                                (xKnee - Constants.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
+                                (xKnee - ConstantsSquats.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
                                 yKnee * imageHeight * scaleFactor,
                                 CIRCLE_RADIUS,
                                 pointErrorPaint
@@ -612,7 +610,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                 statesSet.add(SQUAT_INCORRECT)
                             }
                            drawMessageOnScreen(
-                                (xKnee - Constants.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
+                                (xKnee - ConstantsSquats.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
                                 yKnee * imageHeight * scaleFactor,
                                 context.resources.getString(R.string.knee_crossing_toes),
                                KNEES_CROSSING_TOES,
@@ -625,7 +623,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                         }
                         if (Utility.kneeHipAnglesDiff(kneeNewAngle, hipNewAngle, toeX, xKnee)) {
                             canvas.drawCircle(
-                                (xHip + Constants.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
+                                (xHip + ConstantsSquats.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
                                 yHip * imageHeight * scaleFactor,
                                 CIRCLE_RADIUS,
                                 pointErrorPaint
@@ -641,7 +639,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                 statesSet.add(SQUAT_INCORRECT)
                             }
                             drawMessageOnScreen(
-                                (xHip + Constants.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
+                                (xHip + ConstantsSquats.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
                                 yHip * imageHeight * scaleFactor,
                                 context.resources.getString(R.string.tuck_hips),
                                 TUCK_HIPS,
@@ -708,7 +706,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                     anglePaint
                 )
                 canvas.drawCircle(
-                    (xKnee - Constants.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
+                    (xKnee - ConstantsSquats.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
                     yKnee * imageHeight * scaleFactor,
                     0f,
                     pointErrorPaint

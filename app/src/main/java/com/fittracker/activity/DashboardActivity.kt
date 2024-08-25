@@ -25,13 +25,13 @@ import androidx.core.view.GravityCompat
 import com.cunoraz.tagview.Tag
 import com.fittracker.R
 import com.fittracker.databinding.ActivityDashboardBinding
-import com.fittracker.utilits.Constants
-import com.fittracker.utilits.Constants.EXERCISE_TYPE
-import com.fittracker.utilits.Constants.PERMISSION_REQ_ID_RECORD_AUDIO
-import com.fittracker.utilits.Constants.PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE
-import com.fittracker.utilits.Constants.PERMISSION_REQ_POST_NOTIFICATIONS
-import com.fittracker.utilits.Constants.PUSh_UPS
-import com.fittracker.utilits.Constants.SELECT_TAG_1
+import com.fittracker.utilits.ConstantsPushUps.PUSh_UPS
+import com.fittracker.utilits.ConstantsSquats
+import com.fittracker.utilits.ConstantsSquats.EXERCISE_TYPE
+import com.fittracker.utilits.ConstantsSquats.PERMISSION_REQ_ID_RECORD_AUDIO
+import com.fittracker.utilits.ConstantsSquats.PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE
+import com.fittracker.utilits.ConstantsSquats.PERMISSION_REQ_POST_NOTIFICATIONS
+import com.fittracker.utilits.ConstantsSquats.SELECT_TAG_1
 import com.fittracker.utilits.Utility
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -94,7 +94,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 Manifest.permission.RECORD_AUDIO,
                 Manifest.permission.POST_NOTIFICATIONS,
             ),
-            Constants.REQUEST_MULTIPLE_PERMISSIONS
+            ConstantsSquats.REQUEST_MULTIPLE_PERMISSIONS
         )
 
 
@@ -121,13 +121,13 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         for (i in tagList.indices) {
             tag = Tag(tagList[i])
             if (isTablet) {
-                tag.radius = Constants.tagRadiousTab
-                tag.layoutBorderSize = Constants.tagBorderTab
-                tag.tagTextSize = Constants.tagTextTab
+                tag.radius = ConstantsSquats.tagRadiousTab
+                tag.layoutBorderSize = ConstantsSquats.tagBorderTab
+                tag.tagTextSize = ConstantsSquats.tagTextTab
             } else {
-                tag.radius = Constants.tagRadiousPhone
-                tag.layoutBorderSize = Constants.tagBorderPhone
-                tag.tagTextSize = Constants.tagTextPhone
+                tag.radius = ConstantsSquats.tagRadiousPhone
+                tag.layoutBorderSize = ConstantsSquats.tagBorderPhone
+                tag.tagTextSize = ConstantsSquats.tagTextPhone
             }
             tag.layoutColor = Color.parseColor("#FFFFFF")
             tag.tagTextColor = Color.parseColor("#FF3700B3")
