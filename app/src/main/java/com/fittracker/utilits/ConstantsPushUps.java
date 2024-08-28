@@ -11,8 +11,8 @@ public interface ConstantsPushUps {
 
     /*PUSH-UP Correct Thresholds*/
     float PUSH_CORRECT_THERES_WRIST_TOY_Y_DIFF =110;
-    float PUSH_CORRECT_THERES_HIP_ANGLE =154;
-    float PUSH_CORRECT_THERES_KNEE_ANGLE =155;
+    float PUSH_CORRECT_THERES_HIP_ANGLE =160;
+    float PUSH_CORRECT_THERES_KNEE_ANGLE =160;
     float THRESH_SHOULDER_ELBOW_DIFF=100;
 
 }

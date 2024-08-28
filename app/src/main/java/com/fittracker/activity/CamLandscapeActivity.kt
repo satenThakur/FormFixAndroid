@@ -6,6 +6,7 @@ import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.graphics.drawable.GradientDrawable.Orientation
 import android.media.projection.MediaProjectionManager
 import android.net.Uri
 import android.os.Build
@@ -60,6 +61,7 @@ class CamLandscapeActivity : AppCompatActivity() , HBRecorderListener {
             if (hbRecorder.isBusyRecording) {
                 activityCamLandscapeBinding.btnRecord.setImageDrawable(resources.getDrawable(R.drawable.iv_record))
             }
+            hbRecorder.setOrientationHint(90)
         }
 
         // Examples of how to use the HBRecorderCodecInfo class to get codec info

@@ -110,8 +110,8 @@ public interface ConstantsSquats {
 
     float TOE_KNEE_X_DIFFS_MAX_THRESHOLD=100;
 
-    float TOE_KNEE_X_DIFFS_MIN_THRESHOLD =32;//39//42;//55;
-    float HIPS_ANKLE_AVARGE_DIFF=1.8f;//2.2
+    float TOE_KNEE_X_DIFFS_MIN_THRESHOLD =33;//32;//39//42;//55;
+    float HIPS_ANKLE_AVARGE_DIFF=2.0f;//1.8f;//2.2
 
 
 
