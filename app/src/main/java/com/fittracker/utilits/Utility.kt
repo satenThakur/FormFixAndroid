@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_HIP_ANGLE
+import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_HIP_ANGLE_FOR_STATE_UP
 import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_KNEE_ANGLE
 import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_WRIST_TOY_Y_DIFF
 import com.fittracker.utilits.ConstantsPushUps.PUSH_UP_TAG
@@ -418,10 +419,18 @@ object Utility {
         shoulderElbowDiff: Float,
         wristToeDiff: Float
     ): Boolean {
-        if (wristToeDiff < PUSH_CORRECT_THERES_WRIST_TOY_Y_DIFF && hipAngle >= PUSH_CORRECT_THERES_HIP_ANGLE && kneeAngle >= PUSH_CORRECT_THERES_KNEE_ANGLE && state == 1 && shoulderElbowDiff > THRESH_SHOULDER_ELBOW_DIFF) {
-            return false
-        } else if (wristToeDiff < PUSH_CORRECT_THERES_WRIST_TOY_Y_DIFF && hipAngle >= PUSH_CORRECT_THERES_HIP_ANGLE && kneeAngle >= PUSH_CORRECT_THERES_KNEE_ANGLE) {
-            return true
+        if(state==1) {
+            if (wristToeDiff < PUSH_CORRECT_THERES_WRIST_TOY_Y_DIFF && hipAngle >= PUSH_CORRECT_THERES_HIP_ANGLE_FOR_STATE_UP && kneeAngle >= PUSH_CORRECT_THERES_KNEE_ANGLE && state == 1 && shoulderElbowDiff > THRESH_SHOULDER_ELBOW_DIFF) {
+                return false
+            } else if (wristToeDiff < PUSH_CORRECT_THERES_WRIST_TOY_Y_DIFF && hipAngle >= PUSH_CORRECT_THERES_HIP_ANGLE_FOR_STATE_UP && kneeAngle >= PUSH_CORRECT_THERES_KNEE_ANGLE) {
+                return true
+            }
+        }else{
+            if (wristToeDiff < PUSH_CORRECT_THERES_WRIST_TOY_Y_DIFF && hipAngle >= PUSH_CORRECT_THERES_HIP_ANGLE && kneeAngle >= PUSH_CORRECT_THERES_KNEE_ANGLE && state == 1 && shoulderElbowDiff > THRESH_SHOULDER_ELBOW_DIFF) {
+                return false
+            } else if (wristToeDiff < PUSH_CORRECT_THERES_WRIST_TOY_Y_DIFF && hipAngle >= PUSH_CORRECT_THERES_HIP_ANGLE && kneeAngle >= PUSH_CORRECT_THERES_KNEE_ANGLE) {
+                return true
+            }
         }
         return false
     }

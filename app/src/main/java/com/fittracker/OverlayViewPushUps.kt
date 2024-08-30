@@ -8,7 +8,6 @@ import android.graphics.Paint
 import android.os.Build
 import android.speech.tts.TextToSpeech
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import com.fittracker.utilits.ConstantsPushUps
@@ -307,9 +306,9 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                         anglePaint
                     )
 
-                   /* if(!Utility.startPushUpTracking(wristY, toeY,hipsAngle,kneesAngle)){
+                    if(!Utility.startPushUpTracking(wristY, toeY,hipsAngle,kneesAngle)){
                         return
-                    }*/
+                    }
                     when (Utility.getPushUpState(elbowAngle, shoulderAngle, ConstantsSquats.LEFT_FACE)) {
                         ConstantsSquats.STATE_UP -> {
                             canvas.drawText(
