@@ -52,6 +52,33 @@
                 android:value="true" />
         </activity>
         <activity
+            android:name="com.fittracker.activity.LoginActivity"
+            android:theme="@style/Theme.MainActivity"
+            android:screenOrientation="portrait"
+            android:exported="true">
+            <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name="com.fittracker.activity.RegisterActivity"
+            android:theme="@style/Theme.MainActivity"
+            android:screenOrientation="portrait"
+            android:exported="true">
+            <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name="com.fittracker.activity.VerifyOtpActivity"
+            android:theme="@style/Theme.MainActivity"
+            android:screenOrientation="portrait"
+            android:exported="true">
+            <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
+        </activity>
+        <activity
             android:name="com.fittracker.activity.DashboardActivity"
             android:theme="@style/Theme.MainActivity"
             android:screenOrientation="portrait"

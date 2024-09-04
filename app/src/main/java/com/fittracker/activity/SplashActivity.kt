@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.fittracker.databinding.ActivitySplashBinding
 import com.fittracker.utilits.ConstantsSquats.SPLASH_DELAY
+import com.fittracker.utilits.FormFixConstants
+import com.fittracker.utilits.FormFixSharedPreferences
 
 
 class SplashActivity : AppCompatActivity() {
@@ -26,11 +28,21 @@ class SplashActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = ContextCompat.getColor(this, R.color.white)
         Handler(Looper.getMainLooper()).postDelayed({
+            moveToNextScreen()
+        }, SPLASH_DELAY)
+
+    }
+
+    fun moveToNextScreen(){
+        if(FormFixSharedPreferences.getSharedPrefBooleanValue(this@SplashActivity, FormFixConstants.IS_USER_LOGEDIN)){
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
             finish()
-        }, SPLASH_DELAY)
-
+        }else{
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     override fun onBackPressed() {

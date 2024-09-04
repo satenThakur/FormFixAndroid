@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+
+    tools:context=".activity.LoginActivity">
+    <RelativeLayout
+        android:layout_height="@dimen/_230sdp"
+        android:layout_width="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@color/lavender"
+        >
+        <ImageView
+            android:id="@+id/back_btn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:padding="@dimen/_3sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/iv_back_arrow"/></RelativeLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="@dimen/_80sdp"
+        android:layout_marginLeft="@dimen/_12sdp"
+        android:layout_marginRight="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_40sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_25sdp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:orientation="vertical"
+            android:padding="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/lbl1"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:fontFamily="@font/helvetica_bold"
+                android:textSize="@dimen/_14ssp"
+                android:text="Verify Otp"
+                android:textColor="@color/lavender" />
+            <TextView
+                android:id="@+id/lbl2"
+                android:gravity="left"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/helvetica"
+                android:textSize="@dimen/_14ssp"
+                android:text="Otp has been sent to +919650807273"
+                android:textColor="@color/gray_color" />
+            <TextView
+                android:id="@+id/lbl_change_phone"
+                android:gravity="left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:fontFamily="@font/helvetica"
+                android:textSize="@dimen/_12sdp"
+                android:text="Change phone number?"
+                android:textColor="@color/lavender" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_marginTop="@dimen/_25sdp"
+                android:background="@drawable/rounded_corner_bg"
+                android:singleLine="true"
+                android:hint="Enter OTP"
+                android:fontFamily="@font/helvetica"
+                android:textSize="@dimen/_11ssp"
+                android:inputType="number"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"/>
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_marginTop="@dimen/_15sdp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_resend"
+        android:layout_marginRight="@dimen/_3sdp"
+        android:background="@drawable/rounded_purple_border_button"
+        android:text="Resend"
+        android:textAllCaps="false"
+        android:fontFamily="@font/helvetica"
+        android:textColor="@color/lavender"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_confirm"
+        android:background="@drawable/rounded_purple_border_button"
+        android:layout_marginLeft="@dimen/_3sdp"
+        android:text="Confirm"
+        android:textAllCaps="false"
+        android:fontFamily="@font/helvetica"
+        android:textColor="@color/lavender"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
