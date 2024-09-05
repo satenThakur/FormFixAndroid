@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_28sdp"
         android:padding="@dimen/_3sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         android:layout_marginTop="@dimen/_80sdp"
         android:layout_marginLeft="@dimen/_12sdp"
         android:layout_marginRight="@dimen/_12sdp"
-        android:layout_marginBottom="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_50sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -55,7 +55,7 @@
                 android:fontFamily="@font/helvetica_bold"
                 android:textSize="@dimen/_14ssp"
                 android:text="Register"
-                android:textColor="@color/lavender" />
+                android:textColor="@color/colorPrimary" />
             <androidx.appcompat.widget.AppCompatEditText
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/rounded_corner_bg"
@@ -67,7 +67,7 @@
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingRight="@dimen/_10sdp"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_30sdp"/>
+                android:layout_height="@dimen/_35sdp"/>
             <androidx.appcompat.widget.AppCompatEditText
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/rounded_corner_bg"
@@ -79,7 +79,7 @@
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingRight="@dimen/_10sdp"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_30sdp"/>
+                android:layout_height="@dimen/_35sdp"/>
             <androidx.appcompat.widget.AppCompatEditText
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/rounded_corner_bg"
@@ -91,17 +91,17 @@
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingRight="@dimen/_10sdp"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_30sdp"/>
+                android:layout_height="@dimen/_35sdp"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_register"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:background="@drawable/rounded_purple_border_button"
                 android:text="Create account"
-                android:textAllCaps="false"
+                android:textAllCaps="true"
                 android:fontFamily="@font/helvetica"
-                android:textColor="@color/lavender"
+                android:textColor="@color/colorPrimary"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="@dimen/_35sdp"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.cardview.widget.CardView>
 

@@ -14,13 +14,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@color/lavendrrr"
+        android:background="@color/colorPrimary"
       ></RelativeLayout>
 <androidx.cardview.widget.CardView
     android:layout_marginTop="@dimen/_80sdp"
     android:layout_marginLeft="@dimen/_12sdp"
     android:layout_marginRight="@dimen/_12sdp"
-    android:layout_marginBottom="@dimen/_40sdp"
+    android:layout_marginBottom="@dimen/_50sdp"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
@@ -45,7 +45,7 @@
             android:fontFamily="@font/helvetica_bold"
             android:textSize="@dimen/_14ssp"
             android:text="Login"
-            android:textColor="@color/lavendrrr" />
+            android:textColor="@color/colorPrimary" />
         <TextView
             android:id="@+id/lbl2"
             android:gravity="left"
@@ -55,7 +55,7 @@
             android:fontFamily="@font/helvetica"
             android:textSize="@dimen/_12ssp"
             android:text="Please sign in to continue"
-            android:textColor="@color/gray_color" />
+            android:textColor="@color/light_black_color" />
         <androidx.appcompat.widget.AppCompatEditText
             android:layout_marginTop="@dimen/_30sdp"
             android:background="@drawable/rounded_corner_bg"
@@ -67,16 +67,17 @@
             android:paddingLeft="@dimen/_10sdp"
             android:paddingRight="@dimen/_10sdp"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"/>
+            android:layout_height="@dimen/_35sdp"/>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login"
             android:layout_marginTop="@dimen/_15sdp"
             android:background="@drawable/rounded_button_purple"
             android:text="Login"
+            android:gravity="center"
             android:fontFamily="@font/helvetica"
             android:textColor="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="@dimen/_35sdp"/>
         <TextView
             android:id="@+id/lbl3"
             android:gravity="center"
@@ -87,17 +88,18 @@
             android:fontFamily="@font/helvetica"
             android:textSize="@dimen/_12ssp"
             android:text="Don't have account? create account"
-            android:textColor="@color/gray_color" />
+            android:textColor="@color/light_black_color" />
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_register"
            android:layout_marginTop="@dimen/_5sdp"
             android:background="@drawable/rounded_purple_border_button"
             android:text="Create account"
-            android:textAllCaps="false"
+            android:gravity="center"
+            android:textAllCaps="true"
             android:fontFamily="@font/helvetica"
-            android:textColor="@color/lavendrrr"
+            android:textColor="@color/purple_700"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="@dimen/_35sdp"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.cardview.widget.CardView>
 

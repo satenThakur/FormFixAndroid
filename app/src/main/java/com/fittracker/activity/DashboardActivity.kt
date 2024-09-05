@@ -264,6 +264,11 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 val intent = Intent(this, RecordedVideoListActivity::class.java)
                 startActivity(intent)
             }
+            R.id.nav_logout -> {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
 
         }
         activityMainBinding.drawerLayout.closeDrawer(GravityCompat.START)

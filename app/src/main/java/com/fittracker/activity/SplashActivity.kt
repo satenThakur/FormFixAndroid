@@ -34,6 +34,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     fun moveToNextScreen(){
+
         if(FormFixSharedPreferences.getSharedPrefBooleanValue(this@SplashActivity, FormFixConstants.IS_USER_LOGEDIN)){
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)

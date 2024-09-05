@@ -17,6 +17,10 @@
             android:icon="@drawable/iv_media"
             android:title="Recorded Files"/>
 
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/iv_logout_24"
+            android:title="Logout"/>
   <!--      <item
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_home"

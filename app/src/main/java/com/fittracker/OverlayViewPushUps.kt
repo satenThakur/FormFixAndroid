@@ -384,13 +384,13 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                         }
 
                         ConstantsSquats.STATE_DOWN -> {
+                            statesSet.add(ConstantsSquats.STATE_DOWN)
                             canvas.drawText(
                                 resources.getString(R.string.state_down),
                                 ConstantsSquats.TEXT_X,
                                 ConstantsSquats.TEXT_STATE_Y,
                                 statePaint
                             )
-                            statesSet.add(ConstantsSquats.STATE_DOWN)
 
                             if(Utility.isPushUpPoseCorrect(hipsAngle, kneesAngle, ConstantsSquats.STATE_DOWN, Utility.getShoulderElbowXDiff(shoulderX,elbowX, ConstantsSquats.STATE_DOWN),Utility.getWristToeYDiff(wristY,toeY))){
 

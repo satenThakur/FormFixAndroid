@@ -326,7 +326,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/pause_circle/baseline_pause_circle_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/logout/baseline_logout_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -337,7 +337,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="4437ff" />
-                            <entry key="outputName" value="iv_pause" />
+                            <entry key="outputName" value="iv_logout_24" />
                           </map>
                         </option>
                       </PersistentState>
