@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Environment
+import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.TextView
 import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_HIP_ANGLE
@@ -24,7 +26,6 @@ import com.fittracker.utilits.ConstantsSquats.STATE_DOWN
 import com.fittracker.utilits.ConstantsSquats.STATE_MOVING
 import com.fittracker.utilits.ConstantsSquats.STATE_UN_DECIDED
 import com.fittracker.utilits.ConstantsSquats.STATE_UP
-import com.fittracker.utilits.Utility.Log
 import com.google.android.material.snackbar.Snackbar
 import com.google.mediapipe.tasks.components.containers.NormalizedLandmark
 import java.io.File
@@ -36,6 +37,7 @@ import kotlin.math.acos
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+
 object Utility {
     fun deleteMediaFile(filename: String) {
         var fileToPlay = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
@@ -46,7 +48,13 @@ object Utility {
             file.delete()
         }
     }
-
+    fun isValidEmail(target: CharSequence?): Boolean {
+        return if (TextUtils.isEmpty(target)) {
+            false
+        } else {
+            Patterns.EMAIL_ADDRESS.matcher(target).matches()
+        }
+    }
     fun checkIfFileExist(filename: String): Boolean {
         var fileToPlay = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
             .toString() + "/" + ConstantsSquats.FOLDER_NAME + "/" + filename + ".mp4"

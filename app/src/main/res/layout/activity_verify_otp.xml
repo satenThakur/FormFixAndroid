@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-
     tools:context=".activity.LoginActivity">
     <RelativeLayout
         android:layout_height="@dimen/_230sdp"
@@ -21,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_28sdp"
+            android:layout_marginTop="@dimen/_25sdp"
             android:padding="@dimen/_3sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,8 +36,10 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:cardElevation="@dimen/_10sdp"
         android:elevation="@dimen/_10sdp"
-        app:cardCornerRadius="@dimen/_25sdp">
+        app:cardCornerRadius="@dimen/_25sdp"
+        app:cardBackgroundColor="@color/white">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:orientation="vertical"
@@ -53,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:fontFamily="@font/helvetica_bold"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="@dimen/_16ssp"
                 android:text="Verify Otp"
                 android:textColor="@color/colorPrimary" />
             <TextView
@@ -73,21 +74,38 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:fontFamily="@font/helvetica"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_13sdp"
                 android:text="Change phone number?"
                 android:textColor="@color/colorPrimary" />
-            <androidx.appcompat.widget.AppCompatEditText
-                android:layout_marginTop="@dimen/_25sdp"
-                android:background="@drawable/rounded_corner_bg"
-                android:singleLine="true"
-                android:hint="Enter OTP"
-                android:fontFamily="@font/helvetica"
-                android:textSize="@dimen/_11ssp"
-                android:inputType="number"
-                android:paddingLeft="@dimen/_10sdp"
-                android:paddingRight="@dimen/_10sdp"
+            <TextView
+                android:id="@+id/lbl4"
+                android:gravity="left"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_35sdp"/>
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/helvetica"
+                android:textSize="@dimen/_14ssp"
+                android:text="Enter OTP"
+                android:textColor="@color/light_black_color" />
+            <com.chaos.view.PinView
+                android:id="@+id/otp_view"
+                app:itemCount="5"
+                app:itemWidth="@dimen/_45sdp"
+                app:itemHeight="@dimen/_45sdp"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:itemBackground="@color/white"
+                android:layout_gravity="center"
+                android:inputType="number"
+                android:cursorVisible="true"
+                app:itemSpacing="@dimen/_5sdp"
+                app:lineColor="@color/colorPrimary"
+                app:hideLineWhenFilled="false"
+                app:itemRadius="@dimen/_10sdp"
+                style="@style/PinWidget.PinView"
+                ></com.chaos.view.PinView>
 <androidx.appcompat.widget.LinearLayoutCompat
     android:layout_marginTop="@dimen/_15sdp"
     android:orientation="horizontal"
@@ -104,18 +122,20 @@
         android:textColor="@color/colorPrimary"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="wrap_content"/>
+        android:textSize="@dimen/_14ssp"
+        android:layout_height="@dimen/_35sdp"/>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_confirm"
         android:background="@drawable/rounded_purple_border_button"
         android:layout_marginLeft="@dimen/_3sdp"
         android:text="Confirm"
         android:textAllCaps="false"
+        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/helvetica"
         android:textColor="@color/colorPrimary"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="wrap_content"/>
+        android:layout_height="@dimen/_35sdp"/>
 </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>

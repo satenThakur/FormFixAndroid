@@ -64,4 +64,16 @@
     <string name="knees_going_inwards">Knees going inwards</string>
     <string name="hips_not_in_centre">Hips not in centre</string>
 
+
+
+    <!--Onboarding flow  Messages-->
+    <string name="enter_phone_number">Enter phone number</string>
+    <string name="enter_correct_phone_number">Phone number digits are less then 10</string>
+    <string name="enter_name">Enter name</string>
+    <string name="enter_email">Enter email id</string>
+    <string name="enter_valid_email">Enter valid email id</string>
+    <string name="enter_weight">Enter weight</string>
+    <string name="enter_height">Enter height</string>
+    <string name="enter_otp">Enter otp</string>
+    <string name="enter_valid_otp">Enter valid otp</string>
 </resources>

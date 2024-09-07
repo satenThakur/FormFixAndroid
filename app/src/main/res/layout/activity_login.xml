@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-
     tools:context=".activity.LoginActivity">
     <RelativeLayout
         android:layout_height="@dimen/_230sdp"
@@ -25,8 +24,10 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
+    app:cardBackgroundColor="@color/white"
     android:layout_width="0dp"
     android:layout_height="0dp"
+    app:cardElevation="@dimen/_10sdp"
     android:elevation="@dimen/_10sdp"
     app:cardCornerRadius="@dimen/_25sdp">
 
@@ -37,43 +38,74 @@
         android:layout_height="match_parent">
         <TextView
             android:id="@+id/lbl1"
-            android:gravity="left"
+            android:gravity="center"
             android:layout_marginTop="@dimen/_40sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:fontFamily="@font/helvetica_bold"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_16ssp"
             android:text="Login"
             android:textColor="@color/colorPrimary" />
         <TextView
             android:id="@+id/lbl2"
+            android:layout_marginTop="@dimen/_35sdp"
             android:gravity="left"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:fontFamily="@font/helvetica"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_14ssp"
             android:text="Please sign in to continue"
             android:textColor="@color/light_black_color" />
-        <androidx.appcompat.widget.AppCompatEditText
-            android:layout_marginTop="@dimen/_30sdp"
+        <LinearLayout
             android:background="@drawable/rounded_corner_bg"
+            android:layout_marginTop="@dimen/_45sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/llNumber">
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/ccp"
+            app:ccp_defaultNameCode="US"
+            app:ccp_showFullName="false"
+            app:ccp_showPhoneCode="true"
+            app:ccp_showNameCode="false"
+            app:ccp_showFlag="true"
+            app:ccp_autoFormatNumber="true"
+            app:ccp_showArrow="true"
+            app:ccp_textSize="@dimen/_14ssp"
+            app:ccp_arrowSize="@dimen/_16sdp"
+            app:ccpDialog_keyboardAutoPopup="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etPhoneNumber"
+            android:background="@null"
             android:singleLine="true"
-            android:hint="Enter Phone Number"
+            android:hint="Phone Number"
             android:fontFamily="@font/helvetica"
-            android:textSize="@dimen/_11ssp"
             android:inputType="number"
-            android:paddingLeft="@dimen/_10sdp"
+            android:maxLength="10"
+            android:textSize="@dimen/_13ssp"
+            android:textColor="@color/light_black_color"
+            android:textColorHint="@color/slate_color"
             android:paddingRight="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_35sdp"/>
+    </LinearLayout>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login"
             android:layout_marginTop="@dimen/_15sdp"
             android:background="@drawable/rounded_button_purple"
             android:text="Login"
             android:gravity="center"
+            android:textSize="@dimen/_14ssp"
             android:fontFamily="@font/helvetica"
             android:textColor="@color/white"
             android:layout_width="match_parent"
@@ -81,12 +113,12 @@
         <TextView
             android:id="@+id/lbl3"
             android:gravity="center"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_40sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:fontFamily="@font/helvetica"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_14ssp"
             android:text="Don't have account? create account"
             android:textColor="@color/light_black_color" />
         <androidx.appcompat.widget.AppCompatButton
@@ -96,6 +128,7 @@
             android:text="Create account"
             android:gravity="center"
             android:textAllCaps="true"
+            android:textSize="@dimen/_14ssp"
             android:fontFamily="@font/helvetica"
             android:textColor="@color/purple_700"
             android:layout_width="match_parent"
