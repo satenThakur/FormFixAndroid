@@ -18,9 +18,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="-UI Changes&#10;-Login Flow UI  Enhancement">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/APiService/ApiClient.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/APiService/ApiService.kt" afterDir="false" />
+    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="-Onboarding Flow Api Calls">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/APiService/ApiConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/APiService/ApiServices.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/APiService/modules/AppModule.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/model/OTPResponse.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/viewmodel/LoginViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/xml/networl_security_config.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/checksums/sha1-checksums.bin" afterDir="false" />
@@ -32,17 +36,23 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/APiService/ApiService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/APiService/ApiService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/DashboardActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/DashboardActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/LoginActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/LoginActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/RegisterActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/RegisterActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/SplashActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/SplashActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/VerifyOtpActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/activity/VerifyOtpActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/adapter/MediaAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/adapter/MediaAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/application/FormfitApplication.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/application/FormfitApplication.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/PushUpFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/PushUpFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/SquatFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/SquatFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/FormFixConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/FormFixConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Utility.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Utility.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_verify_otp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_verify_otp.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -97,10 +107,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Kotlin Data Class" />
         <option value="Kotlin Class" />
         <option value="Kotlin Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -124,7 +134,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;DEBUGGABLE_DEVICE&quot;: &quot;samsung-sm_a356e-RZCX608VTBE&quot;,
+    &quot;DEBUGGABLE_DEVICE&quot;: &quot;samsung-sm_a356e-adb-RZCX608VTBE-xCu7sZ._adb-tls-connect._tcp.&quot;,
     &quot;DEBUGGABLE_PROCESS&quot;: &quot;com.fittracker&quot;,
     &quot;DEBUGGER_ID&quot;: &quot;Auto&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
@@ -140,7 +150,11 @@
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/res/drawable&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/res/xml&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDK Location&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -150,17 +164,23 @@
     ]
   }
 }</component>
+  <component name="PsdUISettings">
+    <option name="LAST_EDITED_BUILD_TYPE" value="release" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/xml" />
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
       <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
       <recent name="$PROJECT_DIR$/app/src/main/res/raw" />
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable-anydpi" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.fittracker.APiService.modules" />
+      <recent name="com.fittracker.model" />
+      <recent name="com.fittracker.viewmodel" />
+      <recent name="com.fittracker.APiService" />
       <recent name="com.fittracker.activity" />
-      <recent name="com.fittracker" />
-      <recent name="com.fittracker.fragment" />
     </key>
   </component>
   <component name="RunManager">
@@ -380,7 +400,14 @@
       <option name="project" value="LOCAL" />
       <updated>1725555608159</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="-Onboarding Flow Api Calls">
+      <created>1725702452643</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1725702452643</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -416,7 +443,8 @@
     <MESSAGE value="-Push-Ups commit" />
     <MESSAGE value="-UI Changes&#10;-Login&#10;-Register&#10;-OTP verification" />
     <MESSAGE value="-UI Changes&#10;-Login Flow UI  Enhancement" />
-    <option name="LAST_COMMIT_MESSAGE" value="-UI Changes&#10;-Login Flow UI  Enhancement" />
+    <MESSAGE value="-Onboarding Flow Api Calls" />
+    <option name="LAST_COMMIT_MESSAGE" value="-Onboarding Flow Api Calls" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -450,6 +478,21 @@
           <url>file://$PROJECT_DIR$/app/src/main/java/com/fittracker/fragment/PermissionsFragment.kt</url>
           <line>91</line>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/fittracker/viewmodel/LoginViewModel.kt</url>
+          <line>24</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/fittracker/viewmodel/LoginViewModel.kt</url>
+          <line>28</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/fittracker/viewmodel/LoginViewModel.kt</url>
+          <line>30</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

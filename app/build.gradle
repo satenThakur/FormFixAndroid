@@ -2,7 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'de.undercouch.download'
-    id "com.google.devtools.ksp"
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -47,7 +48,7 @@ apply from: 'download_tasks.gradle'
 dependencies {
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.android.material:material:1.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.fragment:fragment-ktx:1.5.4'
 
@@ -62,10 +63,26 @@ dependencies {
     implementation "androidx.camera:camera-lifecycle:$camerax_version"
 
     implementation "androidx.camera:camera-view:$camerax_version"
-
-    implementation 'androidx.window:window:1.1.0-alpha03'
+    //Retrofit
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
+
+
+    // Hilt dependencies
+    implementation "com.google.dagger:hilt-android:2.42"
+    kapt "com.google.dagger:hilt-android-compiler:2.42"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:2.35.1"
+
+    // Hilt testing
+    androidTestImplementation "com.google.dagger:hilt-android-testing:2.42"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:2.42"
+
+
+
+    implementation 'androidx.window:window:1.1.0-alpha03'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -77,5 +94,5 @@ dependencies {
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
     implementation 'io.github.chaosleung:pinview:1.4.4'
     implementation 'androidx.room:room-ktx:2.5.2'
-    ksp("androidx.room:room-compiler:2.5.2")
+    kapt("androidx.room:room-compiler:2.5.2")
 }

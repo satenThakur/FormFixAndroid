@@ -1,9 +1,97 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-plugins {
-    id 'com.android.application' version '7.4.2' apply false
-    id 'com.android.library' version '7.4.2' apply false
-    id 'org.jetbrains.kotlin.android' version '1.8.0' apply false
-    id 'de.undercouch.download' version '4.1.2' apply false
-    id "com.google.devtools.ksp" version "1.8.10-1.0.9" apply false
+buildscript {
 
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.0.2"
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10'
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.42"
+
+        // Add the dependency for the Google services Gradle plugin
+        classpath 'com.google.gms:google-services:4.3.13'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
 }
+
+ext.url = [
+        'BASE_URL'    : '"http://phplaravel-596529-2531524.cloudwaysapps.com/"',
+        'BASE_URL_PATIENT'    : '"http://phplaravel-596529-2531524.cloudwaysapps.com/"',
+        'BASE_URL_DOCTOR'   : '"http://phplaravel-596529-2531524.cloudwaysapps.com/"',
+        'BASE_URL_PHARMACY': '"http://phplaravel-596529-2531524.cloudwaysapps.com/storage/"'
+
+]
+ext.versions = [
+        'compileSdkVersion'      : 32,
+        'minSdkVersion'          : 21,
+        'targetSdkVersion'       : 32,
+        'supportLibrary'         : '28.0.2',
+        'okhttp'                 : '4.9.0',
+        'retrofit'               : '2.9.0',
+        'archLifecycle'          : '1.1.1',
+        'archNavigation'         : '1.0.0',
+        'fragmentx'              : '1.1.0',
+        'dagger'                 : '2.25.2',
+        'mockitoKotlin'          : '1.6.0',
+        'mockitoKotlin2'         : '2.1.0',
+        'mockitoInline'          : '2.25.0',
+        'archRuntime'            : '2.1.0',
+        'archLifecycleExtensions': '2.2.0',
+        'appcompat'              : '1.2.0',
+        'androidxAnnotations'    : '1.0.1',
+        'constraintlayout'       : '2.0.4',
+        'androidMaterial'        : '1.2.1',
+        'playServicesVision'     : '20.1.3',
+        'moshi'                  : '1.9.2',
+        'rxJava'                 : '2.2.9',
+        'rxAndroid'              : '2.1.1',
+        'rxBinding'              : '2.2.0',
+        'spekApi'                : '1.1.5',
+        'junit'                  : '4.13.1',
+        'junitPlatformRunner'    : '1.7.0',
+        'spekJunitPlatformEngine': '1.1.5',
+        'spekJunit'              : '1.1.5',
+        'assertj'                : '3.18.1',
+        'espresso'               : '3.3.0',
+        'androidTest'            : '1.3.0',
+        'stetho'                 : '1.5.1',
+        'junitparams'            : '1.1.1',
+        'crashlytics'            : '2.10.0',
+        'coroutines'             : '1.2.1',
+        'legacySupport'          : '1.0.0',
+        'converterGson'          : '2.9.0',
+        'gson'                   : '2.8.6',
+        'nav_version'            : '2.3.3',
+        'xactivity'              : '1.2.0-rc01',
+        'lottie'                 : '3.4.4',
+        'nav_compose_version'    : '1.0.0-alpha05',
+        'firebase_bom'           : '26.4.0',
+        'dexter'                 : '6.2.2',
+        'exifinterface'          : '1.3.2',
+        'glide'                  : '4.11.0',
+        'shimmer_version'        : '0.5.0',
+        'kotlin_version'         : '1.6.0',
+        'nav_version'            : '2.3.1',
+        'appcompat_version'      : '1.2.0',
+        'material_version'       : '1.3.0',
+        'constraint_layout_version' : '2.0.4',
+        'junit_version'          : '4.13.1',
+        'androidx_test_runner_version' : '1.3.0',
+        'espresso_core_version' : '3.3.0',
+        // Hilt
+        'hilt_version' : '2.42',
+        // Dagger
+        'dagger_version' : '2.35.1',
+        // Networking
+        'retrofitVersion' : '2.9.0',
+        'okHttpVersion' : '4.7.2',
+        'camerax_version' : '1.2.0-alpha02',
+        'nav_version' : '2.5.3'
+]
+
+

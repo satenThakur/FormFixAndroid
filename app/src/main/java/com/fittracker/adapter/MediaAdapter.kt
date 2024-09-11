@@ -49,7 +49,7 @@ class MediaAdapter (private val itemList: List<MediaData>, private var context: 
                 intent.putExtra(ConstantsSquats.FILE_TYPE,0)
                 context.startActivity(intent)
             }else{
-                Utility.onSNACK(holder.itemView,context.resources.getString(R.string.file_not_exist))
+                Utility.showErrorSnackBar(holder.itemView,context.resources.getString(R.string.file_not_exist))
                 GlobalScope.launch (Dispatchers.IO) {
                     FormfitApplication.database.userDao().deletebyId(itemList[position].id)
                     mediaItemListner.onItemDeleted(position)

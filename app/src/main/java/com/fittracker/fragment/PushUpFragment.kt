@@ -137,7 +137,7 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                     isPlaying = true
                 }
             }else{
-                Utility.onSNACK(
+                Utility.showErrorSnackBar(
                     fragmentpushupsBinding.root,
                     resources.getString(R.string.timer_not_completed)
                 )

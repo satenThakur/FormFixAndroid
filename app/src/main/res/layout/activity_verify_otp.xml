@@ -58,14 +58,13 @@
                 android:text="Verify Otp"
                 android:textColor="@color/colorPrimary" />
             <TextView
-                android:id="@+id/lbl2"
+                android:id="@+id/lbl_otp_sent"
                 android:gravity="left"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/helvetica"
                 android:textSize="@dimen/_14ssp"
-                android:text="Otp has been sent to +919650807273"
                 android:textColor="@color/light_black_color" />
             <TextView
                 android:id="@+id/lbl_change_phone"

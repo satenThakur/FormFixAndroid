@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_HIP_ANGLE
 import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_HIP_ANGLE_FOR_STATE_UP
@@ -55,6 +56,11 @@ object Utility {
             Patterns.EMAIL_ADDRESS.matcher(target).matches()
         }
     }
+
+    fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
+    }
     fun checkIfFileExist(filename: String): Boolean {
         var fileToPlay = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
             .toString() + "/" + ConstantsSquats.FOLDER_NAME + "/" + filename + ".mp4"
@@ -82,7 +88,7 @@ object Utility {
         return formatter.format(curTime)
     }
 
-    fun onSNACK(view: View, msg: String) {
+    fun showErrorSnackBar(view: View, msg: String) {
         //Snackbar(view)
         val snackbar = Snackbar.make(
             view, msg,
@@ -91,6 +97,20 @@ object Utility {
         snackbar.setActionTextColor(Color.BLUE)
         val snackbarView = snackbar.view
         snackbarView.setBackgroundColor(Color.RED)
+        val textView =
+            snackbarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+        textView.setTextColor(Color.WHITE)
+        textView.textSize = 14f
+        snackbar.show()
+    }    fun showMessageSnackBar(view: View, msg: String) {
+        //Snackbar(view)
+        val snackbar = Snackbar.make(
+            view, msg,
+            Snackbar.LENGTH_LONG
+        ).setAction("Action", null)
+        snackbar.setActionTextColor(Color.BLUE)
+        val snackbarView = snackbar.view
+        snackbarView.setBackgroundColor(Color.GREEN)
         val textView =
             snackbarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
         textView.setTextColor(Color.WHITE)

@@ -13,6 +13,7 @@ import com.fittracker.databinding.ActivitySplashBinding
 import com.fittracker.utilits.ConstantsSquats.SPLASH_DELAY
 import com.fittracker.utilits.FormFixConstants
 import com.fittracker.utilits.FormFixSharedPreferences
+import dagger.hilt.android.AndroidEntryPoint
 
 
 class SplashActivity : AppCompatActivity() {

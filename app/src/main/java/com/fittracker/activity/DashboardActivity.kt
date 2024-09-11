@@ -67,14 +67,14 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 if (selectedTag == 0 || selectedTag == 1) {
                     moveToCameraActivity(tags[selectedTag].text.toString())
                 } else {
-                    Utility.onSNACK(
+                    Utility.showErrorSnackBar(
                         activityMainBinding.root,
                         resources.getString(R.string.coming_soon)
                     )
                 }
 
             } else {
-                Utility.onSNACK(
+                Utility.showErrorSnackBar(
                     activityMainBinding.root,
                     resources.getString(R.string.select_exercise)
                 )
