@@ -1,6 +1,7 @@
 package com.lookuptalk.professional.di.modules
 
 import android.content.Context
+import com.fittracker.APiService.ApiConstants
 import com.fittracker.APiService.ApiServices
 import com.fittracker.application.FormfitApplication
 import com.fittracker.model.OTPResponse
@@ -93,7 +94,7 @@ object AppModule {
     @Provides
     fun providesRetrofitService(client: OkHttpClient): ApiServices {
         return Retrofit.Builder()
-            .baseUrl("http://13.202.198.239:8080/api/")
+            .baseUrl(ApiConstants.BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

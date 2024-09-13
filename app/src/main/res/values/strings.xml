@@ -76,4 +76,6 @@
     <string name="enter_height">Enter height</string>
     <string name="enter_otp">Enter otp</string>
     <string name="enter_valid_otp">Enter valid otp</string>
+
+    <string name="something_went_wrong">Something went wrong, please try again!</string>
 </resources>

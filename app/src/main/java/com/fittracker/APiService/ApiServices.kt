@@ -1,6 +1,6 @@
 package com.fittracker.APiService
 
-import com.fittracker.model.OTPResponse
+import com.fittracker.model.ApiResponse
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -9,14 +9,19 @@ import retrofit2.http.*
 interface ApiServices {
     /**On-Boarding Flow Apis **/
 
+    @GET("/api/v1/user/login/{phone}")
+    fun userLogin(@Path(value = "phone", encoded = true) phone: String): Call<ApiResponse>
+
     @POST("/api/v1/generateOtp/{phone}")
-    fun requestOtp(@Path(value = "phone", encoded = true) phone: String): Call<OTPResponse>
+    fun requestOtp(@Path(value = "phone", encoded = true) phone: String): Call<ApiResponse>
+
+
     @POST("/api/v1/validateOtp")
     fun validateOtp(@Body jsonObject: JsonObject
-    ): Call<OTPResponse>
-    @POST("/api/v1/signup")
+    ): Call<ApiResponse>
+    @POST("/api/v1/user/signup")
     fun signup(@Body jsonObject: JsonObject
-    ): Call<OTPResponse>
+    ): Call<ApiResponse>
 
     @POST("/api/v1/{request_for}/register")
     fun register(
@@ -31,7 +36,7 @@ interface ApiServices {
     fun loginWithUsername(
         @Path(value = "request_for", encoded = true) request_for: String,
         @Body jsonObject: JsonObject
-    ): Call<OTPResponse>
+    ): Call<ApiResponse>
 
     /*patient forgot Password*/
    /* @POST("/api/v1/{request_for}/forgot-password")
@@ -45,7 +50,7 @@ interface ApiServices {
     fun getOTP(
         @Path(value = "request_for", encoded = true) request_for: String,
         @Body jsonObject: JsonObject
-    ): Call<OTPResponse>
+    ): Call<ApiResponse>
 
     *//**Patient APis **//*
     *//*Get up coming Appointment*//*
@@ -157,20 +162,20 @@ interface ApiServices {
     fun getRegisterPharmacy(@Body jsonObject: JsonObject): Call<ResponseBody>
     *//**//*Login pharmacy*//**//*
     @POST("/api/v1/pharmacy/login")
-    fun getLoginUsername(@Body jsonObject: JsonObject): Call<OTPResponse>
+    fun getLoginUsername(@Body jsonObject: JsonObject): Call<ApiResponse>
     *//**//*patient forgot Password*//**//*
     @POST("/api/v1/pharmacy/forgot-password")
     fun forgotPassword(@Body jsonObject: JsonObject): Single<PasswordChangeModel>
 
     *//**//*Register Doc verify OTP*//**//*
     @POST("/api/v1//pharmacy/verify/register/otp")
-    fun getRegisterOTP(@Body jsonObject: JsonObject): Call<OTPResponse>
+    fun getRegisterOTP(@Body jsonObject: JsonObject): Call<ApiResponse>
     *//**//*Change Password*//**//*
     @POST("/api/v1/pharmacy/change-password")
     fun changePassword(@Body jsonObject: JsonObject): Single<PasswordChangeModel>
     *//**//*VerifyOTP*//**//*
     @POST("/api/v1/pharmacy/verify/login/otp")
-    fun getOTP(@Body jsonObject: JsonObject): Call<OTPResponse>*//*
+    fun getOTP(@Body jsonObject: JsonObject): Call<ApiResponse>*//*
 
 
     *//**Doctor APIs    **//*
@@ -181,7 +186,7 @@ interface ApiServices {
 
       *//**//*Login*//**//*
     @POST("/api/v1/auth/doctor/login")
-    fun getLoginUsername(@Body jsonObject: JsonObject): Call<OTPResponse>
+    fun getLoginUsername(@Body jsonObject: JsonObject): Call<ApiResponse>
 
     *//**//*Doctor forgot Password*//**//*
     @POST("/api/v1/auth/doctor/forgot-password")
@@ -193,7 +198,7 @@ interface ApiServices {
 
     *//*Get Refresh Token*//*
     @POST("/api/v1/refreshToken")
-    fun getRefreshToken(): Call<OTPResponse>
+    fun getRefreshToken(): Call<ApiResponse>
 
     *//*Register Doc*//*
     @POST("/api/v1/auth/doctor/register")
@@ -201,7 +206,7 @@ interface ApiServices {
 
     *//*Register Doc verify OTP*//*
     @POST("/api/v1//auth/doctor/verify/register/otp")
-    fun getRegisterOTP(@Body jsonObject: JsonObject): Call<OTPResponse>
+    fun getRegisterOTP(@Body jsonObject: JsonObject): Call<ApiResponse>
 
 
     *//*Change Password*//*

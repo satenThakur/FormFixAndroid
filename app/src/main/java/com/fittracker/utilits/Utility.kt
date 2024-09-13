@@ -1,5 +1,7 @@
 package com.fittracker.utilits
 
+import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
@@ -7,9 +9,14 @@ import android.os.Environment
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
+import android.view.Gravity
 import android.view.View
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.TextView
+import com.fittracker.R
 import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_HIP_ANGLE
 import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_HIP_ANGLE_FOR_STATE_UP
 import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_KNEE_ANGLE
@@ -40,6 +47,11 @@ import kotlin.math.sqrt
 
 
 object Utility {
+
+    fun hideKeyboard(context: Context,view: View) {
+        val inputMethodManager = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
     fun deleteMediaFile(filename: String) {
         var fileToPlay = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
             .toString() + "/" + ConstantsSquats.FOLDER_NAME + "/" + filename + ".mp4"
@@ -86,6 +98,26 @@ object Utility {
         val formatter = SimpleDateFormat(ConstantsSquats.TIME_FORMAT, Locale.getDefault())
         val curTime = Date(System.currentTimeMillis())
         return formatter.format(curTime)
+    }
+
+     fun showDialog(context: Context,tirle: String,msg: String) {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_custom)
+
+        val title = dialog.findViewById(R.id.tvTitle) as androidx.appcompat.widget.AppCompatTextView
+        title.setText(tirle)
+
+        val message = dialog.findViewById(R.id.tvMessage) as androidx.appcompat.widget.AppCompatTextView
+       message.setText(msg)
+        val yesBtn = dialog.findViewById(R.id.btn_ok) as androidx.appcompat.widget.AppCompatButton
+        yesBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+
+
+        dialog.show()
     }
 
     fun showErrorSnackBar(view: View, msg: String) {

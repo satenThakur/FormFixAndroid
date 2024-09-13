@@ -3,19 +3,20 @@ package com.fittracker.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.fittracker.R
 import com.fittracker.databinding.ActivityRegisterBinding
 import com.fittracker.utilits.FormFixConstants
 import com.fittracker.utilits.Utility
-import com.fittracker.viewmodel.LoginViewModel
-import okhttp3.internal.notifyAll
-import okhttp3.internal.wait
+import com.fittracker.viewmodel.OnBoardingViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
     private lateinit var activityRegisterBinding: ActivityRegisterBinding
-    private val loginViewModel: LoginViewModel by viewModels()
+    private val loginViewModel: OnBoardingViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityRegisterBinding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -23,19 +24,17 @@ class RegisterActivity : AppCompatActivity() {
         activityRegisterBinding.backBtn.setOnClickListener {
             onBackPressed()
         }
-        activityRegisterBinding.btnRegister.setOnClickListener {
-            val intent = Intent(this, VerifyOtpActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+
         activityRegisterBinding.btnRegister.setOnClickListener {
             var name=activityRegisterBinding.edName.text.toString()
             var phone=activityRegisterBinding.edPhone.text.toString()
             var email=activityRegisterBinding.edEmail.text.toString()
             var weight=activityRegisterBinding.edWeight.text.toString()
             var height=activityRegisterBinding.edHeight.text.toString()
+            Utility.hideKeyboard(this, activityRegisterBinding.btnRegister)
             if (isValid(name,phone,email,weight,height)) {
-                registerApiCall(name,phone,email,weight,height)
+                registerApiCall(activityRegisterBinding.ccp.selectedCountryCode,
+                    activityRegisterBinding.edPhone.text.toString())
             }
         }
     }
@@ -101,46 +100,40 @@ class RegisterActivity : AppCompatActivity() {
 
     }
     @SuppressLint("SuspiciousIndentation")
-    private fun generateOtp(countryCode:String, phone:String){
+    private fun registerApiCall(countryCode:String, phone:String){
+        activityRegisterBinding.progressCircular.visibility = View.VISIBLE
+        activityRegisterBinding.progressCircular.bringToFront()
         var phoneNumber= "+$countryCode$phone"
         loginViewModel.generateOtp(phoneNumber)?.observe(this) {
-            if (it?.statusCode==200) {
-                val intent = Intent(this, VerifyOtpActivity::class.java)
-                intent.putExtra(FormFixConstants.ONBOARDING_TYPE,FormFixConstants.REGISTER)
-                intent.putExtra(FormFixConstants.NAME,activityRegisterBinding.edName.text)
-                intent.putExtra(FormFixConstants.PHONE,phoneNumber)
-                intent.putExtra(FormFixConstants.EMAIL,activityRegisterBinding.edEmail.text)
-                intent.putExtra(FormFixConstants.HEIGHT,activityRegisterBinding.edHeight.text)
-                intent.putExtra(FormFixConstants.WEIGHT,activityRegisterBinding.edWeight.text)
-                startActivity(intent)
+            activityRegisterBinding.progressCircular.visibility = View.GONE
+            if (it?.status == 200) {
+                if(it?.data?.responseData?.code== FormFixConstants.SUCCESS) {
+                    val intent = Intent(this, VerifyOtpActivity::class.java)
+                    intent.putExtra(FormFixConstants.ONBOARDING_TYPE,FormFixConstants.REGISTER)
+                    intent.putExtra(FormFixConstants.NAME,activityRegisterBinding.edName.text)
+                    intent.putExtra(FormFixConstants.PHONE,phoneNumber)
+                    intent.putExtra(FormFixConstants.EMAIL,activityRegisterBinding.edEmail.text)
+                    intent.putExtra(FormFixConstants.HEIGHT,activityRegisterBinding.edHeight.text)
+                    intent.putExtra(FormFixConstants.WEIGHT,activityRegisterBinding.edWeight.text)
+                    startActivity(intent)
+                }else if(it?.data?.responseData?.code== FormFixConstants.FAILED){
+                    activityRegisterBinding.progressCircular.visibility = View.GONE
+                    it?.data?.responseData?.message?.let { it1 ->
+                        Utility.showDialog(this@RegisterActivity,"Error",
+                            it1
+                        )
+                    }
+                }
+            } else {
+                activityRegisterBinding.progressCircular.visibility = View.GONE
+                Utility.showDialog(this@RegisterActivity,"Error",
+                    resources.getString(R.string.something_went_wrong)
+                )
             }
+
+
         }
 
     }
-    private fun registerApiCall(
-        name: String,
-        phone: String,
-        email: String,
-        weight: String,
-        height: String
-    ) {
 
-/*        val postId = 1 // Replace with the desired post ID
-        val call = ApiClient.ApiClient.apiService.getPostById(postId)
-        call.enqueue(object : Callback<POST> {
-            override fun onResponse(call: Call<POST>, response: Response<POST>) {
-                if (response.isSuccessful) {
-                    val post = response.body()
-                    // Handle the retrieved post data
-                } else {
-                    // Handle error
-                }
-            }
-
-            override fun onFailure(call: Call<POST>, t: Throwable) {
-                // Handle failure
-            }
-        })*/
-
-    }
 }

@@ -3,19 +3,22 @@ package com.fittracker.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.fittracker.R
 import com.fittracker.databinding.ActivityVerifyOtpBinding
 import com.fittracker.utilits.FormFixConstants
+import com.fittracker.utilits.FormFixSharedPreferences
 import com.fittracker.utilits.Utility
-import com.fittracker.viewmodel.LoginViewModel
+import com.fittracker.viewmodel.OnBoardingViewModel
 import com.google.gson.JsonObject
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class VerifyOtpActivity : AppCompatActivity() {
     private lateinit var activityVerifyOtpBinding: ActivityVerifyOtpBinding
-    private val loginViewModel: LoginViewModel by viewModels()
+    private val loginViewModel: OnBoardingViewModel by viewModels()
     var phone="";
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +26,6 @@ class VerifyOtpActivity : AppCompatActivity() {
         setContentView(activityVerifyOtpBinding.root)
         phone= intent.getStringExtra(FormFixConstants.PHONE).toString()
         activityVerifyOtpBinding.lblOtpSent.text="Otp has been sent to "+phone
-
-
         activityVerifyOtpBinding.btnResend.setOnClickListener{
             resentOtp()
         }
@@ -32,6 +33,7 @@ class VerifyOtpActivity : AppCompatActivity() {
 
         activityVerifyOtpBinding.btnConfirm.setOnClickListener{
             var otp=activityVerifyOtpBinding.otpView.text.toString()
+            Utility.hideKeyboard(this, activityVerifyOtpBinding.btnConfirm)
           if(isValid(otp)){
               validateOtp(otp)
           }
@@ -60,25 +62,42 @@ class VerifyOtpActivity : AppCompatActivity() {
         return true;
     }
 
-    fun validateOtp(otp:String){
+    private fun validateOtp(otp:String){
+        activityVerifyOtpBinding.progressCircular.bringToFront()
+        activityVerifyOtpBinding.progressCircular.visibility=View.VISIBLE
         var json=JsonObject()
         json.addProperty("phone", phone)
         json.addProperty("otp", otp)
         loginViewModel.validateOtp(json)?.observe(this) {
-            if (it?.statusCode==200) {
-                if(intent.getStringExtra(FormFixConstants.ONBOARDING_TYPE)==FormFixConstants.LOGIN) {
-                    val intent = Intent(this, DashboardActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }else{
-                    signup();
+            activityVerifyOtpBinding.progressCircular.visibility=View.GONE
+            if (it?.status == 200) {
+                if(it?.data?.responseData?.code== FormFixConstants.SUCCESS) {
+                    if(intent.getStringExtra(FormFixConstants.ONBOARDING_TYPE)==FormFixConstants.LOGIN) {
+                        FormFixSharedPreferences.saveSharedPreferencesValue(this@VerifyOtpActivity, FormFixConstants.IS_USER_LOGEDIN,true)
+                        val intent = Intent(this, DashboardActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }else{
+                        registerUser();
+                    }
+                }else if(it?.data?.responseData?.code== FormFixConstants.FAILED){
+                    it?.data?.responseData?.message?.let { it1 ->
+                        Utility.showDialog(this@VerifyOtpActivity,"Error",
+                            it1
+                        )
+                    }
                 }
+            } else {
+                Utility.showDialog(this@VerifyOtpActivity,"Error",
+                    resources.getString(R.string.something_went_wrong)
+                )
             }
+
         }
 
     }
 
-    fun signup(){
+    private fun registerUser(){
         var json=JsonObject()
         json.addProperty(FormFixConstants.NAME, intent.getStringExtra(FormFixConstants.NAME))
         json.addProperty(FormFixConstants.PHONE, intent.getStringExtra(FormFixConstants.PHONE))
@@ -86,11 +105,24 @@ class VerifyOtpActivity : AppCompatActivity() {
         json.addProperty(FormFixConstants.HEIGHT, intent.getStringExtra(FormFixConstants.HEIGHT))
         json.addProperty(FormFixConstants.WEIGHT, intent.getStringExtra(FormFixConstants.WEIGHT))
         loginViewModel.signup(json)?.observe(this) {
-            if (it?.statusCode==200) {
+            if (it?.status == 200) {
+                if(it?.data?.responseData?.code== FormFixConstants.SUCCESS) {
+                    FormFixSharedPreferences.saveSharedPreferencesValue(this@VerifyOtpActivity, FormFixConstants.IS_USER_LOGEDIN,true)
                     val intent = Intent(this, DashboardActivity::class.java)
-                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     finish()
+                }else if(it?.data?.responseData?.code== FormFixConstants.FAILED){
+                    it?.data?.responseData?.message?.let { it1 ->
+                        Utility.showDialog(this@VerifyOtpActivity,"Error",
+                            it1
+                        )
+                    }
+                }
+            } else {
+                Utility.showDialog(this@VerifyOtpActivity,"Error",
+                    resources.getString(R.string.something_went_wrong)
+                )
             }
         }
 
@@ -98,14 +130,30 @@ class VerifyOtpActivity : AppCompatActivity() {
 
     @SuppressLint("SuspiciousIndentation")
     private fun resentOtp(){
+        activityVerifyOtpBinding.progressCircular.bringToFront()
+        activityVerifyOtpBinding.progressCircular.visibility= View.VISIBLE
         loginViewModel.generateOtp(phone)?.observe(this) {
-            if (it?.statusCode==200) {
-                Utility.showMessageSnackBar(
-                    activityVerifyOtpBinding.root,
-                    "Otp has been re-sent to $phone"
+            activityVerifyOtpBinding.progressCircular.visibility= View.GONE
+            if (it?.status == 200) {
+                if(it?.data?.responseData?.code== FormFixConstants.SUCCESS) {
+                    Utility.showMessageSnackBar(
+                        activityVerifyOtpBinding.root,
+                        "Otp has been re-sent to $phone"
+                    )
+                    activityVerifyOtpBinding.lblOtpSent.text = "Otp has been re-sent to $phone"
+                }else if(it?.data?.responseData?.code== FormFixConstants.FAILED){
+                    it?.data?.responseData?.message?.let { it1 ->
+                        Utility.showDialog(this@VerifyOtpActivity,"Error",
+                            it1
+                        )
+                    }
+                }
+            } else {
+                Utility.showDialog(this@VerifyOtpActivity,"Error",
+                    resources.getString(R.string.something_went_wrong)
                 )
-                activityVerifyOtpBinding.lblOtpSent.text = "Otp has been re-sent to $phone"
             }
+
             }
         }
 

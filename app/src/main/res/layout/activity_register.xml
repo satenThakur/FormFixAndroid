@@ -41,11 +41,16 @@
         android:elevation="@dimen/_10sdp"
         app:cardCornerRadius="@dimen/_25sdp">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:orientation="vertical"
+        <RelativeLayout
             android:padding="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <ProgressBar
+                android:id="@+id/progress_circular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
             <TextView
                 android:id="@+id/lbl1"
                 android:gravity="center"
@@ -59,6 +64,7 @@
                 android:textColor="@color/colorPrimary" />
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/ed_name"
+                android:layout_below="@+id/lbl1"
                 android:layout_marginTop="@dimen/_40sdp"
                 android:background="@drawable/rounded_corner_bg"
                 android:singleLine="true"
@@ -73,15 +79,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"/>
             <LinearLayout
+                android:id="@+id/llNumber"
                 android:background="@drawable/rounded_corner_bg"
+                android:layout_below="@+id/ed_name"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/_10sdp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:id="@+id/llNumber">
+                app:layout_constraintBottom_toBottomOf="parent">
                 <com.hbb20.CountryCodePicker
                     android:id="@+id/ccp"
                     app:ccp_defaultNameCode="US"
@@ -114,6 +121,7 @@
             </LinearLayout>
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/ed_email"
+                android:layout_below="@+id/llNumber"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/rounded_corner_bg"
                 android:singleLine="true"
@@ -129,6 +137,7 @@
                 android:layout_height="@dimen/_35sdp"/>
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/ed_weight"
+                android:layout_below="@+id/ed_email"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/rounded_corner_bg"
                 android:singleLine="true"
@@ -144,6 +153,7 @@
                 android:layout_height="@dimen/_35sdp"/>
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/ed_height"
+                android:layout_below="@+id/ed_weight"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/rounded_corner_bg"
                 android:singleLine="true"
@@ -159,6 +169,7 @@
                 android:layout_height="@dimen/_35sdp"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_register"
+                android:layout_below="@+id/ed_height"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:background="@drawable/rounded_purple_border_button"
                 android:text="Create account"
@@ -168,7 +179,7 @@
                 android:textColor="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
 
