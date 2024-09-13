@@ -110,11 +110,11 @@ class RegisterActivity : AppCompatActivity() {
                 if(it?.data?.responseData?.code== FormFixConstants.SUCCESS) {
                     val intent = Intent(this, VerifyOtpActivity::class.java)
                     intent.putExtra(FormFixConstants.ONBOARDING_TYPE,FormFixConstants.REGISTER)
-                    intent.putExtra(FormFixConstants.NAME,activityRegisterBinding.edName.text)
+                    intent.putExtra(FormFixConstants.NAME,activityRegisterBinding.edName.text.toString())
                     intent.putExtra(FormFixConstants.PHONE,phoneNumber)
-                    intent.putExtra(FormFixConstants.EMAIL,activityRegisterBinding.edEmail.text)
-                    intent.putExtra(FormFixConstants.HEIGHT,activityRegisterBinding.edHeight.text)
-                    intent.putExtra(FormFixConstants.WEIGHT,activityRegisterBinding.edWeight.text)
+                    intent.putExtra(FormFixConstants.EMAIL,activityRegisterBinding.edEmail.text.toString())
+                    intent.putExtra(FormFixConstants.HEIGHT,activityRegisterBinding.edHeight.text.toString())
+                    intent.putExtra(FormFixConstants.WEIGHT,activityRegisterBinding.edWeight.text.toString())
                     startActivity(intent)
                 }else if(it?.data?.responseData?.code== FormFixConstants.FAILED){
                     activityRegisterBinding.progressCircular.visibility = View.GONE

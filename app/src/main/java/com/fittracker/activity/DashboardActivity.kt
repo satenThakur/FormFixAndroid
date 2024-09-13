@@ -11,9 +11,10 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
-import com.google.android.material.navigation.NavigationView
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -32,7 +33,11 @@ import com.fittracker.utilits.ConstantsSquats.PERMISSION_REQ_ID_RECORD_AUDIO
 import com.fittracker.utilits.ConstantsSquats.PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE
 import com.fittracker.utilits.ConstantsSquats.PERMISSION_REQ_POST_NOTIFICATIONS
 import com.fittracker.utilits.ConstantsSquats.SELECT_TAG_1
+import com.fittracker.utilits.FormFixConstants
+import com.fittracker.utilits.FormFixSharedPreferences
 import com.fittracker.utilits.Utility
+import com.google.android.material.navigation.NavigationView
+
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var activityMainBinding: ActivityDashboardBinding
@@ -46,8 +51,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         super.onCreate(savedInstanceState)
         activityMainBinding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
-
-
         setSupportActionBar(activityMainBinding.toolbar)
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
@@ -55,13 +58,17 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             this,
             activityMainBinding.drawerLayout,
             activityMainBinding.toolbar,
-            R.string.nav_open,
-            R.string.nav_close
+            com.fittracker.R.string.nav_open,
+            com.fittracker.R.string.nav_close
         )
         activityMainBinding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         isTablet = Utility.isTablet(this)
-
+        val header: View = navigationView.getHeaderView(0)
+        var tvname = header.findViewById<View>(com.fittracker.R.id.lblName) as TextView
+        var tvEmail = header.findViewById<View>(com.fittracker.R.id.lblEmail) as TextView
+        tvname.setText(FormFixSharedPreferences.getSharedPrefStringValue(this@DashboardActivity, FormFixConstants.NAME))
+        tvEmail.setText(FormFixSharedPreferences.getSharedPrefStringValue(this@DashboardActivity, FormFixConstants.EMAIL))
         activityMainBinding.btnStartCamera.setOnClickListener {
             if (selectedTag != -1) {
                 if (selectedTag == 0 || selectedTag == 1) {
@@ -96,7 +103,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             ),
             ConstantsSquats.REQUEST_MULTIPLE_PERMISSIONS
         )
-
 
     }
 
@@ -265,6 +271,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 startActivity(intent)
             }
             R.id.nav_logout -> {
+                Utility.saveUser(null,this@DashboardActivity)
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()

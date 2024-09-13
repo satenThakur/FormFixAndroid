@@ -9,14 +9,12 @@ import android.os.Environment
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
-import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.FrameLayout
 import android.widget.TextView
 import com.fittracker.R
+import com.fittracker.model.User
 import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_HIP_ANGLE
 import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_HIP_ANGLE_FOR_STATE_UP
 import com.fittracker.utilits.ConstantsPushUps.PUSH_CORRECT_THERES_KNEE_ANGLE
@@ -47,6 +45,68 @@ import kotlin.math.sqrt
 
 
 object Utility {
+
+    fun saveUser(user: User?, context: Context){
+        if(user!=null) {
+            FormFixSharedPreferences.saveSharedPreferencesValue(
+                context,
+                FormFixConstants.IS_USER_LOGEDIN,true
+            )
+            FormFixSharedPreferences.saveSharedPreferencesValue(
+                context,
+                FormFixConstants.NAME,user.name!!
+            )
+            FormFixSharedPreferences.saveSharedPreferencesValue(
+                context,
+                FormFixConstants.PHONE,
+                user.phone!!
+            )
+            FormFixSharedPreferences.saveSharedPreferencesValue(
+                context,
+                FormFixConstants.EMAIL,
+                user.email!!
+            )
+            FormFixSharedPreferences.saveSharedPreferencesValue(
+                context,
+                FormFixConstants.HEIGHT,
+                user.height!!
+            )
+            FormFixSharedPreferences.saveSharedPreferencesValue(
+                context,
+                FormFixConstants.WEIGHT,
+                user.weight!!
+            )
+        }else{
+            FormFixSharedPreferences.saveSharedPreferencesValue(
+                context,
+                FormFixConstants.IS_USER_LOGEDIN,false
+            )
+            FormFixSharedPreferences.saveSharedPreferencesValue(
+                context,
+                FormFixConstants.NAME,""
+            )
+            FormFixSharedPreferences.saveSharedPreferencesValue(
+                context,
+                FormFixConstants.PHONE,
+                ""
+            )
+            FormFixSharedPreferences.saveSharedPreferencesValue(
+                context,
+                FormFixConstants.EMAIL,
+                ""
+            )
+            FormFixSharedPreferences.saveSharedPreferencesValue(
+                context,
+                FormFixConstants.HEIGHT,
+                ""
+            )
+            FormFixSharedPreferences.saveSharedPreferencesValue(
+                context,
+                FormFixConstants.WEIGHT,
+                ""
+            )
+        }
+    }
 
     fun hideKeyboard(context: Context,view: View) {
         val inputMethodManager = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager

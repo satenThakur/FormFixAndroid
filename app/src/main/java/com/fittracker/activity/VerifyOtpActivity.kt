@@ -11,6 +11,7 @@ import com.fittracker.databinding.ActivityVerifyOtpBinding
 import com.fittracker.utilits.FormFixConstants
 import com.fittracker.utilits.FormFixSharedPreferences
 import com.fittracker.utilits.Utility
+import com.fittracker.utilits.Utility.saveUser
 import com.fittracker.viewmodel.OnBoardingViewModel
 import com.google.gson.JsonObject
 import dagger.hilt.android.AndroidEntryPoint
@@ -73,7 +74,7 @@ class VerifyOtpActivity : AppCompatActivity() {
             if (it?.status == 200) {
                 if(it?.data?.responseData?.code== FormFixConstants.SUCCESS) {
                     if(intent.getStringExtra(FormFixConstants.ONBOARDING_TYPE)==FormFixConstants.LOGIN) {
-                        FormFixSharedPreferences.saveSharedPreferencesValue(this@VerifyOtpActivity, FormFixConstants.IS_USER_LOGEDIN,true)
+                        Utility.saveUser(it?.data?.responseData?.user,this@VerifyOtpActivity)
                         val intent = Intent(this, DashboardActivity::class.java)
                         startActivity(intent)
                         finish()
@@ -107,7 +108,7 @@ class VerifyOtpActivity : AppCompatActivity() {
         loginViewModel.signup(json)?.observe(this) {
             if (it?.status == 200) {
                 if(it?.data?.responseData?.code== FormFixConstants.SUCCESS) {
-                    FormFixSharedPreferences.saveSharedPreferencesValue(this@VerifyOtpActivity, FormFixConstants.IS_USER_LOGEDIN,true)
+                    Utility.saveUser(it?.data?.responseData?.user,this@VerifyOtpActivity)
                     val intent = Intent(this, DashboardActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
