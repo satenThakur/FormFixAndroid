@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/white"
     tools:context=".activity.LoginActivity">
 
     <RelativeLayout
@@ -86,6 +87,8 @@
             app:ccp_showFullName="false"
             app:ccp_showPhoneCode="true"
             app:ccp_showNameCode="false"
+            app:ccpDialog_background="@color/white"
+            app:ccpDialog_searchEditTextTint="@color/colorPrimary"
             app:ccp_showFlag="true"
             app:ccp_autoFormatNumber="true"
             app:ccp_showArrow="true"

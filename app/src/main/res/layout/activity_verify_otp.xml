@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/white"
     tools:context=".activity.LoginActivity">
     <RelativeLayout
         android:layout_height="@dimen/_230sdp"
@@ -103,6 +104,7 @@
                 app:itemWidth="@dimen/_45sdp"
                 app:itemHeight="@dimen/_45sdp"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:layout_marginTop="@dimen/_6sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
