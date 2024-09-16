@@ -327,7 +327,7 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <com.fittracker.OverlayViewPushUps
+    <com.fittracker.ui.overlay.OverlayViewPushUps
         android:id="@+id/overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

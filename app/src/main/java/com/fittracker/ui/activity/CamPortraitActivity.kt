@@ -1,4 +1,4 @@
-package com.fittracker.activity
+package com.fittracker.ui.activity
 
 import android.Manifest
 import android.content.ContentResolver

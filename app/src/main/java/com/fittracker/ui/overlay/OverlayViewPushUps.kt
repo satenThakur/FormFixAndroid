@@ -1,4 +1,4 @@
-package com.fittracker
+package com.fittracker.ui.overlay
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,6 +10,7 @@ import android.speech.tts.TextToSpeech
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.RequiresApi
+import com.fittracker.R
 import com.fittracker.utilits.ConstantsPushUps
 import com.fittracker.utilits.ConstantsSquats
 import com.fittracker.utilits.ConstantsSquats.SQUAT_INCORRECT

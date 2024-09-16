@@ -1,4 +1,4 @@
-package com.fittracker.fragment
+package com.fittracker.ui.fragment
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
@@ -22,8 +22,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
-import com.fittracker.MainViewModel
-import com.fittracker.PoseLandmarkerHelper
 import com.fittracker.R
 import com.fittracker.databinding.FragmentPushupBinding
 import com.fittracker.model.LandMarkModel
@@ -31,6 +29,8 @@ import com.fittracker.utilits.ConstantsSquats
 import com.fittracker.utilits.ConstantsSquats.timerInterval
 import com.fittracker.utilits.ConstantsSquats.timerLimit
 import com.fittracker.utilits.Utility
+import com.fittracker.viewmodel.MainViewModel
+import com.fittracker.viewmodel.PoseLandmarkerHelper
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors

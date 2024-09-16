@@ -1,4 +1,4 @@
-package com.fittracker.adapter
+package com.fittracker.ui.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.fittracker.R
-import com.fittracker.activity.VideoPlayerActivity
+import com.fittracker.ui.activity.VideoPlayerActivity
 import com.fittracker.model.ErrorMessage
 import com.fittracker.utilits.ConstantsSquats
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/permissions_fragment"
-        android:name="com.fittracker.fragment.PermissionsFragment"
+        android:name="com.fittracker.ui.fragment.PermissionsFragment"
         android:label="PermissionsFragment">
 
         <action
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/squat_fragment"
-        android:name="com.fittracker.fragment.SquatFragment"
+        android:name="com.fittracker.ui.fragment.SquatFragment"
         android:label="SquatFragment">
 
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/pushup_fragment"
-        android:name="com.fittracker.fragment.PushUpFragment"
+        android:name="com.fittracker.ui.fragment.PushUpFragment"
         android:label="PushUpFragment">
 
         <action

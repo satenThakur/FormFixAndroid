@@ -1,4 +1,4 @@
-package com.fittracker
+package com.fittracker.ui.overlay
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,6 +13,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import com.fittracker.R
 import com.fittracker.model.ErrorMessage
 import com.fittracker.utilits.ConstantsSquats
 import com.fittracker.utilits.ConstantsSquats.ANGLE_TEXT

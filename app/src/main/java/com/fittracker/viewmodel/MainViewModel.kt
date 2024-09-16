@@ -1,4 +1,4 @@
-package com.fittracker
+package com.fittracker.viewmodel
 
 import androidx.lifecycle.ViewModel
 

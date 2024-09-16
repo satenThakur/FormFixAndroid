@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -41,7 +40,7 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
         <activity
-            android:name="com.fittracker.activity.SplashActivity"
+            android:name="com.fittracker.ui.activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme"
             android:exported="true">
@@ -56,7 +55,7 @@
                 android:value="true" />
         </activity>
         <activity
-            android:name="com.fittracker.activity.LoginActivity"
+            android:name="com.fittracker.ui.activity.LoginActivity"
             android:theme="@style/Theme.MainActivity"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -65,7 +64,7 @@
                 android:value="true" />
         </activity>
         <activity
-            android:name="com.fittracker.activity.RegisterActivity"
+            android:name="com.fittracker.ui.activity.RegisterActivity"
             android:theme="@style/Theme.MainActivity"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -74,7 +73,7 @@
                 android:value="true" />
         </activity>
         <activity
-            android:name="com.fittracker.activity.VerifyOtpActivity"
+            android:name="com.fittracker.ui.activity.VerifyOtpActivity"
             android:theme="@style/Theme.MainActivity"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -83,7 +82,7 @@
                 android:value="true" />
         </activity>
         <activity
-            android:name="com.fittracker.activity.DashboardActivity"
+            android:name="com.fittracker.ui.activity.DashboardActivity"
             android:theme="@style/Theme.MainActivity"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -92,7 +91,7 @@
                 android:value="true" />
         </activity>
         <activity
-            android:name="com.fittracker.activity.CamPortraitActivity"
+            android:name="com.fittracker.ui.activity.CamPortraitActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <meta-data
@@ -100,7 +99,7 @@
                 android:value="true" />
         </activity>
         <activity
-            android:name="com.fittracker.activity.CamLandscapeActivity"
+            android:name="com.fittracker.ui.activity.CamLandscapeActivity"
             android:screenOrientation="landscape"
             android:exported="true">
             <meta-data
@@ -108,7 +107,7 @@
                 android:value="true" />
         </activity>
         <activity
-            android:name="com.fittracker.activity.RecordedVideoListActivity"
+            android:name="com.fittracker.ui.activity.RecordedVideoListActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <meta-data
@@ -118,7 +117,7 @@
         <activity
             android:theme="@style/SplashTheme"
             android:screenOrientation="portrait"
-            android:name="com.fittracker.activity.VideoPlayerActivity"
+            android:name="com.fittracker.ui.activity.VideoPlayerActivity"
             android:exported="true">
             <meta-data
                 android:name="android.notch_support"
@@ -127,7 +126,7 @@
         <activity
             android:theme="@style/SplashTheme"
             android:screenOrientation="portrait"
-            android:name="com.fittracker.activity.ImageActivity"
+            android:name="com.fittracker.ui.activity.ImageActivity"
             android:exported="true">
             <meta-data
                 android:name="android.notch_support"

@@ -1,4 +1,4 @@
-package com.fittracker.activity
+package com.fittracker.ui.activity
 
 
 import android.net.Uri

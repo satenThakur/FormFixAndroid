@@ -1,11 +1,11 @@
-package com.fittracker.activity
+package com.fittracker.ui.activity
 
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.fittracker.adapter.MediaAdapter
+import com.fittracker.ui.adapter.MediaAdapter
 import com.fittracker.application.FormfitApplication
 import com.fittracker.database.MediaData
 import com.fittracker.databinding.ActivityVideoListBinding
