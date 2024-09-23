@@ -99,6 +99,12 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
     private var shoulderx = -100f
     private var ankleX = -100f
     private var ankleY = -100f
+    private var yOfRightHeel=-100F
+    private var yOfLeftHeel=-100F
+    private var yOfRightToe=-100F
+    private var yOfLeftToe=-100F
+    private var yofRightShoulder=-100F
+    private var yofLeftShoulder=-100F
     private var cameraFacing = -1
     private var maskBitmap: Bitmap? = null
     private var minKneeAngle = Float.MAX_VALUE
@@ -110,6 +116,8 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
     private var tuckHipsTimeStamp: Long = 0
     private var externallyRotateFeetTimeStamp: Long = 0
     private var hipsnotincentreTimeStamp: Long = 0
+    private var shouldernotbalancedTimeStamp: Long = 0
+    private var heelsNotbalancedTimeStamp: Long = 0
     private var kneesGoingInwardsTimeStamp: Long = 0
     private var bendAtTheKneesTimeStamp: Long = 0
     private var kneeNewAngle = 0f
@@ -166,7 +174,6 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
         results?.let { poseLandmarkResult ->
-
             canvas.drawText(
                 resources.getString(R.string.reps) + respCountTotal,
                 TEXT_X,
@@ -300,6 +307,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
 
 
             }
+
             val kneeAngle = (leftKneeAngle * 10).roundToInt() / 10
             val hipAngle = (leftHipAngle * 10).roundToInt() / 10
             val heelAngle = (heelAngle * 10).roundToInt() / 10
@@ -330,6 +338,22 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                 TEXT_TOTAL_RESP_Y,
                                 repsPaint
                             )
+                            if(!Utility.isShoulderBalanced(yofLeftShoulder,yofRightShoulder)){
+                                isFrontFaceErrorMessage = true
+                                var needToSpeak = false
+                                if (shouldernotbalancedTimeStamp == 0.toLong() || System.currentTimeMillis() - shouldernotbalancedTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
+                                    shouldernotbalancedTimeStamp = System.currentTimeMillis();
+                                    needToSpeak = true
+                                }
+                                drawMessageOnScreen(
+                                    shoulderx * imageWidth * scaleFactor,
+                                    yofLeftShoulder * imageHeight * scaleFactor,
+                                    context.resources.getString(R.string.shoulders_not_balanced),
+                                    ConstantsSquats.SHOULDER_NOT_BALANCED,
+                                    canvas, needToSpeak, true
+                                )
+                            }
+
                             canvas.drawText(
                                 resources.getString(R.string.incorrect_reps) + respCountIncorrect,
                                 TEXT_X,
@@ -369,7 +393,24 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                     canvas, needToSpeak, true
                                 )
                             }
+
                         }
+                        if(!Utility.isShoulderBalanced(yofLeftShoulder,yofRightShoulder)){
+                            isFrontFaceErrorMessage = true
+                            var needToSpeak = false
+                            if (shouldernotbalancedTimeStamp == 0.toLong() || System.currentTimeMillis() - shouldernotbalancedTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
+                                shouldernotbalancedTimeStamp = System.currentTimeMillis();
+                                needToSpeak = true
+                            }
+                            drawMessageOnScreen(
+                                shoulderx * imageWidth * scaleFactor,
+                                yofLeftShoulder * imageHeight * scaleFactor,
+                                context.resources.getString(R.string.shoulders_not_balanced),
+                                ConstantsSquats.SHOULDER_NOT_BALANCED,
+                                canvas, needToSpeak, true
+                            )
+                        }
+
                     }
                     STATE_DOWN -> {
                         canvas.drawText(
@@ -378,12 +419,6 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             TEXT_STATE_Y,
                             statePaint
                         )
-                        /*canvas.drawText(
-                            resources.getString(R.string.hips_average) + Utility.getHipAnkleDiffAverage(leftToeX,rightToeX,xofLeftHip,xofRightHip,(imageWidth * scaleFactor)),
-                            TEXT_X,
-                            TEXT_HIPANKLEAVERAGE,
-                            repsPaint
-                        )*/
                         statesSet.add(STATE_DOWN)
                         if (heelAngle > 0) {
                             if (heelAngle < HEEL_MIN_ANGLE) {
@@ -452,6 +487,22 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                     )
                                 }
                             }
+                            if(!Utility.isShoulderBalanced(yofLeftShoulder,yofRightShoulder)){
+                                isFrontFaceErrorMessage = true
+                                var needToSpeak = false
+                                if (shouldernotbalancedTimeStamp == 0.toLong() || System.currentTimeMillis() - shouldernotbalancedTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
+                                    shouldernotbalancedTimeStamp = System.currentTimeMillis();
+                                    needToSpeak = true
+                                }
+                                drawMessageOnScreen(
+                                    shoulderx * imageWidth * scaleFactor,
+                                    yofLeftShoulder * imageHeight * scaleFactor,
+                                    context.resources.getString(R.string.shoulders_not_balanced),
+                                    ConstantsSquats.SHOULDER_NOT_BALANCED,
+                                    canvas, needToSpeak, true
+                                )
+                            }
+
                             canvas.drawText(
                                 heelAngle.toString(),
                                 xHeel * imageWidth * scaleFactor,
@@ -519,6 +570,21 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                 canvas, needToSpeak,false
                             )
                         }
+                        if(!Utility.isHeelBalanced(yOfLeftHeel,yOfRightHeel,yOfLeftToe,yOfRightToe,userFaceType)){
+                            isFrontFaceErrorMessage = true
+                            var needToSpeak = false
+                            if (heelsNotbalancedTimeStamp == 0.toLong() || System.currentTimeMillis() - heelsNotbalancedTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
+                                heelsNotbalancedTimeStamp = System.currentTimeMillis();
+                                needToSpeak = true
+                            }
+                            drawMessageOnScreen(
+                                xHeel * imageWidth * scaleFactor,
+                                yHeel * imageHeight * scaleFactor,
+                                context.resources.getString(R.string.heels_not_balanced),
+                                ConstantsSquats.HEELS_NOT_BALANCED,
+                                canvas, needToSpeak, true
+                            )
+                        }
                         if (statesSet.contains(STATE_DOWN) && statesSet.contains(STATE_MOVING)) {
                             minKneeAngle = Float.MAX_VALUE
                             respCountTotal++
@@ -553,7 +619,21 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             anglePaint
                         )
 
-
+                        if(!Utility.isHeelBalanced(yOfLeftHeel,yOfRightHeel,yOfLeftToe,yOfRightToe,userFaceType)){
+                            isFrontFaceErrorMessage = true
+                            var needToSpeak = false
+                            if (heelsNotbalancedTimeStamp == 0.toLong() || System.currentTimeMillis() - heelsNotbalancedTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
+                                heelsNotbalancedTimeStamp = System.currentTimeMillis();
+                                needToSpeak = true
+                            }
+                            drawMessageOnScreen(
+                                xHeel * imageWidth * scaleFactor,
+                                yHeel * imageHeight * scaleFactor,
+                                context.resources.getString(R.string.heels_not_balanced),
+                                ConstantsSquats.HEELS_NOT_BALANCED,
+                                canvas, needToSpeak, true
+                            )
+                        }
                         canvas.drawText(
                             hipAngle.toString(),
                             xHip * imageWidth * scaleFactor,
@@ -650,6 +730,21 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
 
                         } else {
                             canvas.drawCircle(0.0F, 0.0F, 0F, pointErrorPaint)
+                        }
+                        if(!Utility.isHeelBalanced(yOfLeftHeel,yOfRightHeel,yOfLeftToe,yOfRightToe,userFaceType)){
+                            isFrontFaceErrorMessage = true
+                            var needToSpeak = false
+                            if (heelsNotbalancedTimeStamp == 0.toLong() || System.currentTimeMillis() - heelsNotbalancedTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
+                                heelsNotbalancedTimeStamp = System.currentTimeMillis();
+                                needToSpeak = true
+                            }
+                            drawMessageOnScreen(
+                                xHeel * imageWidth * scaleFactor,
+                                yHeel * imageHeight * scaleFactor,
+                                context.resources.getString(R.string.heels_not_balanced),
+                                ConstantsSquats.HEELS_NOT_BALANCED,
+                                canvas, needToSpeak, true
+                            )
                         }
                     }
 
@@ -770,7 +865,13 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
         leftToeX: Float,
         rightToeX: Float,
         xofLeftHip: Float,
-        xofRightHip: Float
+        xofRightHip: Float,
+        yofLeftShoulder: Float,
+        yofRightShoulder: Float,
+        yOfLeftHeel: Float,
+        yOfRightHeel: Float,
+        yOfLeftToe: Float,
+        yOfRightToe: Float
 
     ) {
         results = poseLandmarkResults
@@ -806,6 +907,12 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
         this.rightToeX=rightToeX
         this.xofLeftHip=xofLeftHip
         this.xofRightHip=xofRightHip
+        this.yofLeftShoulder=yofLeftShoulder
+        this.yofRightShoulder=yofRightShoulder
+        this.yOfLeftHeel=yOfLeftHeel
+        this. yOfRightHeel=yOfRightHeel
+        this.yOfLeftToe=yOfLeftToe
+        this.yOfRightToe=yOfRightToe
         if (this.cameraFacing != cameraFacing) {
             respCountTotal = 0
             respCountIncorrect = 0

@@ -24,12 +24,13 @@ public interface ConstantsSquats {
 
     int TUCK_HIPS =1;
     int KNEES_CROSSING_TOES =2;
-    int SQUAT_DEEPER=3;
-    int BEND_AT_THE_KNEES=4;
-    int EXTERNALLY_ROTATE_FEET=5;
-    int KNEES_GOING_INWARDS=6;
+    int BEND_AT_THE_KNEES=3;
+    int EXTERNALLY_ROTATE_FEET=4;
+    int KNEES_GOING_INWARDS=5;
 
-    int HIPS_NOT_CENTERED=7;
+    int HIPS_NOT_CENTERED=6;
+    int SHOULDER_NOT_BALANCED=7;
+    int HEELS_NOT_BALANCED=8;
     int TOAST_LENGTH=100;
 
 
@@ -113,6 +114,6 @@ public interface ConstantsSquats {
     float TOE_KNEE_X_DIFFS_MIN_THRESHOLD =33;//32;//39//42;//55;
     float HIPS_ANKLE_AVARGE_DIFF=2.0f;//1.8f;//2.2
 
-
-
+    float SHOULDERS_DIFF_THRESHOLD=1.6f;
+    float HEELS_TOE_DIFF_THRESHOLD=1.6f;
 }

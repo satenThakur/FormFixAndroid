@@ -56,15 +56,14 @@
     <string name="knee_crossing_toes">Knees crossing toes</string>
     <string name="tuck_hips">Leaning Forwards, Tuck hip</string>
     <string name="bend_at_the_knees" tools:ignore="ExtraTranslation">Bend at the knees.</string>
-    <string name="squat_deeper" tools:ignore="ExtraTranslation">Squat deeper</string>
+ <!-- this has been removed  <string name="squat_deeper" tools:ignore="ExtraTranslation">Squat deeper</string>-->
 
     <!-- Front Squat Messages-->
-<!--    <string name="squat_deeper" tools:ignore="ExtraTranslation">Squat deeper</string>-->
     <string name="externally_rotate_feet">Externally Rotate Feet</string>
     <string name="knees_going_inwards">Knees going inwards</string>
     <string name="hips_not_in_centre">Hips not in centre</string>
-
-
+    <string name="shoulders_not_balanced">Shoulders are not balanced</string>
+    <string name="heels_not_balanced">Heels are not balanced</string>
 
     <!--Onboarding flow  Messages-->
     <string name="enter_phone_number">Enter phone number</string>

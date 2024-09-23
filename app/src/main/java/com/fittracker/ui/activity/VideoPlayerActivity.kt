@@ -1,6 +1,5 @@
 package com.fittracker.ui.activity
 
-
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -48,11 +47,12 @@ class VideoPlayerActivity : AppCompatActivity() {
             when (intent.getStringExtra(ConstantsSquats.MESSAGE_TYPE)) {
                 getString(R.string.knee_crossing_toes) -> filename = "knees_crossing_toes"
                 getString(R.string.tuck_hips) -> filename = "tuck_hips"
-                getString(R.string.squat_deeper) -> filename = "squat_deeper"
                 getString(R.string.bend_at_the_knees) -> filename = "bend_the_knees"
                 getString(R.string.externally_rotate_feet) -> filename = "externally_rotate_feet"
                 getString(R.string.knees_going_inwards) -> filename = "knees_inwards"
                 getString(R.string.hips_not_in_centre) -> filename = "hips_not_centered"
+                getString(R.string.shoulders_not_balanced) -> filename = "shoulders_not_balanced"
+                getString(R.string.heels_not_balanced) -> filename = "heels_not_balanced"
             }
 
             var path = "android.resource://$packageName/raw/$filename"

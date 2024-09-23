@@ -24,10 +24,12 @@ import com.fittracker.utilits.ConstantsPushUps.STRACK_THERES_HIP_ANGLE
 import com.fittracker.utilits.ConstantsPushUps.STRACK_THERES_KNEE_ANGLE
 import com.fittracker.utilits.ConstantsPushUps.STRACK_THERES_WRIST_TOY_Y_DIFF
 import com.fittracker.utilits.ConstantsPushUps.THRESH_SHOULDER_ELBOW_DIFF
+import com.fittracker.utilits.ConstantsSquats.HEELS_TOE_DIFF_THRESHOLD
 import com.fittracker.utilits.ConstantsSquats.KNEE_HIP_DIFF_NEW_THRESHOLD
 import com.fittracker.utilits.ConstantsSquats.KNEE_HIP_DIFF_THRESHOLD
 import com.fittracker.utilits.ConstantsSquats.KNEE_TOE_THRESHOLD
 import com.fittracker.utilits.ConstantsSquats.KNEE_TOE_THRESHOLD_TO_IGNORE_TUCK_HIPS
+import com.fittracker.utilits.ConstantsSquats.SHOULDERS_DIFF_THRESHOLD
 import com.fittracker.utilits.ConstantsSquats.STATE_DOWN
 import com.fittracker.utilits.ConstantsSquats.STATE_MOVING
 import com.fittracker.utilits.ConstantsSquats.STATE_UN_DECIDED
@@ -464,6 +466,50 @@ object Utility {
         return isHipNotIncentre
     }
 
+    fun isShoulderBalanced(
+        yOfLeftShoulder: Float,
+        yOfRightShoulder: Float
+    ): Boolean {
+        var isShoulderBalanced = true
+        var shouldersYDiff = abs(yOfLeftShoulder-yOfRightShoulder)*100
+        Log.e("shouldersYDiff","yOfLeftShoulder="+yOfLeftShoulder)
+        Log.e("shouldersYDiff","yOfRightShoulder="+yOfRightShoulder)
+        Log.e("shouldersYDiff",""+shouldersYDiff)
+        if(shouldersYDiff>SHOULDERS_DIFF_THRESHOLD){
+            isShoulderBalanced=false
+        }
+
+        return isShoulderBalanced
+    }
+    fun isHeelBalanced(
+        yOfLeftHeel: Float,  yOfRightHeel: Float,
+        yOfLeftToe: Float, yOfRightToe: Float,FaceType: Int
+    ): Boolean {
+        var isHeelBalanced = true
+        var heelAndToeDiff = 0f
+        if(FaceType==ConstantsSquats.FRONT_FACE){
+            var  leftDiff = abs(yOfLeftHeel-yOfLeftToe)*100
+            var  rightDiff = abs(yOfRightHeel-yOfRightToe)*100
+            heelAndToeDiff = if(leftDiff>rightDiff)
+                leftDiff
+            else
+                rightDiff
+            Log.e("heelsToeYDiff","FRONT_FACE rightDiff="+rightDiff)
+            Log.e("heelsToeYDiff","FRONT_FACE leftDiff="+leftDiff)
+        }else if(FaceType==ConstantsSquats.LEFT_FACE){
+            heelAndToeDiff = abs(yOfLeftHeel-yOfLeftToe)*100
+            Log.e("heelsToeYDiff","LEFT_FACE Diff="+heelAndToeDiff)
+        }else if(FaceType==ConstantsSquats.RIGHT_FACE){
+            heelAndToeDiff = abs(yOfRightHeel-yOfRightToe)*100
+            Log.e("heelsToeYDiff","RIGHT_FACE Diff="+heelAndToeDiff)
+        }
+
+        if(heelAndToeDiff>HEELS_TOE_DIFF_THRESHOLD){
+            isHeelBalanced=false
+        }
+        Log.e("heelsToeYDiff","isHeelBalanced="+isHeelBalanced)
+        return isHeelBalanced
+    }
     fun getHipAnkleDiffAverage(
         lefToeX: Float,
         rightToeX: Float,
