@@ -23,6 +23,7 @@
     <color name="black_color">#000000</color>
     <color name="light_black_color">#1a1a1a</color>
     <color name="white">#FFFFFF</color>
+    <color name="gray_code">#808080</color>
     <color name="gray_color">#A1AEB1</color>
 
 <color name="magenta">#ff00ff</color>

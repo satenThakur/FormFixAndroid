@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white">
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryVariant"
+        android:paddingBottom="@dimen/_8sdp">
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:text="Disclaimer"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"></TextView>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginRight="@dimen/_12sdp"
+        android:layout_marginLeft="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:id="@+id/scrollable"
+            android:layout_above="@+id/checkbox_agree"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tvDisclaimer"
+                android:layout_above="@+id/btn_continue"
+                android:text="@string/disclaimer"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@color/light_black_color"
+                android:fontFamily="@font/helvetica_oblique"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </ScrollView>
+
+        <CheckBox
+            android:id="@+id/checkbox_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_continue"
+            android:fontFamily="@font/helvetica_bold"
+            android:textColor="@color/black"
+            android:text="I AGREE TO ABOVE TERMS AND CONDITIONS." />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_continue"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/round_button_disable"
+            android:text="Continue"
+            android:gravity="center"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/helvetica"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

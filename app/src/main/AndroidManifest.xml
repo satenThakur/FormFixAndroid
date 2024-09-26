@@ -64,6 +64,16 @@
                 android:value="true" />
         </activity>
         <activity
+            android:name="com.fittracker.ui.activity.DisclaimerActivity"
+            android:theme="@style/Theme.MainActivity"
+            android:screenOrientation="portrait"
+            android:exported="true">
+            <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
+        </activity>
+
+        <activity
             android:name="com.fittracker.ui.activity.RegisterActivity"
             android:theme="@style/Theme.MainActivity"
             android:screenOrientation="portrait"

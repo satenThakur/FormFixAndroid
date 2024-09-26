@@ -18,26 +18,16 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="-Dark Mode and light Mode implemented">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/heels_not_balanced.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/shoulders_not_balanced.mp4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="-Shoulder and heels correction logics/videos/messages implemented">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/DisclaimerActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/round_button_disable.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_disclaimer.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/APiService/ApiConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/APiService/ApiConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/VideoPlayerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/VideoPlayerActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/fragment/SquatFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/fragment/SquatFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/overlay/OverlayViewSquats.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/overlay/OverlayViewSquats.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/ConstantsSquats.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/ConstantsSquats.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Utility.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Utility.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_squats.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_squats.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/squat_deeper.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/VerifyOtpActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/VerifyOtpActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -113,60 +103,60 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DEBUGGABLE_DEVICE&quot;: &quot;samsung-sm_a356e-adb-RZCX608VTBE-xCu7sZ._adb-tls-connect._tcp.&quot;,
-    &quot;DEBUGGABLE_PROCESS&quot;: &quot;com.fittracker&quot;,
-    &quot;DEBUGGER_ID&quot;: &quot;Auto&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;SHOW_ALL_PROCESSES&quot;: &quot;false&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/ChipView-master/gradle/wrapper/caches/modules-2/files-2.1/com.github.Cutta/TagView/1.3/51d51fa6bcc16ef936662de750d77a1fb38f729/TagView-1.3-sources.jar!/com/cunoraz/tagview/TagView.java_SELECTED&quot;: &quot;TagView&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/ChipView-master/gradle/wrapper/caches/modules-2/files-2.1/com.hbb20/ccp/2.6.0/e6566ea9e9a43af02d764e8788e39504e1bec744/ccp-2.6.0-sources.jar!/com/hbb20/CountryCodePicker.java_SELECTED&quot;: &quot;CountryCodePicker&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayView.kt_SELECTED&quot;: &quot;OverlayViewSquats&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushUps.kt_SELECTED&quot;: &quot;OverlayViewPushUps&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushups.kt_SELECTED&quot;: &quot;OverlayViewPushups&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewSquats.kt_SELECTED&quot;: &quot;OverlayViewSquats&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/ui/overlay/OverlayViewPushUps.kt_SELECTED&quot;: &quot;OverlayViewPushUps&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/ui/overlay/OverlayViewSquats.kt_SELECTED&quot;: &quot;OverlayViewSquats&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/viewmodel/OverlayViewPushUps.kt_SELECTED&quot;: &quot;OverlayViewPushUps&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/viewmodel/OverlayViewSquats.kt_SELECTED&quot;: &quot;OverlayViewSquats&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/res/raw&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDK Location&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DEBUGGABLE_DEVICE": "samsung-sm_a356e-adb-RZCX608VTBE-xCu7sZ._adb-tls-connect._tcp.",
+    "DEBUGGABLE_PROCESS": "com.fittracker",
+    "DEBUGGER_ID": "Auto",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SHOW_ALL_PROCESSES": "false",
+    "android-custom-view/Users/swatiraghav/Documents/ChipView-master/gradle/wrapper/caches/modules-2/files-2.1/com.github.Cutta/TagView/1.3/51d51fa6bcc16ef936662de750d77a1fb38f729/TagView-1.3-sources.jar!/com/cunoraz/tagview/TagView.java_SELECTED": "TagView",
+    "android-custom-view/Users/swatiraghav/Documents/ChipView-master/gradle/wrapper/caches/modules-2/files-2.1/com.hbb20/ccp/2.6.0/e6566ea9e9a43af02d764e8788e39504e1bec744/ccp-2.6.0-sources.jar!/com/hbb20/CountryCodePicker.java_SELECTED": "CountryCodePicker",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayView.kt_SELECTED": "OverlayViewSquats",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushUps.kt_SELECTED": "OverlayViewPushUps",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushups.kt_SELECTED": "OverlayViewPushups",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewSquats.kt_SELECTED": "OverlayViewSquats",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/ui/overlay/OverlayViewPushUps.kt_SELECTED": "OverlayViewPushUps",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/ui/overlay/OverlayViewSquats.kt_SELECTED": "OverlayViewSquats",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/viewmodel/OverlayViewPushUps.kt_SELECTED": "OverlayViewPushUps",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/viewmodel/OverlayViewSquats.kt_SELECTED": "OverlayViewSquats",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "last_opened_file_path": "/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/res/drawable",
+    "project.structure.last.edited": "SDK Location",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "show.migrate.to.gradle.popup": "false"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushUps.kt_OverlayViewPushUps_DIMENSIONS&quot;: [
-      &quot;1080&quot;,
-      &quot;1920&quot;
+  "keyToStringList": {
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushUps.kt_OverlayViewPushUps_DIMENSIONS": [
+      "1080",
+      "1920"
     ]
   }
-}</component>
+}]]></component>
   <component name="PsdUISettings">
     <option name="LAST_EDITED_BUILD_TYPE" value="release" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
       <recent name="$PROJECT_DIR$/app/src/main/res/raw" />
       <recent name="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/overlay" />
       <recent name="$PROJECT_DIR$/app/src/main/java/com/fittracker/viewmodel" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/com/fittracker/model" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.fittracker.ui.activity" />
       <recent name="com.fittracker.model" />
       <recent name="com.fittracker.viewmodel" />
       <recent name="com.fittracker.APiService.modules" />
       <recent name="com.fittracker.APiService" />
-      <recent name="com.fittracker.activity" />
     </key>
   </component>
   <component name="RunManager">
@@ -428,7 +418,14 @@
       <option name="project" value="LOCAL" />
       <updated>1726498253924</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="-Shoulder and heels correction logics/videos/messages implemented">
+      <created>1727100606717</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1727100606718</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -467,7 +464,8 @@
     <MESSAGE value="-Onboarding Flow Api Calls" />
     <MESSAGE value="-Dashboard flow done" />
     <MESSAGE value="-Dark Mode and light Mode implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="-Dark Mode and light Mode implemented" />
+    <MESSAGE value="-Shoulder and heels correction logics/videos/messages implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="-Shoulder and heels correction logics/videos/messages implemented" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

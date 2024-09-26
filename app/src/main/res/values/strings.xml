@@ -77,4 +77,33 @@
     <string name="enter_valid_otp">Enter valid otp</string>
 
     <string name="something_went_wrong">Something went wrong, please try again!</string>
+
+    <string name="agree_with_disclaimer">Please agree with Disclaimer</string>
+
+    <string name="disclaimer"><b>**Liability Waiver and Release of Liability**</b>
+        \n<b>**1. Acknowledgment of Risk**</b>
+\nBy using the FormFix "App", which provides real-time weightlifting monitoring, guidance on proper lifting techniques, and correction of errors, I acknowledge and accept that weightlifting and related physical activities carry inherent risks of injury. I understand that these risks can include, but are not limited to, muscle strains, joint injuries, and other physical injuries.
+
+\n<b>**2. No Professional Advice**</b>
+\nI acknowledge that the App is an automated system and does not replace professional medical advice, diagnosis, or treatment. The guidance provided by the App is based on algorithms and may not account for individual health conditions or limitations. I am advised to consult with a qualified healthcare professional before beginning any new exercise regimen or if I have any concerns regarding my health or physical condition.
+
+\n<b>**3. User Responsibility**</b>
+\nI agree to use the App responsibly and to follow the guidance provided within the limitations of the App’s capabilities. I am responsible for ensuring that my use of the App is safe and appropriate for my personal health and fitness level. I will not hold E-xercise, its affiliates, or its employees liable for any injuries or damages resulting from my use of the App.
+
+\n<b>**4. Limitation of Liability**</b>
+\nTo the fullest extent permitted by law, E-xercise shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising from or related to the use of the App, including but not limited to any injuries sustained as a result of using the App.
+
+\n<b>**5. Indemnification**</b>
+\nI agree to indemnify, defend, and hold harmless E-xercise, its affiliates, and its employees from and against any claims, liabilities, damages, losses, and expenses arising out of or in any way connected with my use of the App.
+
+\n<b>**6. Consent to Monitoring**</b>
+\nBy using the App, I consent to the real-time monitoring and analysis of my weightlifting activities. I understand that this data is used to provide feedback and improve my performance and will be handled in accordance with the App’s Privacy Policy.
+
+\n<b>**7. Termination of Use**</b>
+\nE-xercise reserves the right to terminate or suspend my access to the App at its discretion, including for any misuse or violation of this waiver.
+
+\n<b>**8. Governing Law**</b>
+\nThis waiver is governed by the laws of Colorado, and any disputes arising under or related to this waiver shall be resolved in the courts of Colorado.
+
+\nBy using the App, I acknowledge that I have read, understood, and agreed to this Liability Waiver and Release of Liability.</string>
 </resources>

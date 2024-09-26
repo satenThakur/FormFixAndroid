@@ -75,7 +75,7 @@ class VerifyOtpActivity : AppCompatActivity() {
                 if(it?.data?.responseData?.code== FormFixConstants.SUCCESS) {
                     if(intent.getStringExtra(FormFixConstants.ONBOARDING_TYPE)==FormFixConstants.LOGIN) {
                         Utility.saveUser(it?.data?.responseData?.user,this@VerifyOtpActivity)
-                        val intent = Intent(this, DashboardActivity::class.java)
+                        val intent = Intent(this, DisclaimerActivity::class.java)
                         startActivity(intent)
                         finish()
                     }else{
