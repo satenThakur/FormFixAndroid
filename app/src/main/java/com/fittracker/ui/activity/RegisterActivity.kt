@@ -116,6 +116,7 @@ class RegisterActivity : AppCompatActivity() {
                     intent.putExtra(FormFixConstants.HEIGHT,activityRegisterBinding.edHeight.text.toString())
                     intent.putExtra(FormFixConstants.WEIGHT,activityRegisterBinding.edWeight.text.toString())
                     startActivity(intent)
+                    finish()
                 }else if(it?.data?.responseData?.code== FormFixConstants.FAILED){
                     activityRegisterBinding.progressCircular.visibility = View.GONE
                     it?.data?.responseData?.message?.let { it1 ->

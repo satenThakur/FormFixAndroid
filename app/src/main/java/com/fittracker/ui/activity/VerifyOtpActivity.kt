@@ -109,10 +109,14 @@ class VerifyOtpActivity : AppCompatActivity() {
             if (it?.status == 200) {
                 if(it?.data?.responseData?.code== FormFixConstants.SUCCESS) {
                     Utility.saveUser(it?.data?.responseData?.user,this@VerifyOtpActivity)
-                    val intent = Intent(this, DashboardActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                    val intent = Intent(this, DisclaimerActivity::class.java)
                     startActivity(intent)
                     finish()
+                 /*   val intent = Intent(this, DashboardActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish()*/
                 }else if(it?.data?.responseData?.code== FormFixConstants.FAILED){
                     it?.data?.responseData?.message?.let { it1 ->
                         Utility.showDialog(this@VerifyOtpActivity,"Error",

@@ -35,7 +35,7 @@ public interface ConstantsSquats {
 
 
     float CIRCLE_RADIUS = 5.0F;
-    long timerLimit = 10000;
+    long timerLimit = 6000;
     long squatdepertimerLimit = 4000;
    int  SquatTimerLimit=5;
     long timerInterval = 1000;
@@ -115,5 +115,5 @@ public interface ConstantsSquats {
     float HIPS_ANKLE_AVARGE_DIFF=2.0f;//1.8f;//2.2
 
     float SHOULDERS_DIFF_THRESHOLD=1.6f;
-    float HEELS_TOE_DIFF_THRESHOLD=1.6f;
+    float HEELS_TOE_DIFF_THRESHOLD=1.6f;//1.6f
 }

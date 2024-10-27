@@ -10,11 +10,11 @@
     <string-array name="tags">
         <item>Squat</item>
         <item>Push Up</item>
-        <item>Bench</item>
+       <!-- <item>Bench</item>
         <item>Dead Lift</item>
         <item>Shoulder Press</item>
         <item>Bent Over Lateral Row</item>
-        <item>Others</item>
+        <item>Others</item>-->
     </string-array>
 
     <string name="select_exercise">Please Select Exercise</string>
@@ -50,7 +50,7 @@
     <string name="nav_close">Nav Close</string>
     <string name="spine_goes_into_lordosis">Tuck Hips</string>
     <string name="spine_Kyphosis" tools:ignore="ExtraTranslation">Retract shoulder blades</string>
-
+    <string name="tap_messages_for_form_corrections">Tap messages for Form Correction</string>
     <string name="tap_here_for_form_correction">Tap here for Form Correction</string>
      <!-- Left/Right Squat Messages-->
     <string name="knee_crossing_toes">Knees crossing toes</string>
@@ -62,8 +62,8 @@
     <string name="externally_rotate_feet">Externally Rotate Feet</string>
     <string name="knees_going_inwards">Knees going inwards</string>
     <string name="hips_not_in_centre">Hips not in centre</string>
-    <string name="shoulders_not_balanced">Shoulders are not balanced</string>
-    <string name="heels_not_balanced">Heels are not balanced</string>
+    <string name="shoulders_not_balanced">Shoulder are not level</string>
+    <string name="heels_not_balanced">Heels off ground</string>
 
     <!--Onboarding flow  Messages-->
     <string name="enter_phone_number">Enter phone number</string>

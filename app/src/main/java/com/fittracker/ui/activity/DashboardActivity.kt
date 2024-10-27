@@ -3,6 +3,8 @@ package com.fittracker.ui.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -14,6 +16,7 @@ import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.DialogFragment
 import com.cunoraz.tagview.Tag
 import com.fittracker.R
 import com.fittracker.databinding.ActivityDashboardBinding
@@ -271,10 +275,26 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 startActivity(intent)
             }
             R.id.nav_logout -> {
-                Utility.saveUser(null,this@DashboardActivity)
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                finish()
+                val builder = AlertDialog.Builder(this,R.style.CustomAlertDialog)
+                    .create()
+                val view = layoutInflater.inflate(R.layout.dialog_logout,null)
+                val  btnPositive = view.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.btn_confirm)
+                val  btnNegative = view.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.btn_cancel)
+                builder.setView(view)
+                btnPositive.setOnClickListener {
+                    Utility.saveUser(null,this@DashboardActivity)
+                    val intent = Intent(this@DashboardActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    this@DashboardActivity.finish()
+                    builder.dismiss()
+                }
+
+                btnNegative.setOnClickListener {
+                    builder.dismiss()
+                }
+
+                builder.setCanceledOnTouchOutside(false)
+                builder.show()
             }
 
         }
@@ -290,5 +310,23 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             onBackPressedDispatcher.onBackPressed()
         }
     }
-
+    class MyAlertDialogFragment: DialogFragment() {
+        override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+            val title = arguments?.getString("Logout")
+            val message = arguments?.getString("Are you you want to logout?")
+            val builder = AlertDialog.Builder(activity)
+            builder.setTitle(title)
+            builder.setMessage(message)
+            builder.setPositiveButton("Yes") { _, _ ->
+                Utility.saveUser(null,requireActivity().applicationContext)
+                val intent = Intent(requireActivity(), LoginActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            }
+            builder.setNegativeButton("Cancel") { _, _ ->
+                // ...
+            }
+            return builder.create()
+        }
+    }
 }

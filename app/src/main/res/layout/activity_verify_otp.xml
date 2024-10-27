@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/white"
-    tools:context=".activity.LoginActivity">
+    tools:context=".activity.VerifyOtpActivity">
     <RelativeLayout
         android:layout_height="@dimen/_230sdp"
         android:layout_width="0dp"

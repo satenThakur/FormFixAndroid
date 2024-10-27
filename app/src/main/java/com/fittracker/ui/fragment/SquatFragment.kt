@@ -151,6 +151,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     private fun setAdapterData(errorMessageList: List<ErrorMessage>) {
         activity?.runOnUiThread(Runnable {
         if(errorMessageList.isEmpty()){
+            fragmentSquatsBinding.relayMessage.visibility=View.GONE
             fragmentSquatsBinding.relay1.visibility=View.GONE
             fragmentSquatsBinding.relay2.visibility=View.GONE
             fragmentSquatsBinding.relay3.visibility=View.GONE
@@ -160,8 +161,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.relay7.visibility=View.GONE
             fragmentSquatsBinding.relay8.visibility=View.GONE
         }else if(errorMessageList.size==1){
-            fragmentSquatsBinding.tvMessage1.text= errorMessageList[0].message
-            fragmentSquatsBinding.tvCount1.text=""+ errorMessageList[0].count
+            fragmentSquatsBinding.relayMessage.visibility=View.VISIBLE
             fragmentSquatsBinding.relay1.visibility=View.VISIBLE
             fragmentSquatsBinding.relay2.visibility=View.GONE
             fragmentSquatsBinding.relay3.visibility=View.GONE
@@ -170,7 +170,10 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.relay6.visibility=View.GONE
             fragmentSquatsBinding.relay7.visibility=View.GONE
             fragmentSquatsBinding.relay8.visibility=View.GONE
+            fragmentSquatsBinding.tvMessage1.text= errorMessageList[0].message
+            fragmentSquatsBinding.tvCount1.text=""+ errorMessageList[0].count
         }else if(errorMessageList.size==2){
+            fragmentSquatsBinding.relayMessage.visibility=View.VISIBLE
             fragmentSquatsBinding.relay1.visibility=View.VISIBLE
             fragmentSquatsBinding.relay2.visibility=View.VISIBLE
             fragmentSquatsBinding.relay3.visibility=View.GONE
@@ -184,6 +187,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.tvMessage2.text= errorMessageList[1].message
             fragmentSquatsBinding.tvCount2.text=""+ errorMessageList[1].count
         }else if(errorMessageList.size==3){
+            fragmentSquatsBinding.relayMessage.visibility=View.VISIBLE
             fragmentSquatsBinding.relay1.visibility=View.VISIBLE
             fragmentSquatsBinding.relay2.visibility=View.VISIBLE
             fragmentSquatsBinding.relay3.visibility=View.VISIBLE
@@ -200,6 +204,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.tvCount3.text=""+ errorMessageList[2].count
         }
         else if(errorMessageList.size==4){
+            fragmentSquatsBinding.relayMessage.visibility=View.VISIBLE
             fragmentSquatsBinding.relay1.visibility=View.VISIBLE
             fragmentSquatsBinding.relay2.visibility=View.VISIBLE
             fragmentSquatsBinding.relay3.visibility=View.VISIBLE
@@ -217,6 +222,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.tvMessage4.text= errorMessageList[3].message
             fragmentSquatsBinding.tvCount4.text=""+ errorMessageList[3].count
         }else if(errorMessageList.size==5){
+            fragmentSquatsBinding.relayMessage.visibility=View.VISIBLE
             fragmentSquatsBinding.relay1.visibility=View.VISIBLE
             fragmentSquatsBinding.relay2.visibility=View.VISIBLE
             fragmentSquatsBinding.relay3.visibility=View.VISIBLE
@@ -236,6 +242,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.tvMessage5.text= errorMessageList[4].message
             fragmentSquatsBinding.tvCount5.text=""+ errorMessageList[4].count
         }else if(errorMessageList.size==6){
+            fragmentSquatsBinding.relayMessage.visibility=View.VISIBLE
             fragmentSquatsBinding.relay1.visibility=View.VISIBLE
             fragmentSquatsBinding.relay2.visibility=View.VISIBLE
             fragmentSquatsBinding.relay3.visibility=View.VISIBLE
@@ -257,6 +264,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.tvMessage6.text= errorMessageList[5].message
             fragmentSquatsBinding.tvCount6.text=""+ errorMessageList[5].count
         }else if(errorMessageList.size==7){
+            fragmentSquatsBinding.relayMessage.visibility=View.VISIBLE
             fragmentSquatsBinding.relay1.visibility=View.VISIBLE
             fragmentSquatsBinding.relay2.visibility=View.VISIBLE
             fragmentSquatsBinding.relay3.visibility=View.VISIBLE
@@ -280,6 +288,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             fragmentSquatsBinding.tvMessage7.text= errorMessageList[6].message
             fragmentSquatsBinding.tvCount7.text=""+ errorMessageList[6].count
         }else if(errorMessageList.size==8){
+            fragmentSquatsBinding.relayMessage.visibility=View.VISIBLE
             fragmentSquatsBinding.relay1.visibility=View.VISIBLE
             fragmentSquatsBinding.relay2.visibility=View.VISIBLE
             fragmentSquatsBinding.relay3.visibility=View.VISIBLE

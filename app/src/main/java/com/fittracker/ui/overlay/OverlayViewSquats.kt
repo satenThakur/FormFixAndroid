@@ -14,6 +14,9 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.fittracker.R
+import com.fittracker.application.FormfitApplication
+import com.fittracker.database.MediaData
+import com.fittracker.database.TransCriptionData
 import com.fittracker.model.ErrorMessage
 import com.fittracker.utilits.ConstantsSquats
 import com.fittracker.utilits.ConstantsSquats.ANGLE_TEXT
@@ -46,6 +49,9 @@ import com.fittracker.utilits.Utility
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarker
 import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarkerResult
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.max
@@ -315,6 +321,11 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
             /* FRONT FACE CASE */
             if (kneeAngle > 0 && hipAngle > 0 && userFaceType == ConstantsSquats.FRONT_FACE) {
                 when (Utility.getSquatState(kneeAngle, hipAngle, ConstantsSquats.FRONT_FACE)) {
+               /*     GlobalScope.launch (Dispatchers.IO) {
+                        val mediaData = TransCriptionData(exerciseType=exerciseType, uri=""+mUri,filename=filename,
+                            date=Utility.getCurrentDate(), time=Utility.getCurrentTime())
+                        FormfitApplication.database.transcriptionDao().insertTranscriptionData(mediaData)
+                    }*/
                     STATE_UP -> {
                         canvas.drawText(
                             resources.getString(R.string.state_up),
@@ -338,22 +349,6 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                 TEXT_TOTAL_RESP_Y,
                                 repsPaint
                             )
-                            if(!Utility.isShoulderBalanced(yofLeftShoulder,yofRightShoulder)){
-                                isFrontFaceErrorMessage = true
-                                var needToSpeak = false
-                                if (shouldernotbalancedTimeStamp == 0.toLong() || System.currentTimeMillis() - shouldernotbalancedTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
-                                    shouldernotbalancedTimeStamp = System.currentTimeMillis();
-                                    needToSpeak = true
-                                }
-                                drawMessageOnScreen(
-                                    shoulderx * imageWidth * scaleFactor,
-                                    yofLeftShoulder * imageHeight * scaleFactor,
-                                    context.resources.getString(R.string.shoulders_not_balanced),
-                                    ConstantsSquats.SHOULDER_NOT_BALANCED,
-                                    canvas, needToSpeak, true
-                                )
-                            }
-
                             canvas.drawText(
                                 resources.getString(R.string.incorrect_reps) + respCountIncorrect,
                                 TEXT_X,
@@ -570,21 +565,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                 canvas, needToSpeak,false
                             )
                         }
-                        if(!Utility.isHeelBalanced(yOfLeftHeel,yOfRightHeel,yOfLeftToe,yOfRightToe,userFaceType)){
-                            isFrontFaceErrorMessage = true
-                            var needToSpeak = false
-                            if (heelsNotbalancedTimeStamp == 0.toLong() || System.currentTimeMillis() - heelsNotbalancedTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
-                                heelsNotbalancedTimeStamp = System.currentTimeMillis();
-                                needToSpeak = true
-                            }
-                            drawMessageOnScreen(
-                                xHeel * imageWidth * scaleFactor,
-                                yHeel * imageHeight * scaleFactor,
-                                context.resources.getString(R.string.heels_not_balanced),
-                                ConstantsSquats.HEELS_NOT_BALANCED,
-                                canvas, needToSpeak, true
-                            )
-                        }
+
                         if (statesSet.contains(STATE_DOWN) && statesSet.contains(STATE_MOVING)) {
                             minKneeAngle = Float.MAX_VALUE
                             respCountTotal++
