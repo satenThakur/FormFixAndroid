@@ -136,6 +136,16 @@
         <activity
             android:theme="@style/SplashTheme"
             android:screenOrientation="portrait"
+            android:name="com.fittracker.ui.activity.ExoPlayerActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
+        </activity>
+
+        <activity
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait"
             android:name="com.fittracker.ui.activity.ImageActivity"
             android:exported="true">
             <meta-data

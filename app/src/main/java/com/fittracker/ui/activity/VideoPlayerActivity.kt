@@ -54,11 +54,10 @@ class VideoPlayerActivity : AppCompatActivity() {
                 getString(R.string.shoulders_not_balanced) -> filename = "shoulders_not_balanced"
                 getString(R.string.heels_not_balanced) -> filename = "heels_not_balanced"
             }
-
             var path = "android.resource://$packageName/raw/$filename"
             uriToPlay = Uri.parse(path)
-        }
 
+        }
         if (mediaControls == null) {
             // creating an object of media controller class
             mediaControls = MediaController(this)
@@ -101,7 +100,6 @@ class VideoPlayerActivity : AppCompatActivity() {
             Log.e("Video", "completed")
             true
         }
-
         // display a toast message if any
         // error occurs while playing the video
         activityVideoPlayerBinding.videoView!!.setOnErrorListener { mp, what, extra ->

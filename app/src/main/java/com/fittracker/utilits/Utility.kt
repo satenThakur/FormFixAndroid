@@ -196,7 +196,8 @@ object Utility {
         textView.setTextColor(Color.WHITE)
         textView.textSize = 14f
         snackbar.show()
-    }    fun showMessageSnackBar(view: View, msg: String) {
+    }
+    fun showMessageSnackBar(view: View, msg: String) {
         //Snackbar(view)
         val snackbar = Snackbar.make(
             view, msg,

@@ -27,6 +27,7 @@ import com.fittracker.ui.activity.VideoPlayerActivity
 import com.fittracker.databinding.FragmentSquatsBinding
 import com.fittracker.model.ErrorMessage
 import com.fittracker.model.LandMarkModel
+import com.fittracker.ui.activity.ExoPlayerActivity
 import com.fittracker.utilits.ConstantsSquats
 import com.fittracker.utilits.ConstantsSquats.MESSAGE_TYPE
 import com.fittracker.utilits.ConstantsSquats.timerInterval
@@ -318,7 +319,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     }
     @SuppressLint("SuspiciousIndentation")
     private fun errorMessageClick(msg:String){
-       var intent = Intent(context, VideoPlayerActivity::class.java)
+       var intent = Intent(context, ExoPlayerActivity::class.java)
               intent.putExtra(ConstantsSquats.FILE_NAME, "hipcorrection")
               intent.putExtra(ConstantsSquats.FILE_TYPE, 1)
               intent.putExtra(MESSAGE_TYPE,msg)
