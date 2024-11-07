@@ -42,7 +42,7 @@ class VideoPlayerActivity : AppCompatActivity() {
                     .toString() + "/" + ConstantsSquats.FOLDER_NAME + "/" + filename + ".mp4"
             uriToPlay = Uri.parse("file://$fileToPlay")
         } else {
-            var filename = ""
+            var filename = "bend_the_knees"
 
             when (intent.getStringExtra(ConstantsSquats.MESSAGE_TYPE)) {
                 getString(R.string.knee_crossing_toes) -> filename = "knees_crossing_toes"

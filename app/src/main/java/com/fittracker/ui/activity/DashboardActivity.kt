@@ -159,7 +159,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (Environment.isExternalStorageManager())
                 return
-            try {
+    /*        try {
                 val intent = Intent()
                 intent.action = Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
                 val uri = Uri.fromParts("package", this.packageName, null)
@@ -169,7 +169,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 val intent = Intent()
                 intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
                 storageActivityResultLauncher.launch(intent)
-            }
+            }*/
         } else {
             //Below android 11
             if (ContextCompat.checkSelfPermission(

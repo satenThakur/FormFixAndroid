@@ -318,7 +318,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     }
     @SuppressLint("SuspiciousIndentation")
     private fun errorMessageClick(msg:String){
-         var intent = Intent(context, VideoPlayerActivity::class.java)
+       var intent = Intent(context, VideoPlayerActivity::class.java)
               intent.putExtra(ConstantsSquats.FILE_NAME, "hipcorrection")
               intent.putExtra(ConstantsSquats.FILE_TYPE, 1)
               intent.putExtra(MESSAGE_TYPE,msg)

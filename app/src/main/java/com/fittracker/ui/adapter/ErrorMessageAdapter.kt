@@ -30,11 +30,11 @@ class ErrorMessageAdapter (private val itemList: List<ErrorMessage>, private var
       holder.tvErrorMessage.setText(itemList[position].message)
         holder.tvCount.setText(""+itemList[position].count)
         holder.cardview.setOnClickListener{
-            Log.e("cardviewError","Cclicked")
+         /*   Log.e("cardviewError","Cclicked")
             var intent = Intent(context, VideoPlayerActivity::class.java)
             intent.putExtra(ConstantsSquats.FILE_NAME, "hipcorrection")
             intent.putExtra(ConstantsSquats.FILE_TYPE,itemList[position].messageType)
-            context.startActivity(intent)
+            context.startActivity(intent)*/
 
         }
     }

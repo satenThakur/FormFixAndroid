@@ -9,12 +9,12 @@
 
     <string-array name="tags">
         <item>Squat</item>
-        <item>Push Up</item>
-       <!-- <item>Bench</item>
-        <item>Dead Lift</item>
-        <item>Shoulder Press</item>
-        <item>Bent Over Lateral Row</item>
-        <item>Others</item>-->
+         <item>Push Up</item>
+        <!-- <item>Bench</item>
+         <item>Dead Lift</item>
+         <item>Shoulder Press</item>
+          <item>Bent Over Lateral Row</item>
+          <item>Others</item>-->
     </string-array>
 
     <string name="select_exercise">Please Select Exercise</string>

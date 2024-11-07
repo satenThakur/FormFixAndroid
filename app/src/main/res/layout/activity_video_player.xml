@@ -27,6 +27,7 @@
         android:padding="@dimen/_3sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/iv_back_arrow"/>
+        android:src="@drawable/iv_back_arrow"
+        app:tint="@color/splash_color" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

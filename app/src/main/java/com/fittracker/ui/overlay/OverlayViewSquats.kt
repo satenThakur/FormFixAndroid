@@ -600,7 +600,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             anglePaint
                         )
 
-                        if(!Utility.isHeelBalanced(yOfLeftHeel,yOfRightHeel,yOfLeftToe,yOfRightToe,userFaceType)){
+                 /*       if(!Utility.isHeelBalanced(yOfLeftHeel,yOfRightHeel,yOfLeftToe,yOfRightToe,userFaceType)){
                             isFrontFaceErrorMessage = true
                             var needToSpeak = false
                             if (heelsNotbalancedTimeStamp == 0.toLong() || System.currentTimeMillis() - heelsNotbalancedTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
@@ -614,7 +614,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                 ConstantsSquats.HEELS_NOT_BALANCED,
                                 canvas, needToSpeak, true
                             )
-                        }
+                        }*/
                         canvas.drawText(
                             hipAngle.toString(),
                             xHip * imageWidth * scaleFactor,
