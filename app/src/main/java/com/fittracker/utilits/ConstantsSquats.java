@@ -4,6 +4,7 @@ import android.os.Environment;
 
 public interface ConstantsSquats {
     String SQUAT_TAG="SQUAT_TAG";
+     double cmToInches = 1.0 / 2.54;
     long SPLASH_DELAY=3000;
     long SPEAKERWAITTIMEFORSAMEMESSAGE=2500;
     int SELECT_TAG_1=1;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/camera_container"
     android:layout_width="match_parent"
@@ -9,39 +9,200 @@
         android:id="@+id/view_finder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:scaleType="fillStart" />
-
-    <RelativeLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_above="@+id/bottom_layout"
+       />
+    <com.fittracker.ui.overlay.OverlayViewSquats
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_layout"/>
+    <LinearLayout
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:layout_marginRight="@dimen/_52sdp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btn_playpause"
+            android:layout_marginRight="@dimen/_2sdp"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:src="@drawable/iv_pause" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/camera_button"
+            android:layout_gravity="right"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:src="@drawable/ic_cameraswitch"
+            android:tint="@color/red_color" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:visibility="visible"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
         android:layout_gravity="right|top">
-<LinearLayout
-    android:layout_alignParentEnd="true"
-    android:layout_marginTop="@dimen/_3sdp"
-    android:layout_marginRight="@dimen/_52sdp"
-    android:orientation="horizontal"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/btn_playpause"
-        android:layout_marginRight="@dimen/_2sdp"
-        android:layout_width="@dimen/_38sdp"
-        android:layout_height="@dimen/_38sdp"
-        android:src="@drawable/iv_pause" />
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/camera_button"
-        android:layout_gravity="right"
-       android:layout_width="@dimen/_38sdp"
-        android:layout_height="@dimen/_38sdp"
-        android:src="@drawable/ic_cameraswitch"
-        android:tint="@color/red_color" />
-</LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/squat_depth_layout"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@color/white"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/_3sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:paddingEnd="@dimen/_5sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:fontFamily="@font/helvetica_bold"
+                    android:padding="@dimen/_2sdp"
+                    android:textSize="@dimen/_10ssp"
+                    android:text="Squat Depth:"
+                    android:textColor="@color/black_color" />
+
+                <TextView
+                    android:id="@+id/value_squat_depth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:fontFamily="@font/helvetica"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:text="21%"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/red_color"></TextView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/hip_depth_layout"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@color/white"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/_3sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:paddingEnd="@dimen/_5sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:fontFamily="@font/helvetica_bold"
+                    android:padding="@dimen/_2sdp"
+                    android:textSize="@dimen/_10ssp"
+                    android:text="Hip Shift:"
+                    android:textColor="@color/black_color" />
+
+                <TextView
+                    android:id="@+id/value_hip_shift"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:fontFamily="@font/helvetica"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:text="123"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/green_color"></TextView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/shoulder_depth_layout"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@color/white"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/_3sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:paddingEnd="@dimen/_5sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:fontFamily="@font/helvetica_bold"
+                    android:padding="@dimen/_2sdp"
+                    android:textSize="@dimen/_10ssp"
+                    android:text="Shoulder Shift:"
+                    android:textColor="@color/black_color" />
+
+                <TextView
+                    android:id="@+id/value_shoulder_shift"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:fontFamily="@font/helvetica"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:text="3.5"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/green_color"></TextView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/thigh_angle_layout"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@color/white"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/_3sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:paddingEnd="@dimen/_5sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:fontFamily="@font/helvetica_bold"
+                    android:padding="@dimen/_2sdp"
+                    android:textSize="@dimen/_10ssp"
+                    android:text="Thigh Angle:"
+                    android:textColor="@color/black_color" />
+
+                <TextView
+                    android:id="@+id/value_thigh_angle"
+                    android:layout_width="20dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:fontFamily="@font/helvetica"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:text="88"
+                    android:textColor="@color/red_color"
+                    android:textSize="@dimen/_10ssp"></TextView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <View
+            android:background="@color/gray_code"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_height="match_parent"/>
+        
         <ScrollView
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_200sdp">
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_weight="1.8"
+            android:layout_height="match_parent">
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
@@ -462,21 +623,18 @@
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <com.fittracker.ui.overlay.OverlayViewSquats
-        android:id="@+id/overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 
     <TextView
         android:id="@+id/lbl_counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_centerInParent="true"
         android:fontFamily="@font/helvetica_bold"
         android:text="5"
         android:textColor="@color/white"
         android:textSize="@dimen/_150sdp"
         android:visibility="gone" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>

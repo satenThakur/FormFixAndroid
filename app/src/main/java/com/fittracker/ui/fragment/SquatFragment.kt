@@ -23,7 +23,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.fittracker.R
-import com.fittracker.ui.activity.VideoPlayerActivity
 import com.fittracker.databinding.FragmentSquatsBinding
 import com.fittracker.model.ErrorMessage
 import com.fittracker.model.LandMarkModel
@@ -40,6 +39,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
+import kotlin.math.roundToInt
 
 class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     companion object {
@@ -90,6 +90,10 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     private var windowHeight=0
     private var windowWidth=0
     private var isPlaying=true
+
+
+
+
 
     /** Blocking ML operations are performed using this executor */
     private lateinit var backgroundExecutor: ExecutorService
@@ -682,6 +686,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
             if (_fragmentSquatsBinding != null) {
                 // Pass necessary information to OverlayView for drawing on the canvas
+                showBottomLayoutValues(userFaceType,kneeAngle,isTimerCompleted)
                 fragmentSquatsBinding.overlay.setResults(
                     resultBundle.results.first(),
                     resultBundle.inputImageHeight,
@@ -720,6 +725,26 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
         windowHeight = displayMetrics.heightPixels
         windowWidth = displayMetrics.widthPixels
+
+    }
+
+
+    fun showBottomLayoutValues(userFaceType:Int,kneesAngle: Float,isTimerCompleted:Boolean){
+        if(isTimerCompleted)
+        fragmentSquatsBinding.bottomLayout.visibility=View.VISIBLE
+        val kneeAngle = (kneesAngle * 10).roundToInt() / 10
+
+        if(userFaceType == ConstantsSquats.FRONT_FACE){
+            fragmentSquatsBinding.valueSquatDepth.text=""+kneeAngle
+            fragmentSquatsBinding.valueHipShift.text=""+Utility.hipShift(xofLeftHip,xofRightHip,167)
+            fragmentSquatsBinding.valueShoulderShift.text=""+kneeAngle
+            fragmentSquatsBinding.valueThighAngle.text=""+kneeAngle
+        }else{
+            fragmentSquatsBinding.valueSquatDepth.text=""+kneeAngle
+            fragmentSquatsBinding.valueHipShift.text="NA"
+            fragmentSquatsBinding.valueShoulderShift.text=""+kneeAngle
+            fragmentSquatsBinding.valueThighAngle.text=""+kneeAngle
+        }
 
     }
 }

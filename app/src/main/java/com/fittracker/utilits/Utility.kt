@@ -34,6 +34,7 @@ import com.fittracker.utilits.ConstantsSquats.STATE_DOWN
 import com.fittracker.utilits.ConstantsSquats.STATE_MOVING
 import com.fittracker.utilits.ConstantsSquats.STATE_UN_DECIDED
 import com.fittracker.utilits.ConstantsSquats.STATE_UP
+import com.fittracker.utilits.ConstantsSquats.cmToInches
 import com.google.android.material.snackbar.Snackbar
 import com.google.mediapipe.tasks.components.containers.NormalizedLandmark
 import java.io.File
@@ -630,6 +631,26 @@ object Utility {
         else
             return STATE_MOVING
 
+    }
+
+
+    fun hipShift(leftHip:Float,rightHip:Float,personHeightCm:Int):Double{
+        var hipShiftInches: Double=0.0
+        if (leftHip != null && rightHip != null) {
+            // Calculate normalized shift
+            val normalizedShift: Float = Math.abs(leftHip- rightHip)
+
+            // Convert to real-world dimensions in cm
+            val hipShiftCm: Float = normalizedShift * personHeightCm
+
+            // Convert to inches
+             hipShiftInches = hipShiftCm * cmToInches
+
+            // Display the result (use any UI component, e.g., TextView)
+            println("Hip Shift: $hipShiftInches inches")
+
+        }
+        return hipShiftInches
     }
 }
     /*
