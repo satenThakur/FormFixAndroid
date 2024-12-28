@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
+import com.cunoraz.tagview.Utils
 import com.fittracker.R
 import com.fittracker.databinding.FragmentSquatsBinding
 import com.fittracker.model.ErrorMessage
@@ -31,6 +32,8 @@ import com.fittracker.utilits.ConstantsSquats
 import com.fittracker.utilits.ConstantsSquats.MESSAGE_TYPE
 import com.fittracker.utilits.ConstantsSquats.timerInterval
 import com.fittracker.utilits.ConstantsSquats.timerLimit
+import com.fittracker.utilits.FormFixConstants
+import com.fittracker.utilits.FormFixSharedPreferences
 import com.fittracker.utilits.Utility
 import com.fittracker.viewmodel.MainViewModel
 import com.fittracker.viewmodel.PoseLandmarkerHelper
@@ -40,6 +43,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 import kotlin.math.roundToInt
+import kotlin.properties.Delegates
 
 class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     companion object {
@@ -90,9 +94,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     private var windowHeight=0
     private var windowWidth=0
     private var isPlaying=true
-
-
-
+    private var height=0
 
 
     /** Blocking ML operations are performed using this executor */
@@ -347,7 +349,8 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         }catch (e:Exception){
             e.printStackTrace()
         }
-
+   var heightString= FormFixSharedPreferences.getSharedPrefStringValue(requireContext(), FormFixConstants.HEIGHT)
+        height=heightString!!.toInt()
         // Initialize our background executor
         backgroundExecutor = Executors.newSingleThreadExecutor()
         fragmentSquatsBinding.cameraButton.setOnClickListener {
@@ -681,12 +684,14 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 yOfRightHeel=landMarkList[30].y
                 yOfLeftToe=landMarkList[31].y
                 yOfRightToe=landMarkList[32].y
-
+               showBottomLayoutValues(userFaceType,kneeAngle,hipAngle,isTimerCompleted,xofLeftToe,
+                    xofRightToe,
+                    xofLeftHip,xofRightHip,leftShoulder,
+                    rightShoulder)
             }
 
             if (_fragmentSquatsBinding != null) {
                 // Pass necessary information to OverlayView for drawing on the canvas
-                showBottomLayoutValues(userFaceType,kneeAngle,isTimerCompleted)
                 fragmentSquatsBinding.overlay.setResults(
                     resultBundle.results.first(),
                     resultBundle.inputImageHeight,
@@ -729,21 +734,40 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     }
 
 
-    fun showBottomLayoutValues(userFaceType:Int,kneesAngle: Float,isTimerCompleted:Boolean){
-        if(isTimerCompleted)
-        fragmentSquatsBinding.bottomLayout.visibility=View.VISIBLE
-        val kneeAngle = (kneesAngle * 10).roundToInt() / 10
+    fun showBottomLayoutValues(userFaceType:Int,kneesAngle: Float,hipAngle: Float,isTimerCompleted:Boolean,toe1_X: Float,
+                               toe2_X: Float,
+                               hip1_X: Float,
+                               hip2_X: Float,sholder1_X: Float,
+                               shoulder2_x: Float){
+      if(isTimerCompleted) {
+            fragmentSquatsBinding.bottomLayout.visibility = View.VISIBLE
+            val kneeAngles = (kneesAngle * 10).roundToInt() / 10
 
-        if(userFaceType == ConstantsSquats.FRONT_FACE){
-            fragmentSquatsBinding.valueSquatDepth.text=""+kneeAngle
-            fragmentSquatsBinding.valueHipShift.text=""+Utility.hipShift(xofLeftHip,xofRightHip,167)
-            fragmentSquatsBinding.valueShoulderShift.text=""+kneeAngle
-            fragmentSquatsBinding.valueThighAngle.text=""+kneeAngle
-        }else{
-            fragmentSquatsBinding.valueSquatDepth.text=""+kneeAngle
-            fragmentSquatsBinding.valueHipShift.text="NA"
-            fragmentSquatsBinding.valueShoulderShift.text=""+kneeAngle
-            fragmentSquatsBinding.valueThighAngle.text=""+kneeAngle
+            if (userFaceType == ConstantsSquats.FRONT_FACE) {
+                fragmentSquatsBinding.valueThighAngle.text = "" + kneeAngles
+                fragmentSquatsBinding.valueSquatDepth.text = ""+ Utility.getSquatPercentage(kneesAngle.toInt(),hipAngle.toInt(),userFaceType)+"%"
+                fragmentSquatsBinding.valueHipShift.text =
+                    "" + Utility.hipShift( toe1_X,
+                        toe2_X,
+                        hip1_X,
+                        hip2_X,
+                        height)
+                fragmentSquatsBinding.valueShoulderShift.text =
+                    "" + Utility.shoulderShift(toe1_X,
+                        toe2_X,
+                        sholder1_X,
+                        shoulder2_x,
+                        height)
+                fragmentSquatsBinding.lblShoulderShift.text="Shoulders Shift:"
+                fragmentSquatsBinding.lblHipShift.text="Hips Shift:"
+            } else {
+                fragmentSquatsBinding.valueThighAngle.text = "" + kneeAngles
+                fragmentSquatsBinding.valueSquatDepth.text = ""+ Utility.getSquatPercentage(kneesAngle.toInt(), hipAngle.toInt(),userFaceType)+"%"
+                fragmentSquatsBinding.valueHipShift.text = ""+Utility.kneesCrossToesShift(toeX,xKnee,height)
+                fragmentSquatsBinding.lblHipShift.text="Knees Shift:"
+                fragmentSquatsBinding.valueShoulderShift.text =""+Utility.heelsShift(yOfLeftHeel, yOfRightHeel, yOfLeftToe, yOfRightToe, userFaceType,height)
+                fragmentSquatsBinding.lblShoulderShift.text="Heels Shift:"
+            }
         }
 
     }
