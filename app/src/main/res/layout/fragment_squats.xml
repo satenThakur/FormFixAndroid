@@ -632,6 +632,7 @@
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>-->
+
         <LinearLayout
             android:id="@+id/bottom_layout"
             android:visibility="gone"
@@ -646,8 +647,9 @@
             <LinearLayout
                 android:background="#66ffffff"
                 android:orientation="vertical"
-                android:layout_weight="1.2"
+                android:layout_weight="1.3"
                 android:layout_width="0dp"
+                android:paddingStart="@dimen/_4sdp"
                 android:layout_height="match_parent">
                 <LinearLayout
                     android:id="@+id/squat_depth_layout"
@@ -655,7 +657,6 @@
                     android:visibility="visible"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_alignParentRight="true"
-                    android:padding="@dimen/_3sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
@@ -664,7 +665,6 @@
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:fontFamily="@font/helvetica_bold"
-                        android:padding="@dimen/_2sdp"
                         android:textSize="@dimen/_12ssp"
                         android:text="Squat Depth:"
                         android:textColor="@color/black_color" />
@@ -675,11 +675,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_3sdp"
                         android:fontFamily="@font/helvetica_bold"
-                        android:paddingLeft="@dimen/_3sdp"
-                        android:paddingRight="@dimen/_3sdp"
-                        android:text="21%"
-                        android:textSize="@dimen/_12ssp"
-                        android:textColor="@color/black_color"></TextView>
+                        android:text="100%"
+                        android:paddingLeft="@dimen/_2sdp"
+                        android:layout_gravity="right"
+                        android:textSize="@dimen/_11ssp"
+                        android:textColor="@color/blue_color"></TextView>
 
                 </LinearLayout>
                 <LinearLayout
@@ -688,17 +688,14 @@
                     android:visibility="visible"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_alignParentRight="true"
-                    android:padding="@dimen/_3sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/lbl_hip_shift"
-                        android:paddingEnd="@dimen/_5sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:fontFamily="@font/helvetica_bold"
-                        android:padding="@dimen/_2sdp"
                         android:textSize="@dimen/_12ssp"
                         android:text="Hip Shift:"
                         android:textColor="@color/black_color" />
@@ -709,11 +706,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_3sdp"
                         android:fontFamily="@font/helvetica_bold"
-                        android:paddingLeft="@dimen/_3sdp"
+                        android:paddingLeft="@dimen/_2sdp"
                         android:paddingRight="@dimen/_3sdp"
-                        android:text="123"
-                        android:textSize="@dimen/_12ssp"
-                        android:textColor="@color/black_color"></TextView>
+                        android:text="123 in"
+                        android:textSize="@dimen/_11ssp"
+                        android:textColor="@color/blue_color"></TextView>
 
                 </LinearLayout>
                 <LinearLayout
@@ -722,7 +719,6 @@
                     android:visibility="visible"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_alignParentRight="true"
-                    android:padding="@dimen/_3sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
@@ -732,7 +728,6 @@
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:fontFamily="@font/helvetica_bold"
-                        android:padding="@dimen/_2sdp"
                         android:textSize="@dimen/_12ssp"
                         android:text="Shoulder Shift:"
                         android:textColor="@color/black_color" />
@@ -741,13 +736,13 @@
                         android:id="@+id/value_shoulder_shift"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/_3sdp"
+                        android:layout_marginRight="@dimen/_1sdp"
                         android:fontFamily="@font/helvetica_bold"
-                        android:paddingLeft="@dimen/_3sdp"
+                        android:paddingLeft="@dimen/_2sdp"
                         android:paddingRight="@dimen/_3sdp"
-                        android:text="3.5"
-                        android:textSize="@dimen/_12ssp"
-                        android:textColor="@color/black_color"></TextView>
+                        android:text="3.5 in"
+                        android:textSize="@dimen/_11ssp"
+                        android:textColor="@color/blue_color"></TextView>
 
                 </LinearLayout>
                 <LinearLayout
@@ -756,11 +751,9 @@
                     android:visibility="visible"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_alignParentRight="true"
-                    android:padding="@dimen/_3sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:paddingEnd="@dimen/_5sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
@@ -778,9 +771,9 @@
                         android:fontFamily="@font/helvetica_bold"
                         android:paddingLeft="@dimen/_3sdp"
                         android:paddingRight="@dimen/_3sdp"
-                        android:text="123"
-                        android:textSize="@dimen/_12ssp"
-                        android:textColor="@color/black_color"></TextView>
+                        android:text="123 in"
+                        android:textSize="@dimen/_11ssp"
+                        android:textColor="@color/blue_color"></TextView>
 
                 </LinearLayout>
 
@@ -795,7 +788,7 @@
             <ScrollView
                 android:id="@+id/scrollView"
                 android:layout_width="0dp"
-                android:layout_weight="1.8"
+                android:layout_weight="1.7"
                 android:layout_height="match_parent">
                 <LinearLayout
                     android:orientation="vertical"

@@ -744,28 +744,28 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             val kneeAngles = (kneesAngle * 10).roundToInt() / 10
 
             if (userFaceType == ConstantsSquats.FRONT_FACE) {
-                fragmentSquatsBinding.valueThighAngle.text = "" + kneeAngles
+                fragmentSquatsBinding.valueThighAngle.text = "" + kneeAngles+" deg"
                 fragmentSquatsBinding.valueSquatDepth.text = ""+ Utility.getSquatPercentage(kneesAngle.toInt(),hipAngle.toInt(),userFaceType)+"%"
                 fragmentSquatsBinding.valueHipShift.text =
                     "" + Utility.hipShift( toe1_X,
                         toe2_X,
                         hip1_X,
                         hip2_X,
-                        height)
+                        height)+" in"
                 fragmentSquatsBinding.valueShoulderShift.text =
                     "" + Utility.shoulderShift(toe1_X,
                         toe2_X,
                         sholder1_X,
                         shoulder2_x,
-                        height)
+                        height)+" in"
                 fragmentSquatsBinding.lblShoulderShift.text="Shoulders Shift:"
                 fragmentSquatsBinding.lblHipShift.text="Hips Shift:"
             } else {
-                fragmentSquatsBinding.valueThighAngle.text = "" + kneeAngles
+                fragmentSquatsBinding.valueThighAngle.text = "" + kneeAngles+" deg"
                 fragmentSquatsBinding.valueSquatDepth.text = ""+ Utility.getSquatPercentage(kneesAngle.toInt(), hipAngle.toInt(),userFaceType)+"%"
-                fragmentSquatsBinding.valueHipShift.text = ""+Utility.kneesCrossToesShift(toeX,xKnee,height)
+                fragmentSquatsBinding.valueHipShift.text = ""+Utility.kneesCrossToesShift(toeX,xKnee,height)+" in"
                 fragmentSquatsBinding.lblHipShift.text="Knees Shift:"
-                fragmentSquatsBinding.valueShoulderShift.text =""+Utility.heelsShift(yOfLeftHeel, yOfRightHeel, yOfLeftToe, yOfRightToe, userFaceType,height)
+                fragmentSquatsBinding.valueShoulderShift.text =""+Utility.heelsShift(yOfLeftHeel, yOfRightHeel, yOfLeftToe, yOfRightToe, userFaceType,height)+" in"
                 fragmentSquatsBinding.lblShoulderShift.text="Heels Shift:"
             }
         }

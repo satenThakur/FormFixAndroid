@@ -10,7 +10,7 @@
     android:layout_marginTop="@dimen/_6sdp"
     android:background="@color/white"
     app:cardCornerRadius="@dimen/_8sdp">
-   <RelativeLayout
+  <RelativeLayout
         android:paddingBottom="@dimen/_4sdp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_75sdp">

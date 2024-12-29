@@ -18,6 +18,7 @@
     <color name="bottom_sheet_text_color">@android:color/black</color>
     <color name="icActive">#FFFFFFFF</color>
     <color name="icFocused">#DDFFFFFF</color>
+    <color name="blue_color">#0009ff </color>
     <color name="icPressed">#AAFFFFFF</color>
     <color name="slate_color">#708090</color>
     <color name="black_color">#000000</color>

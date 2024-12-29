@@ -674,7 +674,6 @@ object Utility {
 
     fun kneesCrossToesShift(toeX: Float, knneX: Float,  personHeightCm: Int): Long {
         var kneeToeXDiff = abs(toeX - knneX)*personHeightCm
-        Log("Angle", "KneeX and ToeX diff=$kneeToeXDiff threshold is=$KNEE_TOE_THRESHOLD")
         var k_shift_in_inches = kneeToeXDiff / 2.54
         return (k_shift_in_inches * 10).roundToLong() / 10
     }
@@ -690,14 +689,10 @@ object Utility {
                 leftDiff
             else
                 rightDiff
-            Log.e("heelsToeYDiff", "FRONT_FACE rightDiff=" + rightDiff)
-            Log.e("heelsToeYDiff", "FRONT_FACE leftDiff=" + leftDiff)
         } else if (FaceType == ConstantsSquats.LEFT_FACE) {
             heelAndToeDiff = abs(yOfLeftHeel*personHeightCm - yOfLeftToe*personHeightCm)
-            Log.e("heelsToeYDiff", "LEFT_FACE Diff=" + heelAndToeDiff)
         } else if (FaceType == ConstantsSquats.RIGHT_FACE) {
             heelAndToeDiff = abs(yOfRightHeel*personHeightCm - yOfRightToe*personHeightCm)
-            Log.e("heelsToeYDiff", "RIGHT_FACE Diff=" + heelAndToeDiff)
         }
         var heelsShiftInCm = heelAndToeDiff / 2.54
         return (heelsShiftInCm * 10).roundToLong() / 10
