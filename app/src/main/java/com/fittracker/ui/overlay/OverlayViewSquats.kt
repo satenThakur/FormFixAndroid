@@ -12,6 +12,7 @@ import android.speech.tts.TextToSpeech
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import com.fittracker.R
 import com.fittracker.application.FormfitApplication
@@ -45,6 +46,8 @@ import com.fittracker.utilits.ConstantsSquats.TEXT_STATE_Y
 import com.fittracker.utilits.ConstantsSquats.TEXT_TOTAL_RESP_Y
 import com.fittracker.utilits.ConstantsSquats.TEXT_X
 import com.fittracker.utilits.ConstantsSquats.TOE_KNEE_X_DIFFS_MIN_THRESHOLD
+import com.fittracker.utilits.FormFixConstants
+import com.fittracker.utilits.FormFixSharedPreferences
 import com.fittracker.utilits.Utility
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarker
@@ -132,11 +135,15 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
     private var windowHeight = 0
     private var windowWidth = 0
     private var isPlaying=true
+    private var userHeight=0
 
     init {
         initPaints()
         errorMessageList.clear()
         tts = TextToSpeech(context, this)
+        var heightString=
+            context?.let { FormFixSharedPreferences.getSharedPrefStringValue(it, FormFixConstants.HEIGHT) }
+        userHeight=heightString!!.toInt()
     }
 
     private fun initPaints() {
@@ -390,7 +397,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             }
 
                         }
-                        if(!Utility.isShoulderBalanced(yofLeftShoulder,yofRightShoulder)){
+                        if(!Utility.isShoulderBalanced(yofLeftShoulder,yofRightShoulder,userHeight,yOfLeftHeel,yOfRightHeel,yForNose)){
                             isFrontFaceErrorMessage = true
                             var needToSpeak = false
                             if (shouldernotbalancedTimeStamp == 0.toLong() || System.currentTimeMillis() - shouldernotbalancedTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
@@ -482,7 +489,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                     )
                                 }
                             }
-                            if(!Utility.isShoulderBalanced(yofLeftShoulder,yofRightShoulder)){
+                            if(!Utility.isShoulderBalanced(yofLeftShoulder,yofRightShoulder,userHeight,yOfLeftHeel,yOfRightHeel,yForNose)){
                                 isFrontFaceErrorMessage = true
                                 var needToSpeak = false
                                 if (shouldernotbalancedTimeStamp == 0.toLong() || System.currentTimeMillis() - shouldernotbalancedTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {

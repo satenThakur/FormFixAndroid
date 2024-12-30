@@ -115,6 +115,6 @@ public interface ConstantsSquats {
     float TOE_KNEE_X_DIFFS_MIN_THRESHOLD =33;//32;//39//42;//55;
     float HIPS_ANKLE_AVARGE_DIFF=2.0f;//1.8f;//2.2
 
-    float SHOULDERS_DIFF_THRESHOLD=1.6f;
+    float SHOULDERS_DIFF_THRESHOLD=3;
     float HEELS_TOE_DIFF_THRESHOLD=1.7f;//2.0f;//1.9f;//1.8f;//1.6f
 }

@@ -10,12 +10,16 @@ public class FormFixConstants {
 
     public static String EMAIL="email";
     public static String WEIGHT="weight";
-    public static String HEIGHT="height";
+    public static String HEIGHT= "height";
     public static String ONBOARDING_TYPE="ONBOARDING_TYPE";
     public static String LOGIN="LOGIN";
     public static String REGISTER="REGISTER";
     public static int STATUS_200=200;
     public static int SUCCESS=1;
     public static int FAILED=2;
+
+    public static int SCREEN_WIDTH=0;
+    public static int SCREEN_HEIGHT=0;
+
 
 }

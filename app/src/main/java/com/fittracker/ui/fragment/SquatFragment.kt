@@ -550,6 +550,9 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 userFaceType = 0
                 val leftShoulder = landMarkList[11].x
                 val rightShoulder = landMarkList[12].x
+                val leftShoulder_Y = landMarkList[11].y
+                val rightShoulder_Y = landMarkList[12].y
+
                 val nose = landMarkList[0].x
                 val leftSdoulder_node_distance = leftShoulder - nose
                 val rightSdoulder_node_distance = rightShoulder - nose
@@ -687,7 +690,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                showBottomLayoutValues(userFaceType,kneeAngle,hipAngle,isTimerCompleted,xofLeftToe,
                     xofRightToe,
                     xofLeftHip,xofRightHip,leftShoulder,
-                    rightShoulder)
+                    rightShoulder,leftShoulder_Y,rightShoulder_Y)
             }
 
             if (_fragmentSquatsBinding != null) {
@@ -738,7 +741,8 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                                toe2_X: Float,
                                hip1_X: Float,
                                hip2_X: Float,sholder1_X: Float,
-                               shoulder2_x: Float){
+                               shoulder2_x: Float, sholder1_Y: Float,
+                               shoulder2_Y: Float){
       if(isTimerCompleted) {
             fragmentSquatsBinding.bottomLayout.visibility = View.VISIBLE
             val kneeAngles = (kneesAngle * 10).roundToInt() / 10
@@ -753,11 +757,14 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                         hip2_X,
                         height)+" in"
                 fragmentSquatsBinding.valueShoulderShift.text =
-                    "" + Utility.shoulderShift(toe1_X,
-                        toe2_X,
-                        sholder1_X,
-                        shoulder2_x,
-                        height)+" in"
+                    "" + Utility.shoulderShift(
+                        sholder1_Y,
+                        shoulder2_Y,
+                        height,
+                        FormFixConstants.SCREEN_HEIGHT,
+                        yOfLeftHeel,
+                        yOfRightHeel,
+                        yForNose)+" in"
                 fragmentSquatsBinding.lblShoulderShift.text="Shoulders Shift:"
                 fragmentSquatsBinding.lblHipShift.text="Hips Shift:"
             } else {

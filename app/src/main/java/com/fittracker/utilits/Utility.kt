@@ -34,7 +34,6 @@ import com.fittracker.utilits.ConstantsSquats.STATE_DOWN
 import com.fittracker.utilits.ConstantsSquats.STATE_MOVING
 import com.fittracker.utilits.ConstantsSquats.STATE_UN_DECIDED
 import com.fittracker.utilits.ConstantsSquats.STATE_UP
-import com.fittracker.utilits.ConstantsSquats.cmToInches
 import com.google.android.material.snackbar.Snackbar
 import com.google.mediapipe.tasks.components.containers.NormalizedLandmark
 import java.io.File
@@ -44,6 +43,7 @@ import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.acos
 import kotlin.math.pow
+import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 import kotlin.math.sqrt
 
@@ -339,6 +339,7 @@ object Utility {
 
     /*Screen Recorder Functions */
 
+
     fun angleBetweenPoints(
         point1: DoubleArray,
         point2: DoubleArray,
@@ -346,21 +347,21 @@ object Utility {
     ): Double {
         val vector1 = doubleArrayOf(
             point1[0] - point2[0],
-            point1[1] - point2[1],
-            point1[2] - point2[2]
+            point1[1] - point2[1]/*,
+            point1[2] - point2[2]*/
         )
         val vector2 = doubleArrayOf(
             point3[0] - point2[0],
-            point3[1] - point2[1],
-            point3[2] - point2[2]
+            point3[1] - point2[1]/*,
+            point3[2] - point2[2]*/
         )
         val dotProduct =
-            vector1[0] * vector2[0] + vector1[1] * vector2[1] + vector1[2] * vector2[2]
+            vector1[0] * vector2[0] + vector1[1] * vector2[1]/* + vector1[2] * vector2[2]*/
         val magnitudeVector1 = Math.sqrt(
-            vector1[0] * vector1[0] + vector1[1] * vector1[1] + vector1[2] * vector1[2]
+            vector1[0] * vector1[0] + vector1[1] * vector1[1]/* + vector1[2] * vector1[2]*/
         )
         val magnitudeVector2 = Math.sqrt(
-            vector2[0] * vector2[0] + vector2[1] * vector2[1] + vector2[2] * vector2[2]
+            vector2[0] * vector2[0] + vector2[1] * vector2[1] /*+ vector2[2] * vector2[2]*/
         )
         val angle =
             Math.acos(dotProduct / (magnitudeVector1 * magnitudeVector2))
@@ -477,14 +478,18 @@ object Utility {
 
     fun isShoulderBalanced(
         yOfLeftShoulder: Float,
-        yOfRightShoulder: Float
+        yOfRightShoulder: Float,
+        personHeightCm: Int,
+        heelY_left:Float,
+        heelY_right:Float,
+        noseY:Float
     ): Boolean {
         var isShoulderBalanced = true
-        var shouldersYDiff = abs(yOfLeftShoulder - yOfRightShoulder) * 100
-        Log.e("shouldersYDiff", "yOfLeftShoulder=" + yOfLeftShoulder)
-        Log.e("shouldersYDiff", "yOfRightShoulder=" + yOfRightShoulder)
-        Log.e("shouldersYDiff", "" + shouldersYDiff)
-        if (shouldersYDiff > SHOULDERS_DIFF_THRESHOLD) {
+        var shouldersYDiff = abs((yOfLeftShoulder*FormFixConstants.SCREEN_HEIGHT) - (yOfRightShoulder*FormFixConstants.SCREEN_HEIGHT))
+
+        val scalingFactor = getPixelToInchScalingFactor(FormFixConstants.SCREEN_HEIGHT,personHeightCm,heelY_left,heelY_right,noseY)
+        val deviation = (shouldersYDiff*scalingFactor)/2.54
+        if (deviation.toInt()-1 >=SHOULDERS_DIFF_THRESHOLD) {
             isShoulderBalanced = false
         }
 
@@ -659,21 +664,25 @@ object Utility {
 
 
     fun shoulderShift(
-        toe1_X: Float,
-        toe2_X: Float,
-        shoulder1_X: Float,
-        shoulder2_X: Float,
-        personHeightCm: Int
+        shoulder1_Y: Float,
+        shoulder2_Y: Float,
+        personHeightCm: Int,
+        screenHeightInPixel:Int,
+        heelY_left:Float,
+        heelY_right:Float,
+        noseY:Float
     ): Long {
-        var t_center = ((toe1_X * personHeightCm) + (toe2_X * personHeightCm)) / 2
-        var s_center = ((shoulder1_X * personHeightCm) + (shoulder2_X * personHeightCm)) / 2
-
-        var s_shift_in_inches = abs(t_center - s_center) / 2.54
-        return (s_shift_in_inches * 10).roundToLong() / 10
+         var deviationInPixels = abs((shoulder1_Y * screenHeightInPixel)-(shoulder2_Y*screenHeightInPixel))
+         var deviationInCm = deviationInPixels * getPixelToInchScalingFactor(screenHeightInPixel,personHeightCm,heelY_left,heelY_right,noseY)
+         var deviation_inches = deviationInCm/2.54
+        if (deviation_inches>=1){
+            deviation_inches=deviation_inches-1
+        }
+        return (deviation_inches).roundToLong()
     }
 
-    fun kneesCrossToesShift(toeX: Float, knneX: Float,  personHeightCm: Int): Long {
-        var kneeToeXDiff = abs(toeX - knneX)*personHeightCm
+    fun kneesCrossToesShift(toeX: Float, kneeX: Float,  personHeightCm: Int): Long {
+        var kneeToeXDiff = abs(toeX - kneeX)*personHeightCm
         var k_shift_in_inches = kneeToeXDiff / 2.54
         return (k_shift_in_inches * 10).roundToLong() / 10
     }
@@ -698,62 +707,74 @@ object Utility {
         return (heelsShiftInCm * 10).roundToLong() / 10
 
     }
+
+    fun getPixelToInchScalingFactor(screenHeight: Int, heightInCm:Int, heelY_left:Float,heelY_right:Float, noseY:Float): Float{
+        val scaling_factor: Float = heightInCm/ calculateHeightInPixels(screenHeight,heelY_left,heelY_right,noseY)
+        return scaling_factor
+    }
+
+    fun calculateHeightInPixels(screenHeight: Int, heelY_left:Float,heelY_right:Float, noseY:Float): Float{
+        var heel : Float= 0F
+        if(heelY_right<heelY_left){
+            heel = heelY_right
+        }else{
+            heel = heelY_left
+        }
+        val headTop = calculate_headTopY((noseY*screenHeight).toInt())
+        val heelInPixel = (heel*screenHeight).toInt()
+        val userHeightInPixels = abs(headTop-heelInPixel)
+
+
+        return userHeightInPixels.toFloat()
+    }
+
+    fun calculate_headTopY(noseY:Int): Int{
+
+        val head = noseY/0.92
+        return head.roundToInt()
+
+//        // Percentage less than headTop
+//
+//        // Percentage less than X
+//        val percentageLess = 8.0
+//
+//        // Convert percentage to a decimal
+//
+//        // Convert percentage to a decimal
+//        val percentageDecimal = percentageLess / 100
+//
+//        // Calculate headTop
+//
+//        // Calculate X
+//        val headTopY = (noseY / (1 - percentageDecimal)).toInt()
+//        return headTopY
+    }
+
+
     fun getSquatPercentage(kneeAngle:Int,hipAngle:Int,faceType:Int):Int{
 
-        return if ((hipAngle > 146) && faceType == ConstantsSquats.FRONT_FACE) {
-            Log("Angels", "STATE_UP FRONT_FACE")
-            0
-        } else if (hipAngle < 140 && hipAngle > 90 && faceType == ConstantsSquats.FRONT_FACE) {
-            Log("Angels", "STATE_MOVING FRONT_FACE")
-            var percentage=5
-            if(hipAngle > 125)
-                percentage=40
-            else  if(hipAngle <= 125 && hipAngle > 100)
-                percentage=65
-            else{
-                percentage=80
-            }
-            percentage
-        } else if (hipAngle < 90 && hipAngle > 0 && faceType == ConstantsSquats.FRONT_FACE) {
-            Log("Angels", "STATE_DOWN FRONT_FACE")
-            var percentage=75
-            if(hipAngle > 81) {
-                percentage = 89
-            }
-            else  {
-                percentage=100
-            }
-            percentage
-        } else if (kneeAngle > 150 && (faceType == ConstantsSquats.LEFT_FACE || faceType == ConstantsSquats.RIGHT_FACE)) {
-            Log("Angels", "STATE_UP")
-            0
-        } else if (kneeAngle < 150 && kneeAngle > 90 && hipAngle < 150 && (faceType == ConstantsSquats.LEFT_FACE || faceType == ConstantsSquats.RIGHT_FACE)) {
-            var percentage=5
-            if(kneeAngle > 125)
-                percentage=40
-            else  if(kneeAngle <= 125 && kneeAngle > 100)
-                percentage=65
-            else{
-                percentage=80
-            }
-            percentage
-        } else if (kneeAngle < 90 && kneeAngle > 0 && (faceType == ConstantsSquats.LEFT_FACE || faceType == ConstantsSquats.RIGHT_FACE)) {
-            Log("Angels", "STATE_DOWN")
-            var percentage=75
-            if(kneeAngle > 81) {
-                percentage = 89
-            }
-            else  {
-                percentage=100
-            }
-            percentage
-            percentage
-        } else {
-            Log("Angels", "STATE_UN_DECIDED")
-            return 0
+        var lowerValue =0.0
+
+        if (faceType == ConstantsSquats.FRONT_FACE){
+            lowerValue = 80.0 // degree
+        }else{
+            lowerValue = 60.0 // degree
         }
+        val percentage= calculatePercentage(kneeAngle.toDouble(), 160.0, lowerValue)
+        return percentage
 
+    }
+    fun calculatePercentage(value: Double, upperBound: Double, lowerBound: Double): Int {
+        return if (value >= upperBound) {
+            0 // Above or equal to the upper bound
+        } else if (value <= lowerBound) {
+            100 // Below or equal to the lower bound
+        } else {
+            // Calculate percentage using linear interpolation
+            val percentage:Double = ((upperBound - value) / (upperBound - lowerBound))*100
+            return percentage.toInt()
 
+        }
     }
 }    /*
     def is_pushup_pose_correct(wrist_y, toe_y, hip_angle, knee_angle,state, shoulder_wrist_diff):
