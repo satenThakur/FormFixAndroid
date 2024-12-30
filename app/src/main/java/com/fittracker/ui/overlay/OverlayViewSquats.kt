@@ -144,6 +144,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
         var heightString=
             context?.let { FormFixSharedPreferences.getSharedPrefStringValue(it, FormFixConstants.HEIGHT) }
         userHeight=heightString!!.toInt()
+
     }
 
     private fun initPaints() {
@@ -246,49 +247,6 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
             }
 
 
-            /*  var phip1x =    imageWidth * scaleFactor * xHip + LINE_LENGTH
-          phip1x = if(userFaceType==Constants.RIGHT_FACE)
-                imageWidth * scaleFactor * xHip + LINE_LENGTH
-            else {
-                imageWidth * scaleFactor * xHip -LINE_LENGTH
-            }*/
-            /*var phip1y = imageHeight * scaleFactor * yHip
-            var phip2x = imageWidth * scaleFactor * xHip
-            var phip2y = imageHeight * scaleFactor * yHip
-
-            var pShoulderx = imageWidth * scaleFactor * shoulderx
-            var pShouldery = imageHeight * scaleFactor * shulderY
-
-            var pKnee1x =   imageWidth * scaleFactor * xKnee - LINE_LENGTH*/
-         /*   pKnee1x = if(userFaceType==Constants.RIGHT_FACE)
-                imageWidth * scaleFactor * xKnee - LINE_LENGTH
-            else
-                imageWidth * scaleFactor * xKnee + LINE_LENGTH
-*/
-            /*var pKnee1y = imageHeight * scaleFactor * yKnee;
-            var pKnee2x = imageWidth * scaleFactor * xKnee
-            var pKnee2y = imageHeight * scaleFactor * yKnee
-
-            var pAnkleX = imageWidth * scaleFactor * ankleX
-            var pAnkleY = imageHeight * scaleFactor * ankleY
-*/
-            /* canvas.drawLine(phip1x,phip1y,phip2x,phip2y,pLinePaint)
-            canvas.drawLine(pShoulderx,pShouldery, phip2x,phip2y,pLinePaint)
-
-             canvas.drawLine(pKnee1x,pKnee1y,pKnee2x,pKnee2y,pLinePaint)
-            canvas.drawLine(pAnkleX,pAnkleY, pKnee2x,pKnee2y,pLinePaint)
-*/
-          /*  if (pAnkleX > 0 && pAnkleY > 0 && pShoulderx > 0 && pShouldery > 0) {
-                kneeNewAngle =
-                    Utility.calculateAngles(pAnkleX, pAnkleY, pKnee2x, pKnee2y, pKnee1x, pKnee1y)
-                        .toInt()
-                hipNewAngle =
-                    Utility.calculateAngles(phip1x, phip1y, phip2x, phip2y, pShoulderx, pShouldery)
-                        .toInt()
-                Utility.Log("ParallelAnglesss","kneeNewAngle="+kneeNewAngle+" hipNewAngle="+hipNewAngle)
-            }*/
-
-
             /*Check if Timer is Completed*/
             if (!isTimerCompleted)
                 return
@@ -376,7 +334,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             statePaint
                         )
                         statesSet.add(STATE_MOVING)
-                        if(hipAngle<112 && Utility.isHipsNotInCentre(leftToeX,rightToeX,xofLeftHip,xofRightHip,(imageWidth * scaleFactor))){
+                        if(Utility.isHipsNotInCentre(leftToeX,rightToeX,xofLeftHip,xofRightHip)){
                             var diff = abs(xofLeftKnee - xofRightKnee) - abs(xofLeftToe - xofRightToe)
                             diff = diff * imageHeight * scaleFactor
                             Utility.Log("diff","kneesAndToesDiff="+diff)
@@ -469,7 +427,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             } else {
                                 isHeelCorrect = false
                             }
-                            if(Utility.isHipsNotInCentre(leftToeX,rightToeX,xofLeftHip,xofRightHip,(imageWidth * scaleFactor))){
+                            if(Utility.isHipsNotInCentre(leftToeX,rightToeX,xofLeftHip,xofRightHip)){
                                 var diff = abs(xofLeftKnee - xofRightKnee) - abs(xofLeftToe - xofRightToe)
                                 diff = diff * imageHeight * scaleFactor
                                 Utility.Log("diff","kneesAndToesDiff="+diff)
@@ -918,6 +876,8 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
             }
         }
         invalidate()
+        var scale_factor = Utility.getPixelToInchScalingFactor(windowHeight,userHeight,yOfLeftHeel,yOfRightHeel,yForNose)
+        FormFixConstants.PIXEL_TO_CM_SCALE=scale_factor
     }
 
 

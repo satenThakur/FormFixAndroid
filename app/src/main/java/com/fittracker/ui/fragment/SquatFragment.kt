@@ -691,6 +691,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                     xofRightToe,
                     xofLeftHip,xofRightHip,leftShoulder,
                     rightShoulder,leftShoulder_Y,rightShoulder_Y)
+
             }
 
             if (_fragmentSquatsBinding != null) {
@@ -733,6 +734,8 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
         windowHeight = displayMetrics.heightPixels
         windowWidth = displayMetrics.widthPixels
+        FormFixConstants.SCREEN_HEIGHT=windowHeight
+        FormFixConstants.SCREEN_WIDTH=windowWidth
 
     }
 

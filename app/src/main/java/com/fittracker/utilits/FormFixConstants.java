@@ -20,6 +20,7 @@ public class FormFixConstants {
 
     public static int SCREEN_WIDTH=0;
     public static int SCREEN_HEIGHT=0;
+    public static float PIXEL_TO_CM_SCALE=0;
 
 
 }

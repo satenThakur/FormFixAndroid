@@ -232,13 +232,13 @@ object Utility {
         Log("Angels", "HipAngle=$hipAngle")
 
 
-        return if ((/*kneeAngle > 140 ||   */hipAngle > 146) && faceType == ConstantsSquats.FRONT_FACE) {
+        return if ((kneeAngle > 150) && faceType == ConstantsSquats.FRONT_FACE) {
             Log("Angels", "STATE_UP FRONT_FACE")
             ConstantsSquats.STATE_UP
-        } else if (hipAngle < 140 && hipAngle > 90 && faceType == ConstantsSquats.FRONT_FACE) {
+        } else if (kneeAngle < 150 && kneeAngle > 90 && faceType == ConstantsSquats.FRONT_FACE) {
             Log("Angels", "STATE_MOVING FRONT_FACE")
             ConstantsSquats.STATE_MOVING
-        } else if (hipAngle < 90 && hipAngle > 0 && faceType == ConstantsSquats.FRONT_FACE) {
+        } else if (kneeAngle < 90 /*&& hipAngle > 0*/ && faceType == ConstantsSquats.FRONT_FACE) {
             Log("Angels", "STATE_DOWN FRONT_FACE")
             ConstantsSquats.STATE_DOWN
         } else if (kneeAngle > 150 && (faceType == ConstantsSquats.LEFT_FACE || faceType == ConstantsSquats.RIGHT_FACE)) {
@@ -302,9 +302,10 @@ object Utility {
     }
 
     fun isKneeCrossesToes(toeX: Float, knneX: Float, userFaceType: Int): Boolean {
-        var kneeToeXDiff = abs(toeX - knneX)
+        var kneeToeXDiff = abs(getXinPixels(toeX) - getXinPixels(knneX))
+        val diffInInch = (kneeToeXDiff*FormFixConstants.PIXEL_TO_CM_SCALE)/2.54
         Log("Angle", "KneeX and ToeX diff=$kneeToeXDiff threshold is=$KNEE_TOE_THRESHOLD")
-        return (kneeToeXDiff > KNEE_TOE_THRESHOLD)
+        return (diffInInch > 2)
     }
 
 
@@ -463,13 +464,11 @@ object Utility {
         rightToeX: Float,
         xOfLeftHip: Float,
         xOfRightHip: Float,
-        scalFactor: Float
     ): Boolean {
-        var avergaeDiff =
-            getHipAnkleDiffAverage(leftToeX, rightToeX, xOfLeftHip, xOfRightHip, scalFactor)
-
+        var averageDiff = getHipAnkleDiffAverage(leftToeX, rightToeX, xOfLeftHip, xOfRightHip)
+        val diffInInches = (averageDiff*FormFixConstants.PIXEL_TO_CM_SCALE)/2.54
         var isHipNotIncentre = false
-        if (ConstantsSquats.HIPS_ANKLE_AVARGE_DIFF < avergaeDiff) {
+        if (ConstantsSquats.HIPS_ANKLE_AVARGE_DIFF < diffInInches) {
             Log("isHipsAlign", "hipsNotInCentre TRUE")
             isHipNotIncentre = true
         }
@@ -526,15 +525,14 @@ object Utility {
         return isHeelBalanced
     }
 
-    fun getHipAnkleDiffAverage(
+    private fun getHipAnkleDiffAverage(
         lefToeX: Float,
         rightToeX: Float,
         leftHipX: Float,
         rightHipX: Float,
-        scalFactor: Float
     ): Int {
-        var toesCentre = abs((rightToeX + lefToeX) / 2)
-        var hipCentre = abs((rightHipX + leftHipX) / 2)
+        var toesCentre = abs((getXinPixels(rightToeX) + getXinPixels(lefToeX)) / 2)
+        var hipCentre = abs((getXinPixels(rightHipX) + getXinPixels(leftHipX)) / 2)
         if (hipCentre < toesCentre) {
             Log("isHipsAlign", "Hips_In_LEFT=" + (toesCentre - hipCentre))
         } else {
@@ -542,10 +540,10 @@ object Utility {
             Log("isHipsAlign", "Hips_In_RIGHT=" + (toesCentre - hipCentre))
         }
 
-        var averageDiff = abs(toesCentre - hipCentre) * 100
+        var averageDiff = abs(toesCentre - hipCentre)
         //2.0088553
         Log("isHipsAlign", "ankleAverage=$toesCentre, hipsAverage$hipCentre")
-        Log("isHipsAlign", "avergaeDiff=" + averageDiff)
+        Log("isHipsAlign", "avergaeDiff=$averageDiff")
         return averageDiff.toInt()
     }
 
@@ -571,11 +569,10 @@ object Utility {
         }
     }
 
-    /*Log(PUSH_UP_TAG, "STATE_UN_DECIDED")
-        return STATE_UN_DECIDED*/
+    fun getXinPixels(x:Float): Int{
+        return (x*FormFixConstants.SCREEN_WIDTH).roundToInt()
+    }
 
-
-    /*Push-Ups utility functions*/
     fun startPushUpTracking(
         wristY: Float,
         toeY: Float,
