@@ -141,9 +141,8 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
         initPaints()
         errorMessageList.clear()
         tts = TextToSpeech(context, this)
-        var heightString=
-            context?.let { FormFixSharedPreferences.getSharedPrefStringValue(it, FormFixConstants.HEIGHT) }
-        userHeight=heightString!!.toInt()
+        var heightString= context?.let { FormFixSharedPreferences.getSharedPrefStringValue(it, FormFixConstants.HEIGHT) }
+        userHeight= heightString?.toInt()!!
 
     }
 

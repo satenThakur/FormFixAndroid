@@ -1,9 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'de.undercouch.download'
+    id 'com.google.dagger.hilt.android'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
+    id 'de.undercouch.download'
 }
 
 android {
@@ -35,6 +35,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        buildConfig = true
     }
     androidResources {
         noCompress 'video'
@@ -78,14 +79,17 @@ dependencies {
 
 
     // Hilt dependencies
-    implementation "com.google.dagger:hilt-android:2.42"
-    kapt "com.google.dagger:hilt-android-compiler:2.42"
-    kaptAndroidTest "com.google.dagger:dagger-compiler:2.35.1"
+    implementation "com.google.dagger:hilt-android:2.51.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.51.1"
+    //kaptAndroidTest "com.google.dagger:dagger-compiler:2.35.1"
 
     // Hilt testing
-    androidTestImplementation "com.google.dagger:hilt-android-testing:2.42"
-    kaptAndroidTest "com.google.dagger:hilt-android-compiler:2.42"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:2.51.1"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:2.51.1"
 
+
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.9.20"))
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
 
 
     implementation 'androidx.window:window:1.1.0-alpha03'
@@ -99,6 +103,9 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
     implementation 'io.github.chaosleung:pinview:1.4.4'
-    implementation 'androidx.room:room-ktx:2.5.2'
-    kapt("androidx.room:room-compiler:2.5.2")
+    implementation 'androidx.room:room-ktx:2.6.1'
+    kapt("androidx.room:room-compiler:2.6.1")
+}
+kapt {
+    correctErrorTypes = true
 }

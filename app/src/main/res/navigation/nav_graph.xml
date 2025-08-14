@@ -46,5 +46,16 @@
             app:popUpTo="@id/pushup_fragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/dead_lift_fragment"
+        android:name="com.fittracker.ui.fragment.DeadLiftFragment"
+        android:label="DeadLiftFragment">
+
+        <action
+            android:id="@+id/action_deadlift_to_permissions"
+            app:destination="@id/permissions_fragment"
+            app:popUpTo="@id/dead_lift_fragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

@@ -8,6 +8,27 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="dead_lift_fragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_deadlift_to_permissions">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="permissions_fragment">
                     <value>
                       <LayoutPositions>
@@ -19,7 +40,12 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_permissions_to_camera">
+                            <entry key="action_permissions_to_PushUps">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_permissions_to_Squat">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -40,7 +66,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_camera_to_permissions">
+                            <entry key="action_pushUp_to_permissions">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -61,7 +87,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_camera_to_permissions">
+                            <entry key="action_squat_to_permissions">
                               <value>
                                 <LayoutPositions />
                               </value>

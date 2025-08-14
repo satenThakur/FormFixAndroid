@@ -4,17 +4,27 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
+    plugins {
+        id "com.android.application" version "8.2.2"      // adjust if you already use a specific AGP
+        id "com.android.library"     version "8.2.2"
+        id "org.jetbrains.kotlin.android" version "1.9.20"
+        // If you use other Kotlin plugins, pin them too:
+        id "org.jetbrains.kotlin.jvm" version "1.9.20"
+        id "org.jetbrains.kotlin.plugin.serialization" version "1.9.20"
+        id "org.jetbrains.kotlin.multiplatform" version "1.9.20"
+        id "de.undercouch.download" version "5.6.0"
+
+    }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
-            maven {
-                url "https://jitpack.io"
-            }
-
+        maven { url "https://jitpack.io" }
     }
 }
+
 rootProject.name = "Form Fit"
-include ':app'
+include(":app")

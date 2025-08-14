@@ -24,26 +24,35 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         activitySplashBinding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(activitySplashBinding.root)
-      /*  val window: Window = this.window
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.background_dark)*/
+        /*  val window: Window = this.window
+          window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+          window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+          window.statusBarColor = ContextCompat.getColor(this, R.color.background_dark)*/
         Handler(Looper.getMainLooper()).postDelayed({
             moveToNextScreen()
         }, SPLASH_DELAY)
 
     }
 
-    fun moveToNextScreen(){
+    fun moveToNextScreen() {
+/*        FormFixSharedPreferences.saveSharedPreferencesValue(this@SplashActivity, FormFixConstants.IS_USER_LOGEDIN, true)
+        FormFixSharedPreferences.saveSharedPreferencesValue(this@SplashActivity, FormFixConstants.NAME, "Test")
+        FormFixSharedPreferences.saveSharedPreferencesValue(this@SplashActivity, FormFixConstants.PHONE, "1234567890")
+        FormFixSharedPreferences.saveSharedPreferencesValue(this@SplashActivity, FormFixConstants.EMAIL, "test@gmail.com")
+        FormFixSharedPreferences.saveSharedPreferencesValue(this@SplashActivity, FormFixConstants.HEIGHT, "158")
+        FormFixSharedPreferences.saveSharedPreferencesValue(this@SplashActivity, FormFixConstants.WEIGHT, "120")
+        val intent = Intent(this, DashboardActivity::class.java)
+        startActivity(intent)
+        finish()*/
         if(FormFixSharedPreferences.getSharedPrefBooleanValue(this@SplashActivity, FormFixConstants.IS_USER_LOGEDIN)){
-            val intent = Intent(this, DashboardActivity::class.java)
-            startActivity(intent)
-            finish()
-        }else{
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+             val intent = Intent(this, DashboardActivity::class.java)
+             startActivity(intent)
+             finish()
+         }else{
+             val intent = Intent(this, LoginActivity::class.java)
+             startActivity(intent)
+             finish()
+         }
     }
 
     override fun onBackPressed() {
