@@ -27,16 +27,27 @@ class RegisterActivity : AppCompatActivity() {
 
         activityRegisterBinding.btnRegister.setOnClickListener {
             var name=activityRegisterBinding.edName.text.toString()
-            var phone=activityRegisterBinding.edPhone.text.toString()
-            var email=activityRegisterBinding.edEmail.text.toString()
-            var weight=activityRegisterBinding.edWeight.text.toString()
-            var height=activityRegisterBinding.edHeight.text.toString()
+            var phone=activityRegisterBinding.edPhone.text.toString().trim()
+            var email=activityRegisterBinding.edEmail.text.toString().trim()
+            var weight=activityRegisterBinding.edWeight.text.toString().trim()
+            var heifhtFT=activityRegisterBinding.edFeet.text.toString().trim()
+            var heightInches=activityRegisterBinding.edInches.text.toString().trim()
             Utility.hideKeyboard(this, activityRegisterBinding.btnRegister)
-            if (isValid(name,phone,email,weight,height)) {
+            if (isValid(name,phone,email,weight,heifhtFT,heightInches)) {
                 registerApiCall(activityRegisterBinding.ccp.selectedCountryCode,
                     activityRegisterBinding.edPhone.text.toString())
             }
         }
+    }
+    private fun getHeight(): Int {
+        val feetStr = activityRegisterBinding.edFeet.text.toString().trim()
+        val inchStr = activityRegisterBinding.edInches.text.toString().trim()
+        val feet = feetStr.toIntOrNull() ?: -1
+        val inches = inchStr.toIntOrNull() ?: -1
+        val totalInches = feet * 12 + inches
+        val heightCm = (totalInches * 2.54).toInt()
+        return heightCm
+
     }
 
     override fun onBackPressed() {
@@ -51,7 +62,8 @@ class RegisterActivity : AppCompatActivity() {
         phone: String,
         email: String,
         weight: String,
-        height: String
+        heightFt: String,
+        heightInches:String
     ): Boolean {
         if (name.isEmpty()) {
             Utility.showErrorSnackBar(
@@ -89,16 +101,26 @@ class RegisterActivity : AppCompatActivity() {
                 resources.getString(R.string.enter_weight)
             )
             return false
-        } else if (height.isEmpty()) {
+        } else if (heightFt.isEmpty()) {
+            Utility.showErrorSnackBar(activityRegisterBinding.root, "Enter feet")
+            return false
+        }else if (heightInches.isEmpty()) {
+            Utility.showErrorSnackBar(activityRegisterBinding.root, "Enter inches")
+            return false
+        }else if(heightFt.toInt() <2 || heightFt.toInt() > 8 ){
             Utility.showErrorSnackBar(
                 activityRegisterBinding.root,
-                resources.getString(R.string.enter_height)
+                "Feet should be between 2–8"
             )
             return false
+        }else if( heightInches.toInt() < 0 || heightInches.toInt() > 11){
+            Utility.showErrorSnackBar(activityRegisterBinding.root, "Inches should be 0–11")
+            return false
         }
-        return true
 
+        return true
     }
+
     @SuppressLint("SuspiciousIndentation")
     private fun registerApiCall(countryCode:String, phone:String){
         activityRegisterBinding.progressCircular.visibility = View.VISIBLE
@@ -113,7 +135,7 @@ class RegisterActivity : AppCompatActivity() {
                     intent.putExtra(FormFixConstants.NAME,activityRegisterBinding.edName.text.toString())
                     intent.putExtra(FormFixConstants.PHONE,phoneNumber)
                     intent.putExtra(FormFixConstants.EMAIL,activityRegisterBinding.edEmail.text.toString())
-                    intent.putExtra(FormFixConstants.HEIGHT,activityRegisterBinding.edHeight.text.toString())
+                    intent.putExtra(FormFixConstants.HEIGHT,""+getHeight())
                     intent.putExtra(FormFixConstants.WEIGHT,activityRegisterBinding.edWeight.text.toString())
                     startActivity(intent)
                     finish()

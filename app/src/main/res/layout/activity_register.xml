@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/white"
-    tools:context=".activity.LoginActivity">
+    tools:context=".activity.RegisterActivity">
     <RelativeLayout
         android:layout_height="@dimen/_230sdp"
         android:layout_width="0dp"
@@ -153,25 +153,53 @@
                 android:paddingRight="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"/>
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/ed_height"
+            <TextView
+                android:id="@+id/lbl_height"
                 android:layout_below="@+id/ed_weight"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@drawable/rounded_corner_bg"
-                android:singleLine="true"
-                android:textSize="@dimen/_13ssp"
-                android:textColor="@color/light_black_color"
-                android:textColorHint="@color/slate_color"
-                android:hint="Enter height in cms"
-                android:fontFamily="@font/helvetica"
-                android:inputType="numberDecimal"
-                android:paddingLeft="@dimen/_10sdp"
-                android:paddingRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_8sdp"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_35sdp"/>
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/helvetica"
+                android:textSize="@dimen/_12ssp"
+                android:text="Enter Height" />
+            <LinearLayout
+                android:id="@+id/layout_height"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/lbl_height"
+                android:layout_marginTop="@dimen/_3sdp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/ed_feet"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/_35sdp"
+                    android:hint="Feet"
+                    android:maxLength="1"
+                    android:inputType="number"
+                    android:background="@drawable/rounded_corner_bg"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"/>
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/ed_inches"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:hint="Inches"
+                    android:maxLength="2"
+                    android:inputType="number"
+                    android:background="@drawable/rounded_corner_bg"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"/>
+            </LinearLayout>
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_register"
-                android:layout_below="@+id/ed_height"
+                android:layout_below="@+id/layout_height"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:background="@drawable/rounded_purple_border_button"
                 android:text="Create account"
