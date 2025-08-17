@@ -75,7 +75,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         tvEmail.setText(FormFixSharedPreferences.getSharedPrefStringValue(this@DashboardActivity, FormFixConstants.EMAIL))
         activityMainBinding.btnStartCamera.setOnClickListener {
             if (selectedTag != -1) {
-                if (selectedTag == 0 || selectedTag == 1) {
+                if (selectedTag == 0 || selectedTag == 1 || selectedTag == 2) {
                     moveToCameraActivity(tags[selectedTag].text.toString())
                 } else {
                     Utility.showErrorSnackBar(

@@ -58,13 +58,17 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="-Project Started Again on 14th August 2025&#10;-dependency issue resolved">
+    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="1. When signing up the measurements are in centimeters. Can we change that to feet like 6'2.&#10;2. The auditory alert says &quot;shoulder not center&quot; it should be shoulders plural. I believe it also says  hip not center also. It should be hips.">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/landmarkModels/Hips.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/landmarkModels/Knees.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/landmarkModels/Point2D.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/landmarkModels/Shoulders.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/DashboardActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/DashboardActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/RegisterActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/RegisterActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/fragment/DeadLiftFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/fragment/DeadLiftFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/fragment/PermissionsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/fragment/PermissionsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -166,71 +170,71 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
-    &quot;BundleExportedModule&quot;: &quot;Form_Fit.app&quot;,
-    &quot;DEBUGGABLE_DEVICE&quot;: &quot;samsung-sm_a356e-RZCX608VTBE&quot;,
-    &quot;DEBUGGABLE_PROCESS&quot;: &quot;com.fittracker&quot;,
-    &quot;DEBUGGER_ID&quot;: &quot;Auto&quot;,
-    &quot;ExportBundle.BundlePathForForm_Fit.app&quot;: &quot;/Users/swatiraghav/Documents/FormFixAndroid/app&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;SHOW_ALL_PROCESSES&quot;: &quot;false&quot;,
-    &quot;ToolWindowLogcat.ShowToolbar&quot;: &quot;false&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/ChipView-master/gradle/wrapper/caches/modules-2/files-2.1/com.github.Cutta/TagView/1.3/51d51fa6bcc16ef936662de750d77a1fb38f729/TagView-1.3-sources.jar!/com/cunoraz/tagview/TagView.java_SELECTED&quot;: &quot;TagView&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/ChipView-master/gradle/wrapper/caches/modules-2/files-2.1/com.hbb20/ccp/2.6.0/e6566ea9e9a43af02d764e8788e39504e1bec744/ccp-2.6.0-sources.jar!/com/hbb20/CountryCodePicker.java_SELECTED&quot;: &quot;CountryCodePicker&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayView.kt_SELECTED&quot;: &quot;OverlayViewSquats&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushUps.kt_SELECTED&quot;: &quot;OverlayViewPushUps&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushups.kt_SELECTED&quot;: &quot;OverlayViewPushups&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewSquats.kt_SELECTED&quot;: &quot;OverlayViewSquats&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/ui/overlay/OverlayViewPushUps.kt_SELECTED&quot;: &quot;OverlayViewPushUps&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/ui/overlay/OverlayViewSquats.kt_SELECTED&quot;: &quot;OverlayViewSquats&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/viewmodel/OverlayViewPushUps.kt_SELECTED&quot;: &quot;OverlayViewPushUps&quot;,
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/viewmodel/OverlayViewSquats.kt_SELECTED&quot;: &quot;OverlayViewSquats&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/swatiraghav/Documents/TechnoZent/FormFixAndroid/app/src/main/res/layout&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDK Location&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.app.executor": "Run",
+    "BundleExportedModule": "Form_Fit.app",
+    "DEBUGGABLE_DEVICE": "samsung-sm_a356e-RZCX608VTBE",
+    "DEBUGGABLE_PROCESS": "com.fittracker",
+    "DEBUGGER_ID": "Auto",
+    "ExportBundle.BundlePathForForm_Fit.app": "/Users/swatiraghav/Documents/FormFixAndroid/app",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHOW_ALL_PROCESSES": "false",
+    "ToolWindowLogcat.ShowToolbar": "false",
+    "android-custom-view/Users/swatiraghav/Documents/ChipView-master/gradle/wrapper/caches/modules-2/files-2.1/com.github.Cutta/TagView/1.3/51d51fa6bcc16ef936662de750d77a1fb38f729/TagView-1.3-sources.jar!/com/cunoraz/tagview/TagView.java_SELECTED": "TagView",
+    "android-custom-view/Users/swatiraghav/Documents/ChipView-master/gradle/wrapper/caches/modules-2/files-2.1/com.hbb20/ccp/2.6.0/e6566ea9e9a43af02d764e8788e39504e1bec744/ccp-2.6.0-sources.jar!/com/hbb20/CountryCodePicker.java_SELECTED": "CountryCodePicker",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayView.kt_SELECTED": "OverlayViewSquats",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushUps.kt_SELECTED": "OverlayViewPushUps",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushups.kt_SELECTED": "OverlayViewPushups",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewSquats.kt_SELECTED": "OverlayViewSquats",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/ui/overlay/OverlayViewPushUps.kt_SELECTED": "OverlayViewPushUps",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/ui/overlay/OverlayViewSquats.kt_SELECTED": "OverlayViewSquats",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/viewmodel/OverlayViewPushUps.kt_SELECTED": "OverlayViewPushUps",
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/viewmodel/OverlayViewSquats.kt_SELECTED": "OverlayViewSquats",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/swatiraghav/Documents/TechnoZent/FormFixAndroid/app/src/main/java/com/fittracker/landmarkModels",
+    "project.structure.last.edited": "SDK Location",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "show.migrate.to.gradle.popup": "false"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ExportApk.BuildVariants&quot;: [
-      &quot;release&quot;
+  "keyToStringList": {
+    "ExportApk.BuildVariants": [
+      "release"
     ],
-    &quot;android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushUps.kt_OverlayViewPushUps_DIMENSIONS&quot;: [
-      &quot;1080&quot;,
-      &quot;1920&quot;
+    "android-custom-view/Users/swatiraghav/Documents/FormFixAndroid/app/src/main/java/com/fittracker/OverlayViewPushUps.kt_OverlayViewPushUps_DIMENSIONS": [
+      "1080",
+      "1920"
     ]
   }
-}</component>
+}]]></component>
   <component name="PsdUISettings">
     <option name="LAST_EDITED_BUILD_TYPE" value="release" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/java/com/fittracker/landmarkModels" />
       <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
       <recent name="$PROJECT_DIR$/app/src/main/res" />
       <recent name="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi" />
-      <recent name="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.fittracker.landmarkModels" />
       <recent name="com.fittracker.ui.fragment" />
       <recent name="com.fittracker.ui.activity" />
       <recent name="com.fittracker.database" />
       <recent name="com.fittracker.model" />
-      <recent name="com.fittracker.viewmodel" />
     </key>
   </component>
   <component name="RunManager">
@@ -576,7 +580,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755175593551</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="1. When signing up the measurements are in centimeters. Can we change that to feet like 6'2.&#10;2. The auditory alert says &quot;shoulder not center&quot; it should be shoulders plural. I believe it also says  hip not center also. It should be hips.">
+      <option name="closed" value="true" />
+      <created>1755356278927</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1755356278927</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -622,7 +634,8 @@
     <MESSAGE value="-Hip Shift,Shoulder Shift, Knee Shift, heels Shift, squat percentage" />
     <MESSAGE value="-commit changes" />
     <MESSAGE value="-Project Started Again on 14th August 2025&#10;-dependency issue resolved" />
-    <option name="LAST_COMMIT_MESSAGE" value="-Project Started Again on 14th August 2025&#10;-dependency issue resolved" />
+    <MESSAGE value="1. When signing up the measurements are in centimeters. Can we change that to feet like 6'2.&#10;2. The auditory alert says &quot;shoulder not center&quot; it should be shoulders plural. I believe it also says  hip not center also. It should be hips." />
+    <option name="LAST_COMMIT_MESSAGE" value="1. When signing up the measurements are in centimeters. Can we change that to feet like 6'2.&#10;2. The auditory alert says &quot;shoulder not center&quot; it should be shoulders plural. I believe it also says  hip not center also. It should be hips." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

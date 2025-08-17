@@ -21,6 +21,11 @@
             app:destination="@id/pushup_fragment"
             app:popUpTo="@id/permissions_fragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_permissions_to_Deadlift"
+            app:destination="@id/dead_lift_fragment"
+            app:popUpTo="@id/permissions_fragment"
+            app:popUpToInclusive="true" />
 
     </fragment>
 

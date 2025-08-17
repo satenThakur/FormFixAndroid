@@ -24,6 +24,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.fittracker.R
 import com.fittracker.databinding.FragmentDeadliftBinding
+import com.fittracker.landmarkModels.Hips
+import com.fittracker.landmarkModels.Knees
+import com.fittracker.landmarkModels.Point2D
+import com.fittracker.landmarkModels.Shoulders
 import com.fittracker.model.ErrorMessage
 import com.fittracker.model.LandMarkModel
 import com.fittracker.ui.activity.ExoPlayerActivity
@@ -60,6 +64,12 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     private var landMarkList = ArrayList<LandMarkModel>()
     private var worldLandMarkList = ArrayList<LandMarkModel>()
     private var userFaceType = 0
+    private var LeftKneeX=-100
+    private var LeftKneeY=-100
+    private var RightKneeX=-100
+    private var RightKneeY=-100
+
+
     private var xKnee = -100F
     private var yKnee = -100F
     private var xHip = -100F
@@ -342,11 +352,14 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialiseScreenWidthAndHeight()
+        android.util.Log.e("ExerciseType","DeadLift Fragment")
         try{
             startTimer()
         }catch (e:Exception){
             e.printStackTrace()
         }
+
+
    var heightString= FormFixSharedPreferences.getSharedPrefStringValue(requireContext(), FormFixConstants.HEIGHT)
         height=heightString!!.toInt()
         // Initialize our background executor
@@ -546,6 +559,10 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
             if (landMarkList.size > 0) {
                 userFaceType = 0
+
+                var knee= Knees(Point2D(landMarkList[26].x, landMarkList[26].y), Point2D(landMarkList[25].x, landMarkList[25].y))
+                var shoulder= Shoulders(Point2D(landMarkList[12].x, landMarkList[12].y), Point2D(landMarkList[11].x, landMarkList[11].y))
+                var hips= Hips(Point2D(landMarkList[24].x, landMarkList[24].y), Point2D(landMarkList[23].x, landMarkList[23].y))
                 val leftShoulder = landMarkList[11].x
                 val rightShoulder = landMarkList[12].x
                 val leftShoulder_Y = landMarkList[11].y

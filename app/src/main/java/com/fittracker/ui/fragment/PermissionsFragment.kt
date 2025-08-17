@@ -19,14 +19,15 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import com.fittracker.R
 import com.fittracker.ui.activity.CamLandscapeActivity
+import androidx.navigation.findNavController
 import com.fittracker.ui.activity.CamPortraitActivity
 
 private val PERMISSIONS_REQUIRED = arrayOf(Manifest.permission.CAMERA)
@@ -76,25 +77,25 @@ class PermissionsFragment : Fragment() {
        if(activity is CamLandscapeActivity && (activity as CamLandscapeActivity).exerciseType == "Push Up"){
            exerciseType="Push Up"
        }else{
-           exerciseType="Squat"
+           exerciseType=(activity as CamPortraitActivity).exerciseType
+           Log.e("ExerciseType",""+exerciseType)
        }
             when(exerciseType){
                 "Squat" ->{
-                    Navigation.findNavController(
-                        requireActivity(),
-                        R.id.fragment_container
-                    ).navigate(
+                    requireActivity().findNavController(R.id.fragment_container).navigate(
                         R.id.action_permissions_to_Squat
                     )
                 }
                 "Push Up" ->{
-                    Navigation.findNavController(
-                        requireActivity(),
-                        R.id.fragment_container
-                    ).navigate(
+                    requireActivity().findNavController(R.id.fragment_container).navigate(
                         R.id.action_permissions_to_PushUps
                     )
                 }
+                "Deadlift" ->{
+                    requireActivity().findNavController(R.id.fragment_container).navigate(
+                    R.id.action_permissions_to_Deadlift
+                )
+            }
 
             }
 
