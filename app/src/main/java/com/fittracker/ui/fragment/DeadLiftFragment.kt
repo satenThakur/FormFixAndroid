@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,14 +22,8 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.Navigation
 import com.fittracker.R
 import com.fittracker.databinding.FragmentDeadliftBinding
-import com.fittracker.landmarkModels.Hips
-import com.fittracker.landmarkModels.Knees
-import com.fittracker.landmarkModels.Point2D
-import com.fittracker.landmarkModels.Shoulders
-import com.fittracker.model.ErrorMessage
 import com.fittracker.model.LandMarkModel
 import com.fittracker.ui.activity.ExoPlayerActivity
 import com.fittracker.utilits.ConstantsSquats
@@ -37,7 +32,7 @@ import com.fittracker.utilits.ConstantsSquats.timerInterval
 import com.fittracker.utilits.ConstantsSquats.timerLimit
 import com.fittracker.utilits.FormFixConstants
 import com.fittracker.utilits.FormFixSharedPreferences
-import com.fittracker.utilits.Utility
+import com.fittracker.utilits.FormFixUtility
 import com.fittracker.viewmodel.MainViewModel
 import com.fittracker.viewmodel.PoseLandmarkerHelper
 import com.google.mediapipe.tasks.vision.core.RunningMode
@@ -46,14 +41,16 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 import kotlin.math.roundToInt
+import androidx.navigation.findNavController
+import com.fittracker.model.ErrorMessage
 
 class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     companion object {
         private const val TAG = "Form Fit"
     }
 
-    private var _fragmentDeadliftBinding: FragmentDeadliftBinding? = null
-    private val fragmentDeadLIftBinding get() = _fragmentDeadliftBinding!!
+    private var _fragmentDeadLiftBinding: FragmentDeadliftBinding? = null
+    private val fragmentDeadLiftBinding get() = _fragmentDeadLiftBinding!!
     private lateinit var poseLandmarkHelper: PoseLandmarkerHelper
     private val viewModelPoseLan: MainViewModel by activityViewModels()
     private var preview: Preview? = null
@@ -64,12 +61,6 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     private var landMarkList = ArrayList<LandMarkModel>()
     private var worldLandMarkList = ArrayList<LandMarkModel>()
     private var userFaceType = 0
-    private var LeftKneeX=-100
-    private var LeftKneeY=-100
-    private var RightKneeX=-100
-    private var RightKneeY=-100
-
-
     private var xKnee = -100F
     private var yKnee = -100F
     private var xHip = -100F
@@ -104,21 +95,14 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     private var isPlaying=true
     private var height=0
 
-
     /** Blocking ML operations are performed using this executor */
     private lateinit var backgroundExecutor: ExecutorService
     override fun onResume() {
         super.onResume()
-        // Make sure that all permissions are still present, since the
-        // user could have removed them while the app was in paused state.
         if (!PermissionsFragment.hasPermissions(requireContext())) {
-            Navigation.findNavController(
-                requireActivity(), R.id.fragment_container
-            ).navigate(R.id.action_squat_to_permissions)
+            requireActivity().findNavController(R.id.fragment_container).navigate(R.id.action_squat_to_permissions)
         }
-
-        // Start the PoseLandmarkHelper again when users come back
-        // to the foreground.
+        // Start the PoseLandmarkHelper again when users come back to the foreground.
         if (this::backgroundExecutor.isInitialized) {
             backgroundExecutor.execute {
                 if (this::poseLandmarkHelper.isInitialized) {
@@ -133,7 +117,7 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
     override fun onPause() {
         super.onPause()
-       if (this::poseLandmarkHelper.isInitialized) {
+        if (this::poseLandmarkHelper.isInitialized) {
             viewModelPoseLan.setMinPoseDetectionConfidence(poseLandmarkHelper.minPoseDetectionConfidence)
             viewModelPoseLan.setMinPoseTrackingConfidence(poseLandmarkHelper.minPoseTrackingConfidence)
             viewModelPoseLan.setMinPosePresenceConfidence(poseLandmarkHelper.minPosePresenceConfidence)
@@ -144,7 +128,7 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     }
 
     override fun onDestroyView() {
-        _fragmentDeadliftBinding = null
+        _fragmentDeadLiftBinding = null
         super.onDestroyView()
         // Shut down our background executor
         backgroundExecutor.shutdown()
@@ -159,258 +143,78 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _fragmentDeadliftBinding = FragmentDeadliftBinding.inflate(inflater, container, false)
-        return fragmentDeadLIftBinding.root
+        _fragmentDeadLiftBinding = FragmentDeadliftBinding.inflate(inflater, container, false)
+        return fragmentDeadLiftBinding.root
     }
 
-    private fun setAdapterData(errorMessageList: List<ErrorMessage>) {
-        activity?.runOnUiThread(Runnable {
-        if(errorMessageList.isEmpty()){
-            fragmentDeadLIftBinding.relayMessage.visibility=View.GONE
-            fragmentDeadLIftBinding.relay1.visibility=View.GONE
-            fragmentDeadLIftBinding.relay2.visibility=View.GONE
-            fragmentDeadLIftBinding.relay3.visibility=View.GONE
-            fragmentDeadLIftBinding.relay4.visibility=View.GONE
-            fragmentDeadLIftBinding.relay5.visibility=View.GONE
-            fragmentDeadLIftBinding.relay6.visibility=View.GONE
-            fragmentDeadLIftBinding.relay7.visibility=View.GONE
-            fragmentDeadLIftBinding.relay8.visibility=View.GONE
-        }else if(errorMessageList.size==1){
-            fragmentDeadLIftBinding.relayMessage.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay1.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay2.visibility=View.GONE
-            fragmentDeadLIftBinding.relay3.visibility=View.GONE
-            fragmentDeadLIftBinding.relay4.visibility=View.GONE
-            fragmentDeadLIftBinding.relay5.visibility=View.GONE
-            fragmentDeadLIftBinding.relay6.visibility=View.GONE
-            fragmentDeadLIftBinding.relay7.visibility=View.GONE
-            fragmentDeadLIftBinding.relay8.visibility=View.GONE
-            fragmentDeadLIftBinding.tvMessage1.text= errorMessageList[0].message
-            fragmentDeadLIftBinding.tvCount1.text=""+ errorMessageList[0].count
-        }else if(errorMessageList.size==2){
-            fragmentDeadLIftBinding.relayMessage.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay1.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay2.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay3.visibility=View.GONE
-            fragmentDeadLIftBinding.relay4.visibility=View.GONE
-            fragmentDeadLIftBinding.relay5.visibility=View.GONE
-            fragmentDeadLIftBinding.relay6.visibility=View.GONE
-            fragmentDeadLIftBinding.relay7.visibility=View.GONE
-            fragmentDeadLIftBinding.relay8.visibility=View.GONE
-            fragmentDeadLIftBinding.tvMessage1.text= errorMessageList[0].message
-            fragmentDeadLIftBinding.tvCount1.text=""+ errorMessageList[0].count
-            fragmentDeadLIftBinding.tvMessage2.text= errorMessageList[1].message
-            fragmentDeadLIftBinding.tvCount2.text=""+ errorMessageList[1].count
-        }else if(errorMessageList.size==3){
-            fragmentDeadLIftBinding.relayMessage.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay1.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay2.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay3.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay4.visibility=View.GONE
-            fragmentDeadLIftBinding.relay5.visibility=View.GONE
-            fragmentDeadLIftBinding.relay6.visibility=View.GONE
-            fragmentDeadLIftBinding.relay7.visibility=View.GONE
-            fragmentDeadLIftBinding.relay8.visibility=View.GONE
-            fragmentDeadLIftBinding.tvMessage1.text= errorMessageList[0].message
-            fragmentDeadLIftBinding.tvCount1.text=""+ errorMessageList[0].count
-            fragmentDeadLIftBinding.tvMessage2.text= errorMessageList[1].message
-            fragmentDeadLIftBinding.tvCount2.text=""+ errorMessageList[1].count
-            fragmentDeadLIftBinding.tvMessage3.text= errorMessageList[2].message
-            fragmentDeadLIftBinding.tvCount3.text=""+ errorMessageList[2].count
-        }
-        else if(errorMessageList.size==4){
-            fragmentDeadLIftBinding.relayMessage.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay1.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay2.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay3.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay4.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay5.visibility=View.GONE
-            fragmentDeadLIftBinding.relay6.visibility=View.GONE
-            fragmentDeadLIftBinding.relay7.visibility=View.GONE
-            fragmentDeadLIftBinding.relay8.visibility=View.GONE
-            fragmentDeadLIftBinding.tvMessage1.text= errorMessageList[0].message
-            fragmentDeadLIftBinding.tvCount1.text=""+ errorMessageList[0].count
-            fragmentDeadLIftBinding.tvMessage2.text=errorMessageList[1].message
-            fragmentDeadLIftBinding.tvCount2.text=""+ errorMessageList[1].count
-            fragmentDeadLIftBinding.tvMessage3.text= errorMessageList[2].message
-            fragmentDeadLIftBinding.tvCount3.text=""+ errorMessageList[2].count
-            fragmentDeadLIftBinding.tvMessage4.text= errorMessageList[3].message
-            fragmentDeadLIftBinding.tvCount4.text=""+ errorMessageList[3].count
-        }else if(errorMessageList.size==5){
-            fragmentDeadLIftBinding.relayMessage.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay1.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay2.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay3.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay4.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay5.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay6.visibility=View.GONE
-            fragmentDeadLIftBinding.relay7.visibility=View.GONE
-            fragmentDeadLIftBinding.relay8.visibility=View.GONE
-            fragmentDeadLIftBinding.tvMessage1.text= errorMessageList[0].message
-            fragmentDeadLIftBinding.tvCount1.text=""+ errorMessageList[0].count
-            fragmentDeadLIftBinding.tvMessage2.text=errorMessageList[1].message
-            fragmentDeadLIftBinding.tvCount2.text=""+ errorMessageList[1].count
-            fragmentDeadLIftBinding.tvMessage3.text= errorMessageList[2].message
-            fragmentDeadLIftBinding.tvCount3.text=""+ errorMessageList[2].count
-            fragmentDeadLIftBinding.tvMessage4.text= errorMessageList[3].message
-            fragmentDeadLIftBinding.tvCount4.text=""+ errorMessageList[3].count
-            fragmentDeadLIftBinding.tvMessage5.text= errorMessageList[4].message
-            fragmentDeadLIftBinding.tvCount5.text=""+ errorMessageList[4].count
-        }else if(errorMessageList.size==6){
-            fragmentDeadLIftBinding.relayMessage.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay1.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay2.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay3.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay4.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay5.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay6.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay7.visibility=View.GONE
-            fragmentDeadLIftBinding.relay8.visibility=View.GONE
-            fragmentDeadLIftBinding.tvMessage1.text= errorMessageList[0].message
-            fragmentDeadLIftBinding.tvCount1.text=""+ errorMessageList[0].count
-            fragmentDeadLIftBinding.tvMessage2.text=errorMessageList[1].message
-            fragmentDeadLIftBinding.tvCount2.text=""+ errorMessageList[1].count
-            fragmentDeadLIftBinding.tvMessage3.text= errorMessageList[2].message
-            fragmentDeadLIftBinding.tvCount3.text=""+ errorMessageList[2].count
-            fragmentDeadLIftBinding.tvMessage4.text= errorMessageList[3].message
-            fragmentDeadLIftBinding.tvCount4.text=""+ errorMessageList[3].count
-            fragmentDeadLIftBinding.tvMessage5.text= errorMessageList[4].message
-            fragmentDeadLIftBinding.tvCount5.text=""+ errorMessageList[4].count
-            fragmentDeadLIftBinding.tvMessage6.text= errorMessageList[5].message
-            fragmentDeadLIftBinding.tvCount6.text=""+ errorMessageList[5].count
-        }else if(errorMessageList.size==7){
-            fragmentDeadLIftBinding.relayMessage.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay1.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay2.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay3.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay4.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay5.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay6.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay7.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay8.visibility=View.GONE
-            fragmentDeadLIftBinding.tvMessage1.text= errorMessageList[0].message
-            fragmentDeadLIftBinding.tvCount1.text=""+ errorMessageList[0].count
-            fragmentDeadLIftBinding.tvMessage2.text=errorMessageList[1].message
-            fragmentDeadLIftBinding.tvCount2.text=""+ errorMessageList[1].count
-            fragmentDeadLIftBinding.tvMessage3.text= errorMessageList[2].message
-            fragmentDeadLIftBinding.tvCount3.text=""+ errorMessageList[2].count
-            fragmentDeadLIftBinding.tvMessage4.text= errorMessageList[3].message
-            fragmentDeadLIftBinding.tvCount4.text=""+ errorMessageList[3].count
-            fragmentDeadLIftBinding.tvMessage5.text= errorMessageList[4].message
-            fragmentDeadLIftBinding.tvCount5.text=""+ errorMessageList[4].count
-            fragmentDeadLIftBinding.tvMessage6.text= errorMessageList[5].message
-            fragmentDeadLIftBinding.tvCount6.text=""+ errorMessageList[5].count
-            fragmentDeadLIftBinding.tvMessage7.text= errorMessageList[6].message
-            fragmentDeadLIftBinding.tvCount7.text=""+ errorMessageList[6].count
-        }else if(errorMessageList.size==8){
-            fragmentDeadLIftBinding.relayMessage.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay1.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay2.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay3.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay4.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay5.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay6.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay7.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.relay8.visibility=View.VISIBLE
-            fragmentDeadLIftBinding.tvMessage1.text= errorMessageList[0].message
-            fragmentDeadLIftBinding.tvCount1.text=""+ errorMessageList[0].count
-            fragmentDeadLIftBinding.tvMessage2.text=errorMessageList[1].message
-            fragmentDeadLIftBinding.tvCount2.text=""+ errorMessageList[1].count
-            fragmentDeadLIftBinding.tvMessage3.text= errorMessageList[2].message
-            fragmentDeadLIftBinding.tvCount3.text=""+ errorMessageList[2].count
-            fragmentDeadLIftBinding.tvMessage4.text= errorMessageList[3].message
-            fragmentDeadLIftBinding.tvCount4.text=""+ errorMessageList[3].count
-            fragmentDeadLIftBinding.tvMessage5.text= errorMessageList[4].message
-            fragmentDeadLIftBinding.tvCount5.text=""+ errorMessageList[4].count
-            fragmentDeadLIftBinding.tvMessage6.text= errorMessageList[5].message
-            fragmentDeadLIftBinding.tvCount6.text=""+ errorMessageList[5].count
-            fragmentDeadLIftBinding.tvMessage7.text= errorMessageList[6].message
-            fragmentDeadLIftBinding.tvCount7.text=""+ errorMessageList[6].count
-            fragmentDeadLIftBinding.tvCount8.text=""+ errorMessageList[7].count
-            fragmentDeadLIftBinding.tvMessage8.text=""+ errorMessageList[7].count
-        }
-        })
-    }
     @SuppressLint("SuspiciousIndentation")
     private fun errorMessageClick(msg:String){
-       var intent = Intent(context, ExoPlayerActivity::class.java)
-              intent.putExtra(ConstantsSquats.FILE_NAME, "hipcorrection")
-              intent.putExtra(ConstantsSquats.FILE_TYPE, 1)
-              intent.putExtra(MESSAGE_TYPE,msg)
-              startActivity(intent)
-             // activity?.finish()
-/*      var intent = Intent(context, ImageActivity::class.java)
-         intent.putExtra(Constants.FILE_NAME, "hipcorrection")
-         intent.putExtra(Constants.FILE_TYPE, 1)
-         intent.putExtra(MESSAGE_TYPE,msg)
-         activity?.startActivity(intent)*/
-      //  activity?.finish()
-
+        var intent = Intent(context, ExoPlayerActivity::class.java)
+        intent.putExtra(ConstantsSquats.FILE_NAME, "hipcorrection")
+        intent.putExtra(ConstantsSquats.FILE_TYPE, 1)
+        intent.putExtra(MESSAGE_TYPE,msg)
+        startActivity(intent)
     }
 
     @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialiseScreenWidthAndHeight()
-        android.util.Log.e("ExerciseType","DeadLift Fragment")
         try{
             startTimer()
         }catch (e:Exception){
             e.printStackTrace()
         }
-
-
-   var heightString= FormFixSharedPreferences.getSharedPrefStringValue(requireContext(), FormFixConstants.HEIGHT)
+        var heightString= FormFixSharedPreferences.getSharedPrefStringValue(requireContext(), FormFixConstants.HEIGHT)
         height=heightString!!.toInt()
-        // Initialize our background executor
         backgroundExecutor = Executors.newSingleThreadExecutor()
-        fragmentDeadLIftBinding.cameraButton.setOnClickListener {
+        fragmentDeadLiftBinding.cameraButton.setOnClickListener {
             if (cameraFacing == CameraSelector.LENS_FACING_FRONT) {
                 setUpCamera(CameraSelector.LENS_FACING_BACK)
             } else {
                 setUpCamera(CameraSelector.LENS_FACING_FRONT)
             }
         }
-        fragmentDeadLIftBinding.btnPlaypause.setOnClickListener {
+        fragmentDeadLiftBinding.btnPlaypause.setOnClickListener {
             if(isTimerCompleted) {
                 if (isPlaying) {
                     isPlaying = false
-                    fragmentDeadLIftBinding.btnPlaypause.setImageDrawable(resources.getDrawable(R.drawable.iv_play))
+                    fragmentDeadLiftBinding.btnPlaypause.setImageDrawable(resources.getDrawable(R.drawable.iv_play))
                 }else{
-                    fragmentDeadLIftBinding.btnPlaypause.setImageDrawable(resources.getDrawable(R.drawable.iv_pause))
+                    fragmentDeadLiftBinding.btnPlaypause.setImageDrawable(resources.getDrawable(R.drawable.iv_pause))
                     isPlaying = true
                 }
             }else{
-                Utility.showErrorSnackBar(
-                    fragmentDeadLIftBinding.root,
+                FormFixUtility.showErrorSnackBar(
+                    fragmentDeadLiftBinding.root,
                     resources.getString(R.string.timer_not_completed)
                 )
             }
         }
 
-        fragmentDeadLIftBinding.relay1.setOnClickListener {
-            errorMessageClick(fragmentDeadLIftBinding.tvMessage1.text.toString())
+        fragmentDeadLiftBinding.relay1.setOnClickListener {
+            errorMessageClick(fragmentDeadLiftBinding.tvMessage1.text.toString())
         }
-        fragmentDeadLIftBinding.relay2.setOnClickListener {
-            errorMessageClick(fragmentDeadLIftBinding.tvMessage2.text.toString())
+        fragmentDeadLiftBinding.relay2.setOnClickListener {
+            errorMessageClick(fragmentDeadLiftBinding.tvMessage2.text.toString())
         }
-        fragmentDeadLIftBinding.relay3.setOnClickListener {
-            errorMessageClick(fragmentDeadLIftBinding.tvMessage3.text.toString())
+        fragmentDeadLiftBinding.relay3.setOnClickListener {
+            errorMessageClick(fragmentDeadLiftBinding.tvMessage3.text.toString())
         }
-        fragmentDeadLIftBinding.relay4.setOnClickListener {
-            errorMessageClick(fragmentDeadLIftBinding.tvMessage4.text.toString())
+        fragmentDeadLiftBinding.relay4.setOnClickListener {
+            errorMessageClick(fragmentDeadLiftBinding.tvMessage4.text.toString())
         }
-        fragmentDeadLIftBinding.relay5.setOnClickListener {
-            errorMessageClick(fragmentDeadLIftBinding.tvMessage5.text.toString())
+        fragmentDeadLiftBinding.relay5.setOnClickListener {
+            errorMessageClick(fragmentDeadLiftBinding.tvMessage5.text.toString())
         }
-        fragmentDeadLIftBinding.relay6.setOnClickListener {
-            errorMessageClick(fragmentDeadLIftBinding.tvMessage6.text.toString())
+        fragmentDeadLiftBinding.relay6.setOnClickListener {
+            errorMessageClick(fragmentDeadLiftBinding.tvMessage6.text.toString())
         }
-        fragmentDeadLIftBinding.relay7.setOnClickListener {
-            errorMessageClick(fragmentDeadLIftBinding.tvMessage7.text.toString())
+        fragmentDeadLiftBinding.relay7.setOnClickListener {
+            errorMessageClick(fragmentDeadLiftBinding.tvMessage7.text.toString())
         }
-        fragmentDeadLIftBinding.relay8.setOnClickListener {
-            errorMessageClick(fragmentDeadLIftBinding.tvMessage8.text.toString())
+        fragmentDeadLiftBinding.relay8.setOnClickListener {
+            errorMessageClick(fragmentDeadLiftBinding.tvMessage8.text.toString())
         }
 
         backgroundExecutor.execute {
@@ -428,7 +232,7 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         }
 
         // Wait for the views to be properly laid out
-        fragmentDeadLIftBinding.viewFinder.post {
+        fragmentDeadLiftBinding.viewFinder.post {
             // Set up the camera and its use cases
             setUpCamera(cameraFacing)
         }
@@ -437,14 +241,14 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     private fun startTimer() {
         object : CountDownTimer(timerLimit, timerInterval) {
             override fun onTick(millisUntilFinished: Long) {
-                fragmentDeadLIftBinding?.lblCounter?.visibility = View.VISIBLE
-                fragmentDeadLIftBinding?.lblCounter?.text = "${millisUntilFinished / timerInterval}"
+                fragmentDeadLiftBinding?.lblCounter?.visibility = View.VISIBLE
+                fragmentDeadLiftBinding?.lblCounter?.text = "${millisUntilFinished / timerInterval}"
                 isTimerCompleted = false
             }
 
             override fun onFinish() {
-                fragmentDeadLIftBinding.lblCounter.visibility = View.GONE
-                "".also { fragmentDeadLIftBinding.lblCounter.text = it }
+                fragmentDeadLiftBinding.lblCounter.visibility = View.GONE
+                "".also { fragmentDeadLiftBinding.lblCounter.text = it }
                 isTimerCompleted = true
             }
         }.start()
@@ -476,13 +280,13 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
         // Preview. Only using the 4:3 ratio because this is the closest to our models
         preview = Preview.Builder().setTargetAspectRatio(AspectRatio.RATIO_4_3)
-            .setTargetRotation(fragmentDeadLIftBinding.viewFinder.display.rotation)
+            .setTargetRotation(fragmentDeadLiftBinding.viewFinder.display.rotation)
             .build()
 
         // ImageAnalysis. Using RGBA 8888 to match how our models work
         imageAnalyzer =
             ImageAnalysis.Builder().setTargetAspectRatio(AspectRatio.RATIO_4_3)
-                .setTargetRotation(fragmentDeadLIftBinding.viewFinder.display.rotation)
+                .setTargetRotation(fragmentDeadLiftBinding.viewFinder.display.rotation)
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
                 .build()
@@ -507,9 +311,9 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
               )
   */
             // Attach the viewfinder's surface provider to preview use case
-            preview?.setSurfaceProvider(fragmentDeadLIftBinding.viewFinder.surfaceProvider)
+            preview?.setSurfaceProvider(fragmentDeadLiftBinding.viewFinder.surfaceProvider)
         } catch (exc: Exception) {
-            Utility.Log(TAG, "Use case binding failed$exc")
+            FormFixUtility.Log(TAG, "Use case binding failed$exc")
         }
     }
 
@@ -526,7 +330,7 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         imageAnalyzer?.targetRotation =
-            fragmentDeadLIftBinding.viewFinder.display.rotation
+            fragmentDeadLiftBinding.viewFinder.display.rotation
     }
 
     // Update UI after pose have been detected. Extracts original
@@ -539,6 +343,7 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         activity?.runOnUiThread {
             landMarkList.clear()
             worldLandMarkList.clear()
+            var shoulderAngle=0.0f
             var kneeAngle = 0.0f
             var hipAngle = 0.0f
             var heelAngle = 0.0f
@@ -559,10 +364,6 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
             if (landMarkList.size > 0) {
                 userFaceType = 0
-
-                var knee= Knees(Point2D(landMarkList[26].x, landMarkList[26].y), Point2D(landMarkList[25].x, landMarkList[25].y))
-                var shoulder= Shoulders(Point2D(landMarkList[12].x, landMarkList[12].y), Point2D(landMarkList[11].x, landMarkList[11].y))
-                var hips= Hips(Point2D(landMarkList[24].x, landMarkList[24].y), Point2D(landMarkList[23].x, landMarkList[23].y))
                 val leftShoulder = landMarkList[11].x
                 val rightShoulder = landMarkList[12].x
                 val leftShoulder_Y = landMarkList[11].y
@@ -571,27 +372,9 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 val nose = landMarkList[0].x
                 val leftSdoulder_node_distance = leftShoulder - nose
                 val rightSdoulder_node_distance = rightShoulder - nose
-                val leftNoseDistance = nose - leftShoulder
-                val rightNoseDistance = nose - rightShoulder
-                Utility.Log("FACETYPE","leftSdoulder_node_distance="+leftSdoulder_node_distance)
-                Utility.Log("FACETYPE","rightSdoulder_node_distance="+rightSdoulder_node_distance)
-                Utility.Log("FACETYPE","leftNoseDistance="+leftNoseDistance)
-                Utility.Log("FACETYPE","rightNoseDistance="+rightNoseDistance)
-                Utility.Log("FACETYPE","leftShoulder="+leftShoulder+", rightShoulde="+rightShoulder)
-                Utility.Log("FACETYPE","shouldersDiff="+Math.abs(leftShoulder-rightShoulder))
-               var shouldersDiff= abs(leftShoulder-rightShoulder)
-              /*  userFaceType = if (leftSdoulder_node_distance > 0 && rightSdoulder_node_distance > 0) {
-                    Constants.LEFT_FACE
-                }
-                else if (leftNoseDistance > 0 && rightNoseDistance > 0) {
-                    Constants.RIGHT_FACE
-                }
-                else {
-                    Constants.FRONT_FACE
-                }*/
-
+                var shouldersDiff= abs(leftShoulder-rightShoulder)
                 if (shouldersDiff > ConstantsSquats.SHOULDERSDIFF_CONSTANT) {
-                   userFaceType= ConstantsSquats.FRONT_FACE
+                    userFaceType= ConstantsSquats.FRONT_FACE
                 }
                 else{
                     if(leftSdoulder_node_distance > 0 && rightSdoulder_node_distance > 0) {
@@ -603,19 +386,20 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 }
 
                 if(userFaceType==1)
-                Utility.Log("FACETYPE","LEFT_FACE")
+                    FormFixUtility.Log("FACETYPE","LEFT_FACE")
                 else if(userFaceType==2){
-                    Utility.Log("FACETYPE","FRONT_FACE")
+                    FormFixUtility.Log("FACETYPE","FRONT_FACE")
                 }else if(userFaceType==3){
-                    Utility.Log("FACETYPE","RIGHT_FACE")
+                    FormFixUtility.Log("FACETYPE","RIGHT_FACE")
                 }else{
-                    Utility.Log("FACETYPE","NOT_DECIDED")
+                    FormFixUtility.Log("FACETYPE","NOT_DECIDED")
                 }
 
                 val cordHip: Int
                 val cordKnee: Int
                 val cordAnkle: Int
                 val cordShoulder: Int
+                val cordElbow: Int
                 val cordToe: Int
                 val rHeelCord = 30
                 val lHeelCord = 29
@@ -624,56 +408,29 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
 
                 if (userFaceType == ConstantsSquats.LEFT_FACE) {
-                    cordHip = 23;cordKnee = 25;cordAnkle = 27;cordShoulder = 11;cordToe = 31
+                    cordElbow=13; cordHip = 23;cordKnee = 25;cordAnkle = 27;cordShoulder = 11;cordToe = 31
                 } else {
-                    cordHip = 24;cordKnee = 26;cordAnkle = 28;cordShoulder = 12;cordToe = 32
+                    cordElbow=14;cordHip = 24;cordKnee = 26;cordAnkle = 28;cordShoulder = 12;cordToe = 32
                 }
-                val hipPoint = doubleArrayOf(
-                    landMarkList[cordHip].x.toDouble(),
-                    landMarkList[cordHip].y.toDouble(),
-                    landMarkList[cordHip].z.toDouble()
-                )
-                val kneePoint = doubleArrayOf(
-                    landMarkList[cordKnee].x.toDouble(),
-                    landMarkList[cordKnee].y.toDouble(),
-                    landMarkList[cordKnee].z.toDouble()
-                )
-                val anklePoint = doubleArrayOf(
-                    landMarkList[cordAnkle].x.toDouble(),
-                    landMarkList[cordAnkle].y.toDouble(),
-                    landMarkList[cordAnkle].z.toDouble()
-                )
-                val shoulderPoint = doubleArrayOf(
-                    landMarkList[cordShoulder].x.toDouble(),
-                    landMarkList[cordShoulder].y.toDouble(),
-                    landMarkList[cordShoulder].z.toDouble()
-                )
+                val elbowPoint = doubleArrayOf(landMarkList[cordElbow].x.toDouble(), landMarkList[cordElbow].y.toDouble(), landMarkList[cordElbow].z.toDouble())
+                val hipPoint = doubleArrayOf(landMarkList[cordHip].x.toDouble(), landMarkList[cordHip].y.toDouble(), landMarkList[cordHip].z.toDouble())
+                val kneePoint = doubleArrayOf(landMarkList[cordKnee].x.toDouble(), landMarkList[cordKnee].y.toDouble(), landMarkList[cordKnee].z.toDouble())
+                val anklePoint = doubleArrayOf(landMarkList[cordAnkle].x.toDouble(), landMarkList[cordAnkle].y.toDouble(), landMarkList[cordAnkle].z.toDouble())
+                val shoulderPoint = doubleArrayOf(landMarkList[cordShoulder].x.toDouble(), landMarkList[cordShoulder].y.toDouble(), landMarkList[cordShoulder].z.toDouble())
+                val leftFootPoint = doubleArrayOf(landMarkList[lfiCord].x.toDouble(), landMarkList[lfiCord].y.toDouble(), landMarkList[lfiCord].z.toDouble())
+                val heelPoint = doubleArrayOf((landMarkList[lHeelCord].x.toDouble() + landMarkList[lHeelCord].x.toDouble()) / 2, (landMarkList[lHeelCord].y.toDouble() + landMarkList[lHeelCord].y.toDouble()) / 2, (landMarkList[lHeelCord].z.toDouble() + landMarkList[lHeelCord].z.toDouble()) / 2,)
+                val rightFootPoint = doubleArrayOf(landMarkList[rfICord].x.toDouble(), landMarkList[rfICord].y.toDouble(), landMarkList[rfICord].z.toDouble())
 
-                kneeAngle = Utility.angleBetweenPoints(hipPoint, kneePoint, anklePoint).toFloat()
-                hipAngle = Utility.angleBetweenPoints(shoulderPoint, hipPoint, kneePoint).toFloat()
-                val leftFootPoint = doubleArrayOf(
-                    landMarkList[lfiCord].x.toDouble(),
-                    landMarkList[lfiCord].y.toDouble(),
-                    landMarkList[lfiCord].z.toDouble()
-                )
-                val heelPoint = doubleArrayOf(
-                    (landMarkList[lHeelCord].x.toDouble() + landMarkList[lHeelCord].x.toDouble()) / 2,
-                    (landMarkList[lHeelCord].y.toDouble() + landMarkList[lHeelCord].y.toDouble()) / 2,
-                    (landMarkList[lHeelCord].z.toDouble() + landMarkList[lHeelCord].z.toDouble()) / 2,
-                )
-                val rightFootPoint = doubleArrayOf(
-                    landMarkList[rfICord].x.toDouble(),
-                    landMarkList[rfICord].y.toDouble(),
-                    landMarkList[rfICord].z.toDouble()
-                )
 
-                heelAngle =
-                    Utility.angleBetweenPoints(leftFootPoint, heelPoint, rightFootPoint).toFloat()
-                /*    heelAngle=  Utility.calculateAngles(
-                          landMarkList[lfiCord].x, landMarkList[lfiCord].y,
-                          landMarkList[0].x, landMarkList[0].y,
-                          landMarkList[rfICord].x, landMarkList[rfICord].y
-                      )*/
+                shoulderAngle= FormFixUtility.angleBetweenPoints(hipPoint, shoulderPoint, elbowPoint).toFloat()
+                kneeAngle = FormFixUtility.angleBetweenPoints(hipPoint, kneePoint, anklePoint).toFloat()
+                hipAngle = FormFixUtility.angleBetweenPoints(shoulderPoint, hipPoint, kneePoint).toFloat()
+                heelAngle = FormFixUtility.angleBetweenPoints(leftFootPoint, heelPoint, rightFootPoint).toFloat()
+                Log.e("Angels=>","shoulderAngle="+shoulderAngle)
+                Log.e("Angels=>","kneeAngle="+kneeAngle)
+                Log.e("Angels=>","hipAngle="+hipAngle)
+                Log.e("Angels=>","heelAngle="+heelAngle)
+
                 xHip = landMarkList[cordHip].x
                 yHip = landMarkList[cordHip].y
                 xKnee = landMarkList[cordKnee].x
@@ -702,35 +459,199 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 yOfRightHeel=landMarkList[30].y
                 yOfLeftToe=landMarkList[31].y
                 yOfRightToe=landMarkList[32].y
-               showBottomLayoutValues(userFaceType,kneeAngle,hipAngle,isTimerCompleted,xofLeftToe,
-                    xofRightToe,
-                    xofLeftHip,xofRightHip,leftShoulder,
-                    rightShoulder,leftShoulder_Y,rightShoulder_Y)
+          /*      showBottomLayoutValues(userFaceType,kneeAngle,hipAngle,isTimerCompleted,xofLeftToe, xofRightToe, xofLeftHip,xofRightHip,leftShoulder, rightShoulder,leftShoulder_Y,rightShoulder_Y) */}
 
-            }
-
-/*            if (_fragmentDeadliftBinding != null) {
+            if (_fragmentDeadLiftBinding != null) {
                 // Pass necessary information to OverlayView for drawing on the canvas
-                fragmentDeadLIftBinding.overlay.setResults(
+                fragmentDeadLiftBinding.overlay.setResults(
                     resultBundle.results.first(),
                     resultBundle.inputImageHeight,
                     resultBundle.inputImageWidth,
                     RunningMode.LIVE_STREAM,
                     cameraFacing,
-                    kneeAngle.toInt(),
+                    userFaceType,
+                    kneeAngle,
                     hipAngle,
                     heelAngle,
+                    shoulderAngle,
                     xHeel,
                     yHeel,
-                    userFaceType,
                     xHip, yHip, xKnee, yKnee, toeX, isTimerCompleted,xofLeftKnee,xofRightKnee,xofLeftToe,xofRightToe,
-                        yOfToe,yoFShoulder,yForNose,shoulderx,shulderY,ankleX,ankleY,windowWidth,windowHeight,isPlaying,leftToeX,rightToeX,xofLeftHip,xofRightHip,yofLeftShoulder,yofRightShoulder,yOfLeftHeel,yOfRightHeel,yOfLeftToe,yOfRightToe)
-                setAdapterData(fragmentDeadLIftBinding.overlay.errorMessageList)
-                fragmentDeadLIftBinding.overlay.invalidate()
-            }*/
+                    yOfToe,yoFShoulder,yForNose,shoulderx,shulderY,ankleX,ankleY,windowWidth,windowHeight,isPlaying,leftToeX,rightToeX,xofLeftHip,xofRightHip,yofLeftShoulder,yofRightShoulder,yOfLeftHeel,yOfRightHeel,yOfLeftToe,yOfRightToe)
+                setAdapterData(fragmentDeadLiftBinding.overlay.errorMessageList)
+                fragmentDeadLiftBinding.overlay.invalidate()
+            }
         }
     }
 
+    private fun setAdapterData(errorMessageList: List<ErrorMessage>) {
+        activity?.runOnUiThread(Runnable {
+            if(errorMessageList.isEmpty()){
+                fragmentDeadLiftBinding.relayMessage.visibility=View.GONE
+                fragmentDeadLiftBinding.relay1.visibility=View.GONE
+                fragmentDeadLiftBinding.relay2.visibility=View.GONE
+                fragmentDeadLiftBinding.relay3.visibility=View.GONE
+                fragmentDeadLiftBinding.relay4.visibility=View.GONE
+                fragmentDeadLiftBinding.relay5.visibility=View.GONE
+                fragmentDeadLiftBinding.relay6.visibility=View.GONE
+                fragmentDeadLiftBinding.relay7.visibility=View.GONE
+                fragmentDeadLiftBinding.relay8.visibility=View.GONE
+            }else if(errorMessageList.size==1){
+                fragmentDeadLiftBinding.relayMessage.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay1.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay2.visibility=View.GONE
+                fragmentDeadLiftBinding.relay3.visibility=View.GONE
+                fragmentDeadLiftBinding.relay4.visibility=View.GONE
+                fragmentDeadLiftBinding.relay5.visibility=View.GONE
+                fragmentDeadLiftBinding.relay6.visibility=View.GONE
+                fragmentDeadLiftBinding.relay7.visibility=View.GONE
+                fragmentDeadLiftBinding.relay8.visibility=View.GONE
+                fragmentDeadLiftBinding.tvMessage1.text= errorMessageList[0].message
+                fragmentDeadLiftBinding.tvCount1.text=""+ errorMessageList[0].count
+            }else if(errorMessageList.size==2){
+                fragmentDeadLiftBinding.relayMessage.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay1.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay2.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay3.visibility=View.GONE
+                fragmentDeadLiftBinding.relay4.visibility=View.GONE
+                fragmentDeadLiftBinding.relay5.visibility=View.GONE
+                fragmentDeadLiftBinding.relay6.visibility=View.GONE
+                fragmentDeadLiftBinding.relay7.visibility=View.GONE
+                fragmentDeadLiftBinding.relay8.visibility=View.GONE
+                fragmentDeadLiftBinding.tvMessage1.text= errorMessageList[0].message
+                fragmentDeadLiftBinding.tvCount1.text=""+ errorMessageList[0].count
+                fragmentDeadLiftBinding.tvMessage2.text= errorMessageList[1].message
+                fragmentDeadLiftBinding.tvCount2.text=""+ errorMessageList[1].count
+            }else if(errorMessageList.size==3){
+                fragmentDeadLiftBinding.relayMessage.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay1.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay2.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay3.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay4.visibility=View.GONE
+                fragmentDeadLiftBinding.relay5.visibility=View.GONE
+                fragmentDeadLiftBinding.relay6.visibility=View.GONE
+                fragmentDeadLiftBinding.relay7.visibility=View.GONE
+                fragmentDeadLiftBinding.relay8.visibility=View.GONE
+                fragmentDeadLiftBinding.tvMessage1.text= errorMessageList[0].message
+                fragmentDeadLiftBinding.tvCount1.text=""+ errorMessageList[0].count
+                fragmentDeadLiftBinding.tvMessage2.text= errorMessageList[1].message
+                fragmentDeadLiftBinding.tvCount2.text=""+ errorMessageList[1].count
+                fragmentDeadLiftBinding.tvMessage3.text= errorMessageList[2].message
+                fragmentDeadLiftBinding.tvCount3.text=""+ errorMessageList[2].count
+            }
+            else if(errorMessageList.size==4){
+                fragmentDeadLiftBinding.relayMessage.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay1.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay2.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay3.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay4.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay5.visibility=View.GONE
+                fragmentDeadLiftBinding.relay6.visibility=View.GONE
+                fragmentDeadLiftBinding.relay7.visibility=View.GONE
+                fragmentDeadLiftBinding.relay8.visibility=View.GONE
+                fragmentDeadLiftBinding.tvMessage1.text= errorMessageList[0].message
+                fragmentDeadLiftBinding.tvCount1.text=""+ errorMessageList[0].count
+                fragmentDeadLiftBinding.tvMessage2.text=errorMessageList[1].message
+                fragmentDeadLiftBinding.tvCount2.text=""+ errorMessageList[1].count
+                fragmentDeadLiftBinding.tvMessage3.text= errorMessageList[2].message
+                fragmentDeadLiftBinding.tvCount3.text=""+ errorMessageList[2].count
+                fragmentDeadLiftBinding.tvMessage4.text= errorMessageList[3].message
+                fragmentDeadLiftBinding.tvCount4.text=""+ errorMessageList[3].count
+            }else if(errorMessageList.size==5){
+                fragmentDeadLiftBinding.relayMessage.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay1.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay2.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay3.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay4.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay5.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay6.visibility=View.GONE
+                fragmentDeadLiftBinding.relay7.visibility=View.GONE
+                fragmentDeadLiftBinding.relay8.visibility=View.GONE
+                fragmentDeadLiftBinding.tvMessage1.text= errorMessageList[0].message
+                fragmentDeadLiftBinding.tvCount1.text=""+ errorMessageList[0].count
+                fragmentDeadLiftBinding.tvMessage2.text=errorMessageList[1].message
+                fragmentDeadLiftBinding.tvCount2.text=""+ errorMessageList[1].count
+                fragmentDeadLiftBinding.tvMessage3.text= errorMessageList[2].message
+                fragmentDeadLiftBinding.tvCount3.text=""+ errorMessageList[2].count
+                fragmentDeadLiftBinding.tvMessage4.text= errorMessageList[3].message
+                fragmentDeadLiftBinding.tvCount4.text=""+ errorMessageList[3].count
+                fragmentDeadLiftBinding.tvMessage5.text= errorMessageList[4].message
+                fragmentDeadLiftBinding.tvCount5.text=""+ errorMessageList[4].count
+            }else if(errorMessageList.size==6){
+                fragmentDeadLiftBinding.relayMessage.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay1.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay2.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay3.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay4.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay5.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay6.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay7.visibility=View.GONE
+                fragmentDeadLiftBinding.relay8.visibility=View.GONE
+                fragmentDeadLiftBinding.tvMessage1.text= errorMessageList[0].message
+                fragmentDeadLiftBinding.tvCount1.text=""+ errorMessageList[0].count
+                fragmentDeadLiftBinding.tvMessage2.text=errorMessageList[1].message
+                fragmentDeadLiftBinding.tvCount2.text=""+ errorMessageList[1].count
+                fragmentDeadLiftBinding.tvMessage3.text= errorMessageList[2].message
+                fragmentDeadLiftBinding.tvCount3.text=""+ errorMessageList[2].count
+                fragmentDeadLiftBinding.tvMessage4.text= errorMessageList[3].message
+                fragmentDeadLiftBinding.tvCount4.text=""+ errorMessageList[3].count
+                fragmentDeadLiftBinding.tvMessage5.text= errorMessageList[4].message
+                fragmentDeadLiftBinding.tvCount5.text=""+ errorMessageList[4].count
+                fragmentDeadLiftBinding.tvMessage6.text= errorMessageList[5].message
+                fragmentDeadLiftBinding.tvCount6.text=""+ errorMessageList[5].count
+            }else if(errorMessageList.size==7){
+                fragmentDeadLiftBinding.relayMessage.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay1.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay2.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay3.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay4.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay5.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay6.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay7.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay8.visibility=View.GONE
+                fragmentDeadLiftBinding.tvMessage1.text= errorMessageList[0].message
+                fragmentDeadLiftBinding.tvCount1.text=""+ errorMessageList[0].count
+                fragmentDeadLiftBinding.tvMessage2.text=errorMessageList[1].message
+                fragmentDeadLiftBinding.tvCount2.text=""+ errorMessageList[1].count
+                fragmentDeadLiftBinding.tvMessage3.text= errorMessageList[2].message
+                fragmentDeadLiftBinding.tvCount3.text=""+ errorMessageList[2].count
+                fragmentDeadLiftBinding.tvMessage4.text= errorMessageList[3].message
+                fragmentDeadLiftBinding.tvCount4.text=""+ errorMessageList[3].count
+                fragmentDeadLiftBinding.tvMessage5.text= errorMessageList[4].message
+                fragmentDeadLiftBinding.tvCount5.text=""+ errorMessageList[4].count
+                fragmentDeadLiftBinding.tvMessage6.text= errorMessageList[5].message
+                fragmentDeadLiftBinding.tvCount6.text=""+ errorMessageList[5].count
+                fragmentDeadLiftBinding.tvMessage7.text= errorMessageList[6].message
+                fragmentDeadLiftBinding.tvCount7.text=""+ errorMessageList[6].count
+            }else if(errorMessageList.size==8){
+                fragmentDeadLiftBinding.relayMessage.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay1.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay2.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay3.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay4.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay5.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay6.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay7.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.relay8.visibility=View.VISIBLE
+                fragmentDeadLiftBinding.tvMessage1.text= errorMessageList[0].message
+                fragmentDeadLiftBinding.tvCount1.text=""+ errorMessageList[0].count
+                fragmentDeadLiftBinding.tvMessage2.text=errorMessageList[1].message
+                fragmentDeadLiftBinding.tvCount2.text=""+ errorMessageList[1].count
+                fragmentDeadLiftBinding.tvMessage3.text= errorMessageList[2].message
+                fragmentDeadLiftBinding.tvCount3.text=""+ errorMessageList[2].count
+                fragmentDeadLiftBinding.tvMessage4.text= errorMessageList[3].message
+                fragmentDeadLiftBinding.tvCount4.text=""+ errorMessageList[3].count
+                fragmentDeadLiftBinding.tvMessage5.text= errorMessageList[4].message
+                fragmentDeadLiftBinding.tvCount5.text=""+ errorMessageList[4].count
+                fragmentDeadLiftBinding.tvMessage6.text= errorMessageList[5].message
+                fragmentDeadLiftBinding.tvCount6.text=""+ errorMessageList[5].count
+                fragmentDeadLiftBinding.tvMessage7.text= errorMessageList[6].message
+                fragmentDeadLiftBinding.tvCount7.text=""+ errorMessageList[6].count
+                fragmentDeadLiftBinding.tvCount8.text=""+ errorMessageList[7].count
+                fragmentDeadLiftBinding.tvMessage8.text=""+ errorMessageList[7].count
+            }
+        })
+    }
 
     override fun onError(error: String, errorCode: Int) {
         activity?.runOnUiThread {
@@ -761,21 +682,21 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                                hip2_X: Float,sholder1_X: Float,
                                shoulder2_x: Float, sholder1_Y: Float,
                                shoulder2_Y: Float){
-      if(isTimerCompleted) {
-            fragmentDeadLIftBinding.bottomLayout.visibility = View.VISIBLE
+        if(isTimerCompleted) {
+            fragmentDeadLiftBinding.bottomLayout.visibility = View.VISIBLE
             val kneeAngles = (kneesAngle * 10).roundToInt() / 10
 
             if (userFaceType == ConstantsSquats.FRONT_FACE) {
-                fragmentDeadLIftBinding.valueThighAngle.text = "" + kneeAngles+" deg"
-                fragmentDeadLIftBinding.valueSquatDepth.text = ""+ Utility.getSquatPercentage(kneesAngle.toInt(),hipAngle.toInt(),userFaceType)+"%"
-                fragmentDeadLIftBinding.valueHipShift.text =
-                    "" + Utility.hipShift( toe1_X,
+                fragmentDeadLiftBinding.valueThighAngle.text = "" + kneeAngles+" deg"
+                fragmentDeadLiftBinding.valueSquatDepth.text = ""+ FormFixUtility.getSquatPercentage(kneesAngle.toInt(),hipAngle.toInt(),userFaceType)+"%"
+                fragmentDeadLiftBinding.valueHipShift.text =
+                    "" + FormFixUtility.hipShift( toe1_X,
                         toe2_X,
                         hip1_X,
                         hip2_X,
                         height)+" in"
-                fragmentDeadLIftBinding.valueShoulderShift.text =
-                    "" + Utility.shoulderShift(
+                fragmentDeadLiftBinding.valueShoulderShift.text =
+                    "" + FormFixUtility.shoulderShift(
                         sholder1_Y,
                         shoulder2_Y,
                         height,
@@ -783,15 +704,15 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                         yOfLeftHeel,
                         yOfRightHeel,
                         yForNose)+" in"
-                fragmentDeadLIftBinding.lblShoulderShift.text="Shoulders Shift:"
-                fragmentDeadLIftBinding.lblHipShift.text="Hips Shift:"
+                fragmentDeadLiftBinding.lblShoulderShift.text="Shoulders Tilt:"
+                fragmentDeadLiftBinding.lblHipShift.text="Hips Shift:"
             } else {
-                fragmentDeadLIftBinding.valueThighAngle.text = "" + kneeAngles+" deg"
-                fragmentDeadLIftBinding.valueSquatDepth.text = ""+ Utility.getSquatPercentage(kneesAngle.toInt(), hipAngle.toInt(),userFaceType)+"%"
-                fragmentDeadLIftBinding.valueHipShift.text = ""+Utility.kneesCrossToesShift(toeX,xKnee,height)+" in"
-                fragmentDeadLIftBinding.lblHipShift.text="Knees Shift:"
-                fragmentDeadLIftBinding.valueShoulderShift.text =""+Utility.heelsShift(yOfLeftHeel, yOfRightHeel, yOfLeftToe, yOfRightToe, userFaceType,height)+" in"
-                fragmentDeadLIftBinding.lblShoulderShift.text="Heels Shift:"
+                fragmentDeadLiftBinding.valueThighAngle.text = "" + kneeAngles+"°"
+                fragmentDeadLiftBinding.valueSquatDepth.text = ""+ FormFixUtility.getSquatPercentage(kneesAngle.toInt(), hipAngle.toInt(),userFaceType)+"%"
+                fragmentDeadLiftBinding.valueHipShift.text = ""+FormFixUtility.kneesCrossToesShift(toeX,xKnee,height)+" in"
+                fragmentDeadLiftBinding.lblHipShift.text="Knees Shift:"
+                fragmentDeadLiftBinding.valueShoulderShift.text =""+FormFixUtility.heelsShift(yOfLeftHeel, yOfRightHeel, yOfLeftToe, yOfRightToe, userFaceType,height)+" in"
+                fragmentDeadLiftBinding.lblShoulderShift.text="Heels Shift:"
             }
         }
 

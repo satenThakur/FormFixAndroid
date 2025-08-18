@@ -8,15 +8,12 @@ import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -39,7 +36,7 @@ import com.fittracker.utilits.ConstantsSquats.PERMISSION_REQ_POST_NOTIFICATIONS
 import com.fittracker.utilits.ConstantsSquats.SELECT_TAG_1
 import com.fittracker.utilits.FormFixConstants
 import com.fittracker.utilits.FormFixSharedPreferences
-import com.fittracker.utilits.Utility
+import com.fittracker.utilits.FormFixUtility
 import com.google.android.material.navigation.NavigationView
 
 
@@ -67,7 +64,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         )
         activityMainBinding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-        isTablet = Utility.isTablet(this)
+        isTablet = FormFixUtility.isTablet(this)
         val header: View = navigationView.getHeaderView(0)
         var tvname = header.findViewById<View>(com.fittracker.R.id.lblName) as TextView
         var tvEmail = header.findViewById<View>(com.fittracker.R.id.lblEmail) as TextView
@@ -78,14 +75,14 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 if (selectedTag == 0 || selectedTag == 1 || selectedTag == 2) {
                     moveToCameraActivity(tags[selectedTag].text.toString())
                 } else {
-                    Utility.showErrorSnackBar(
+                    FormFixUtility.showErrorSnackBar(
                         activityMainBinding.root,
                         resources.getString(R.string.coming_soon)
                     )
                 }
 
             } else {
-                Utility.showErrorSnackBar(
+                FormFixUtility.showErrorSnackBar(
                     activityMainBinding.root,
                     resources.getString(R.string.select_exercise)
                 )
@@ -282,7 +279,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 val  btnNegative = view.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.btn_cancel)
                 builder.setView(view)
                 btnPositive.setOnClickListener {
-                    Utility.saveUser(null,this@DashboardActivity)
+                    FormFixUtility.saveUser(null,this@DashboardActivity)
                     val intent = Intent(this@DashboardActivity, LoginActivity::class.java)
                     startActivity(intent)
                     this@DashboardActivity.finish()
@@ -318,7 +315,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             builder.setTitle(title)
             builder.setMessage(message)
             builder.setPositiveButton("Yes") { _, _ ->
-                Utility.saveUser(null,requireActivity().applicationContext)
+                FormFixUtility.saveUser(null,requireActivity().applicationContext)
                 val intent = Intent(requireActivity(), LoginActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()

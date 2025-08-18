@@ -9,9 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fittracker.R
 import com.fittracker.databinding.ActivityVerifyOtpBinding
 import com.fittracker.utilits.FormFixConstants
-import com.fittracker.utilits.FormFixSharedPreferences
-import com.fittracker.utilits.Utility
-import com.fittracker.utilits.Utility.saveUser
+import com.fittracker.utilits.FormFixUtility
 import com.fittracker.viewmodel.OnBoardingViewModel
 import com.google.gson.JsonObject
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +32,7 @@ class VerifyOtpActivity : AppCompatActivity() {
 
         activityVerifyOtpBinding.btnConfirm.setOnClickListener{
             var otp=activityVerifyOtpBinding.otpView.text.toString()
-            Utility.hideKeyboard(this, activityVerifyOtpBinding.btnConfirm)
+            FormFixUtility.hideKeyboard(this, activityVerifyOtpBinding.btnConfirm)
           if(isValid(otp)){
               validateOtp(otp)
           }
@@ -54,10 +52,10 @@ class VerifyOtpActivity : AppCompatActivity() {
     }
     private fun isValid(otp:String):Boolean{
         if(otp.isEmpty()){
-            Utility.showErrorSnackBar(activityVerifyOtpBinding.root, resources.getString(R.string.enter_otp))
+            FormFixUtility.showErrorSnackBar(activityVerifyOtpBinding.root, resources.getString(R.string.enter_otp))
             return false
         }else if(otp.length<5){
-            Utility.showErrorSnackBar(activityVerifyOtpBinding.root, resources.getString(R.string.enter_valid_otp))
+            FormFixUtility.showErrorSnackBar(activityVerifyOtpBinding.root, resources.getString(R.string.enter_valid_otp))
             return false
         }
         return true;
@@ -74,7 +72,7 @@ class VerifyOtpActivity : AppCompatActivity() {
             if (it?.status == 200) {
                 if(it?.data?.responseData?.code== FormFixConstants.SUCCESS) {
                     if(intent.getStringExtra(FormFixConstants.ONBOARDING_TYPE)==FormFixConstants.LOGIN) {
-                        Utility.saveUser(it?.data?.responseData?.user,this@VerifyOtpActivity)
+                        FormFixUtility.saveUser(it?.data?.responseData?.user,this@VerifyOtpActivity)
                         val intent = Intent(this, DisclaimerActivity::class.java)
                         startActivity(intent)
                         finish()
@@ -83,13 +81,13 @@ class VerifyOtpActivity : AppCompatActivity() {
                     }
                 }else if(it?.data?.responseData?.code== FormFixConstants.FAILED){
                     it?.data?.responseData?.message?.let { it1 ->
-                        Utility.showDialog(this@VerifyOtpActivity,"Error",
+                        FormFixUtility.showDialog(this@VerifyOtpActivity,"Error",
                             it1
                         )
                     }
                 }
             } else {
-                Utility.showDialog(this@VerifyOtpActivity,"Error",
+                FormFixUtility.showDialog(this@VerifyOtpActivity,"Error",
                     resources.getString(R.string.something_went_wrong)
                 )
             }
@@ -108,7 +106,7 @@ class VerifyOtpActivity : AppCompatActivity() {
         loginViewModel.signup(json)?.observe(this) {
             if (it?.status == 200) {
                 if(it?.data?.responseData?.code== FormFixConstants.SUCCESS) {
-                    Utility.saveUser(it?.data?.responseData?.user,this@VerifyOtpActivity)
+                    FormFixUtility.saveUser(it?.data?.responseData?.user,this@VerifyOtpActivity)
 
                     val intent = Intent(this, DisclaimerActivity::class.java)
                     startActivity(intent)
@@ -119,13 +117,13 @@ class VerifyOtpActivity : AppCompatActivity() {
                     finish()*/
                 }else if(it?.data?.responseData?.code== FormFixConstants.FAILED){
                     it?.data?.responseData?.message?.let { it1 ->
-                        Utility.showDialog(this@VerifyOtpActivity,"Error",
+                        FormFixUtility.showDialog(this@VerifyOtpActivity,"Error",
                             it1
                         )
                     }
                 }
             } else {
-                Utility.showDialog(this@VerifyOtpActivity,"Error",
+                FormFixUtility.showDialog(this@VerifyOtpActivity,"Error",
                     resources.getString(R.string.something_went_wrong)
                 )
             }
@@ -141,20 +139,20 @@ class VerifyOtpActivity : AppCompatActivity() {
             activityVerifyOtpBinding.progressCircular.visibility= View.GONE
             if (it?.status == 200) {
                 if(it?.data?.responseData?.code== FormFixConstants.SUCCESS) {
-                    Utility.showMessageSnackBar(
+                    FormFixUtility.showMessageSnackBar(
                         activityVerifyOtpBinding.root,
                         "Otp has been re-sent to $phone"
                     )
                     activityVerifyOtpBinding.lblOtpSent.text = "Otp has been re-sent to $phone"
                 }else if(it?.data?.responseData?.code== FormFixConstants.FAILED){
                     it?.data?.responseData?.message?.let { it1 ->
-                        Utility.showDialog(this@VerifyOtpActivity,"Error",
+                        FormFixUtility.showDialog(this@VerifyOtpActivity,"Error",
                             it1
                         )
                     }
                 }
             } else {
-                Utility.showDialog(this@VerifyOtpActivity,"Error",
+                FormFixUtility.showDialog(this@VerifyOtpActivity,"Error",
                     resources.getString(R.string.something_went_wrong)
                 )
             }

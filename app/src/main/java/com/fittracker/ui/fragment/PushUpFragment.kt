@@ -28,7 +28,7 @@ import com.fittracker.model.LandMarkModel
 import com.fittracker.utilits.ConstantsSquats
 import com.fittracker.utilits.ConstantsSquats.timerInterval
 import com.fittracker.utilits.ConstantsSquats.timerLimit
-import com.fittracker.utilits.Utility
+import com.fittracker.utilits.FormFixUtility
 import com.fittracker.viewmodel.MainViewModel
 import com.fittracker.viewmodel.PoseLandmarkerHelper
 import com.google.mediapipe.tasks.vision.core.RunningMode
@@ -137,7 +137,7 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                     isPlaying = true
                 }
             }else{
-                Utility.showErrorSnackBar(
+                FormFixUtility.showErrorSnackBar(
                     fragmentpushupsBinding.root,
                     resources.getString(R.string.timer_not_completed)
                 )
@@ -288,7 +288,7 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
 
             if (landMarkList.size > 0) {
-                var userFaceType = Utility.getFaceType(landMarkList[11].x, landMarkList[12].x, landMarkList[0].x)
+                var userFaceType = FormFixUtility.getFaceType(landMarkList[11].x, landMarkList[12].x, landMarkList[0].x)
 
                 val cordHip: Int
                 val cordKnee: Int
@@ -338,13 +338,13 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 )
 
                 var kneeAngle =
-                    Utility.angleBetweenPoints(hipPoint, kneePoint, anklePoint).toFloat()
+                    FormFixUtility.angleBetweenPoints(hipPoint, kneePoint, anklePoint).toFloat()
                 var hipAngle =
-                    Utility.angleBetweenPoints(shoulderPoint, hipPoint, kneePoint).toFloat()
+                    FormFixUtility.angleBetweenPoints(shoulderPoint, hipPoint, kneePoint).toFloat()
 
 
-                var shoulderAngle = Utility.angleBetweenPoints(hipPoint, shoulderPoint, elbowPoint).toFloat()
-                var elbowAngle = Utility.angleBetweenPoints(shoulderPoint, elbowPoint, wristPoint).toFloat()
+                var shoulderAngle = FormFixUtility.angleBetweenPoints(hipPoint, shoulderPoint, elbowPoint).toFloat()
+                var elbowAngle = FormFixUtility.angleBetweenPoints(shoulderPoint, elbowPoint, wristPoint).toFloat()
 
                 var xKnee = landMarkList[cordKnee].x
                 var yKnee = landMarkList[cordKnee].y
@@ -359,7 +359,7 @@ class PushUpFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
 
                 if (_fragmentpushupsBinding != null) {
-                    Utility.Log("PushUPS","setResults called")
+                    FormFixUtility.Log("PushUPS","setResults called")
                     fragmentpushupsBinding.overlay.setResults(
                         resultBundle.results.first(),
                         resultBundle.inputImageHeight,

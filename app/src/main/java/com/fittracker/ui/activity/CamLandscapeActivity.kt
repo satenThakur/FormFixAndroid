@@ -6,7 +6,6 @@ import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.graphics.drawable.GradientDrawable.Orientation
 import android.media.projection.MediaProjectionManager
 import android.net.Uri
 import android.os.Build
@@ -26,7 +25,7 @@ import com.fittracker.database.MediaData
 import com.fittracker.databinding.ActivityCamLandscapeBinding
 import com.fittracker.utilits.ConstantsSquats
 import com.fittracker.utilits.FormFixSharedPreferences
-import com.fittracker.utilits.Utility
+import com.fittracker.utilits.FormFixUtility
 import com.hbisoft.hbrecorder.HBRecorder
 import com.hbisoft.hbrecorder.HBRecorderCodecInfo
 import com.hbisoft.hbrecorder.HBRecorderListener
@@ -291,7 +290,7 @@ class CamLandscapeActivity : AppCompatActivity() , HBRecorderListener {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private fun setOutputPath() {
         activityCamLandscapeBinding.btnRecord.setImageDrawable(resources.getDrawable(R.drawable.iv_record))
-        val filename: String = Utility.generateFileName()
+        val filename: String = FormFixUtility.generateFileName()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             resolver = contentResolver
             contentValues = ContentValues()
@@ -305,7 +304,7 @@ class CamLandscapeActivity : AppCompatActivity() , HBRecorderListener {
             Log.e("OUTPUT_FILE","mUri="+mUri)
             Log.e("OUTPUT_FILE","filename="+filename)
             val mediaData = MediaData(exerciseType=exerciseType, uri=""+mUri,filename=filename,
-             date=Utility.getCurrentDate(), time=Utility.getCurrentTime())
+             date=FormFixUtility.getCurrentDate(), time=FormFixUtility.getCurrentTime())
             GlobalScope.launch (Dispatchers.IO) {
                 FormfitApplication.database.userDao().insertMediaData(mediaData)
             }

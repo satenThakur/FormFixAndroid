@@ -22,7 +22,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
-import com.cunoraz.tagview.Utils
 import com.fittracker.R
 import com.fittracker.databinding.FragmentSquatsBinding
 import com.fittracker.model.ErrorMessage
@@ -34,7 +33,7 @@ import com.fittracker.utilits.ConstantsSquats.timerInterval
 import com.fittracker.utilits.ConstantsSquats.timerLimit
 import com.fittracker.utilits.FormFixConstants
 import com.fittracker.utilits.FormFixSharedPreferences
-import com.fittracker.utilits.Utility
+import com.fittracker.utilits.FormFixUtility
 import com.fittracker.viewmodel.MainViewModel
 import com.fittracker.viewmodel.PoseLandmarkerHelper
 import com.google.mediapipe.tasks.vision.core.RunningMode
@@ -43,7 +42,6 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 import kotlin.math.roundToInt
-import kotlin.properties.Delegates
 
 class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     companion object {
@@ -370,7 +368,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                     isPlaying = true
                 }
             }else{
-                Utility.showErrorSnackBar(
+                FormFixUtility.showErrorSnackBar(
                     fragmentSquatsBinding.root,
                     resources.getString(R.string.timer_not_completed)
                 )
@@ -498,7 +496,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             // Attach the viewfinder's surface provider to preview use case
             preview?.setSurfaceProvider(fragmentSquatsBinding.viewFinder.surfaceProvider)
         } catch (exc: Exception) {
-            Utility.Log(TAG, "Use case binding failed$exc")
+            FormFixUtility.Log(TAG, "Use case binding failed$exc")
         }
     }
 
@@ -558,12 +556,12 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 val rightSdoulder_node_distance = rightShoulder - nose
                 val leftNoseDistance = nose - leftShoulder
                 val rightNoseDistance = nose - rightShoulder
-                Utility.Log("FACETYPE","leftSdoulder_node_distance="+leftSdoulder_node_distance)
-                Utility.Log("FACETYPE","rightSdoulder_node_distance="+rightSdoulder_node_distance)
-                Utility.Log("FACETYPE","leftNoseDistance="+leftNoseDistance)
-                Utility.Log("FACETYPE","rightNoseDistance="+rightNoseDistance)
-                Utility.Log("FACETYPE","leftShoulder="+leftShoulder+", rightShoulde="+rightShoulder)
-                Utility.Log("FACETYPE","shouldersDiff="+Math.abs(leftShoulder-rightShoulder))
+                FormFixUtility.Log("FACETYPE","leftSdoulder_node_distance="+leftSdoulder_node_distance)
+                FormFixUtility.Log("FACETYPE","rightSdoulder_node_distance="+rightSdoulder_node_distance)
+                FormFixUtility.Log("FACETYPE","leftNoseDistance="+leftNoseDistance)
+                FormFixUtility.Log("FACETYPE","rightNoseDistance="+rightNoseDistance)
+                FormFixUtility.Log("FACETYPE","leftShoulder="+leftShoulder+", rightShoulde="+rightShoulder)
+                FormFixUtility.Log("FACETYPE","shouldersDiff="+Math.abs(leftShoulder-rightShoulder))
                var shouldersDiff= abs(leftShoulder-rightShoulder)
               /*  userFaceType = if (leftSdoulder_node_distance > 0 && rightSdoulder_node_distance > 0) {
                     Constants.LEFT_FACE
@@ -588,13 +586,13 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 }
 
                 if(userFaceType==1)
-                Utility.Log("FACETYPE","LEFT_FACE")
+                FormFixUtility.Log("FACETYPE","LEFT_FACE")
                 else if(userFaceType==2){
-                    Utility.Log("FACETYPE","FRONT_FACE")
+                    FormFixUtility.Log("FACETYPE","FRONT_FACE")
                 }else if(userFaceType==3){
-                    Utility.Log("FACETYPE","RIGHT_FACE")
+                    FormFixUtility.Log("FACETYPE","RIGHT_FACE")
                 }else{
-                    Utility.Log("FACETYPE","NOT_DECIDED")
+                    FormFixUtility.Log("FACETYPE","NOT_DECIDED")
                 }
 
                 val cordHip: Int
@@ -634,8 +632,8 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                     landMarkList[cordShoulder].z.toDouble()
                 )
 
-                kneeAngle = Utility.angleBetweenPoints(hipPoint, kneePoint, anklePoint).toFloat()
-                hipAngle = Utility.angleBetweenPoints(shoulderPoint, hipPoint, kneePoint).toFloat()
+                kneeAngle = FormFixUtility.angleBetweenPoints(hipPoint, kneePoint, anklePoint).toFloat()
+                hipAngle = FormFixUtility.angleBetweenPoints(shoulderPoint, hipPoint, kneePoint).toFloat()
                 val leftFootPoint = doubleArrayOf(
                     landMarkList[lfiCord].x.toDouble(),
                     landMarkList[lfiCord].y.toDouble(),
@@ -653,7 +651,7 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 )
 
                 heelAngle =
-                    Utility.angleBetweenPoints(leftFootPoint, heelPoint, rightFootPoint).toFloat()
+                    FormFixUtility.angleBetweenPoints(leftFootPoint, heelPoint, rightFootPoint).toFloat()
                 /*    heelAngle=  Utility.calculateAngles(
                           landMarkList[lfiCord].x, landMarkList[lfiCord].y,
                           landMarkList[0].x, landMarkList[0].y,
@@ -752,15 +750,15 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
             if (userFaceType == ConstantsSquats.FRONT_FACE) {
                 fragmentSquatsBinding.valueThighAngle.text = "" + kneeAngles+" deg"
-                fragmentSquatsBinding.valueSquatDepth.text = ""+ Utility.getSquatPercentage(kneesAngle.toInt(),hipAngle.toInt(),userFaceType)+"%"
+                fragmentSquatsBinding.valueSquatDepth.text = ""+ FormFixUtility.getSquatPercentage(kneesAngle.toInt(),hipAngle.toInt(),userFaceType)+"%"
                 fragmentSquatsBinding.valueHipShift.text =
-                    "" + Utility.hipShift( toe1_X,
+                    "" + FormFixUtility.hipShift( toe1_X,
                         toe2_X,
                         hip1_X,
                         hip2_X,
                         height)+" in"
                 fragmentSquatsBinding.valueShoulderShift.text =
-                    "" + Utility.shoulderShift(
+                    "" + FormFixUtility.shoulderShift(
                         sholder1_Y,
                         shoulder2_Y,
                         height,
@@ -768,14 +766,14 @@ class SquatFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                         yOfLeftHeel,
                         yOfRightHeel,
                         yForNose)+" in"
-                fragmentSquatsBinding.lblShoulderShift.text="Shoulders Shift:"
+                fragmentSquatsBinding.lblShoulderShift.text="Shoulders Tilt:"
                 fragmentSquatsBinding.lblHipShift.text="Hips Shift:"
             } else {
-                fragmentSquatsBinding.valueThighAngle.text = "" + kneeAngles+" deg"
-                fragmentSquatsBinding.valueSquatDepth.text = ""+ Utility.getSquatPercentage(kneesAngle.toInt(), hipAngle.toInt(),userFaceType)+"%"
-                fragmentSquatsBinding.valueHipShift.text = ""+Utility.kneesCrossToesShift(toeX,xKnee,height)+" in"
+                fragmentSquatsBinding.valueThighAngle.text = "" + kneeAngles+"°"
+                fragmentSquatsBinding.valueSquatDepth.text = ""+ FormFixUtility.getSquatPercentage(kneesAngle.toInt(), hipAngle.toInt(),userFaceType)+"%"
+                fragmentSquatsBinding.valueHipShift.text = ""+FormFixUtility.kneesCrossToesShift(toeX,xKnee,height)+" in"
                 fragmentSquatsBinding.lblHipShift.text="Knees Shift:"
-                fragmentSquatsBinding.valueShoulderShift.text =""+Utility.heelsShift(yOfLeftHeel, yOfRightHeel, yOfLeftToe, yOfRightToe, userFaceType,height)+" in"
+                fragmentSquatsBinding.valueShoulderShift.text =""+FormFixUtility.heelsShift(yOfLeftHeel, yOfRightHeel, yOfLeftToe, yOfRightToe, userFaceType,height)+" in"
                 fragmentSquatsBinding.lblShoulderShift.text="Heels Shift:"
             }
         }

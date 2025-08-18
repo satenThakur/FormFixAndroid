@@ -16,7 +16,7 @@ import com.fittracker.utilits.ConstantsSquats
 import com.fittracker.utilits.ConstantsSquats.SQUAT_INCORRECT
 import com.fittracker.utilits.ConstantsSquats.TEXT_HIPANKLEAVERAGE
 import com.fittracker.utilits.ConstantsSquats.TEXT_X
-import com.fittracker.utilits.Utility
+import com.fittracker.utilits.FormFixUtility
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarker
 import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarkerResult
@@ -162,9 +162,9 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
 
             if (!isTimerCompleted)
                 return
-            Utility.Log(ConstantsPushUps.PUSH_UP_TAG,"inside draw  timerCompleted")
+            FormFixUtility.Log(ConstantsPushUps.PUSH_UP_TAG,"inside draw  timerCompleted")
             for (landmark in poseLandmarkResult.landmarks()) {
-                if (!Utility.isUserFullyVisible(landmark, windowWidth, windowHeight)) {
+                if (!FormFixUtility.isUserFullyVisible(landmark, windowWidth, windowHeight)) {
                     return
                 }
             }
@@ -173,7 +173,7 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
             if (yoFShoulder > yOfToe)
                 return
 
-            Utility.Log(ConstantsPushUps.PUSH_UP_TAG,"yoFShoulder > yOfToe condition passed")
+            FormFixUtility.Log(ConstantsPushUps.PUSH_UP_TAG,"yoFShoulder > yOfToe condition passed")
             for (landmark in poseLandmarkResult.landmarks()) {
                  for (normalizedLandmark in landmark) {
                       canvas.drawPoint(
@@ -198,7 +198,7 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
 
 
             }
-            Utility.Log(ConstantsPushUps.PUSH_UP_TAG,"landmark lines and poits draw")
+            FormFixUtility.Log(ConstantsPushUps.PUSH_UP_TAG,"landmark lines and poits draw")
             canvas.drawText(
                 resources.getString(R.string.reps) + respCountTotal,
                 ConstantsSquats.TEXT_X,
@@ -232,7 +232,7 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                         anglePaint
                     )
 
-                    when (Utility.getPushUpState(elbowAngle, shoulderAngle, ConstantsSquats.FRONT_FACE)) {
+                    when (FormFixUtility.getPushUpState(elbowAngle, shoulderAngle, ConstantsSquats.FRONT_FACE)) {
                         ConstantsSquats.STATE_UP -> {
                             canvas.drawText(
                                 resources.getString(R.string.state_up),
@@ -307,10 +307,10 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                         anglePaint
                     )
 
-                    if(!Utility.startPushUpTracking(wristY, toeY,hipsAngle,kneesAngle)){
+                    if(!FormFixUtility.startPushUpTracking(wristY, toeY,hipsAngle,kneesAngle)){
                         return
                     }
-                    when (Utility.getPushUpState(elbowAngle, shoulderAngle, ConstantsSquats.LEFT_FACE)) {
+                    when (FormFixUtility.getPushUpState(elbowAngle, shoulderAngle, ConstantsSquats.LEFT_FACE)) {
                         ConstantsSquats.STATE_UP -> {
                             canvas.drawText(
                                 resources.getString(R.string.state_up),
@@ -319,8 +319,8 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                                 statePaint
                             )
 
-                            if(Utility.isPushUpPoseCorrect(hipsAngle, kneesAngle, ConstantsSquats.STATE_UP,
-                                    Utility.getShoulderElbowXDiff(shoulderX,elbowX, ConstantsSquats.STATE_UP),Utility.getWristToeYDiff(wristY,toeY))){
+                            if(FormFixUtility.isPushUpPoseCorrect(hipsAngle, kneesAngle, ConstantsSquats.STATE_UP,
+                                    FormFixUtility.getShoulderElbowXDiff(shoulderX,elbowX, ConstantsSquats.STATE_UP),FormFixUtility.getWristToeYDiff(wristY,toeY))){
                                 canvas.drawText(
                                     "Correct Pose",
                                     TEXT_X,
@@ -362,7 +362,7 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                             )
                             statesSet.add(ConstantsSquats.STATE_MOVING)
 
-                            if(Utility.isPushUpPoseCorrect(hipsAngle, kneesAngle, ConstantsSquats.STATE_MOVING, Utility.getShoulderElbowXDiff(shoulderX,elbowX, ConstantsSquats.STATE_MOVING),Utility.getWristToeYDiff(wristY,toeY))){
+                            if(FormFixUtility.isPushUpPoseCorrect(hipsAngle, kneesAngle, ConstantsSquats.STATE_MOVING, FormFixUtility.getShoulderElbowXDiff(shoulderX,elbowX, ConstantsSquats.STATE_MOVING),FormFixUtility.getWristToeYDiff(wristY,toeY))){
                                 canvas.drawText(
                                     "Correct Pose",
                                     TEXT_X,
@@ -393,7 +393,7 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                                 statePaint
                             )
 
-                            if(Utility.isPushUpPoseCorrect(hipsAngle, kneesAngle, ConstantsSquats.STATE_DOWN, Utility.getShoulderElbowXDiff(shoulderX,elbowX, ConstantsSquats.STATE_DOWN),Utility.getWristToeYDiff(wristY,toeY))){
+                            if(FormFixUtility.isPushUpPoseCorrect(hipsAngle, kneesAngle, ConstantsSquats.STATE_DOWN, FormFixUtility.getShoulderElbowXDiff(shoulderX,elbowX, ConstantsSquats.STATE_DOWN),FormFixUtility.getWristToeYDiff(wristY,toeY))){
 
                                 canvas.drawText(
                                     "Correct Pose",

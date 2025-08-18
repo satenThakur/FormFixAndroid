@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.fittracker.R
 import com.fittracker.databinding.ActivityDisclaimerBinding
-import com.fittracker.utilits.Utility
+import com.fittracker.utilits.FormFixUtility
 import com.fittracker.viewmodel.OnBoardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +26,7 @@ class DisclaimerActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }else{
-                Utility.showErrorSnackBar(activityDisclaimerBinding.root,getString(R.string.agree_with_disclaimer))
+                FormFixUtility.showErrorSnackBar(activityDisclaimerBinding.root,getString(R.string.agree_with_disclaimer))
             }
         }
 

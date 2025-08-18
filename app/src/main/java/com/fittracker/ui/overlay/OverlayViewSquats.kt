@@ -12,12 +12,8 @@ import android.speech.tts.TextToSpeech
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import com.fittracker.R
-import com.fittracker.application.FormfitApplication
-import com.fittracker.database.MediaData
-import com.fittracker.database.TransCriptionData
 import com.fittracker.model.ErrorMessage
 import com.fittracker.utilits.ConstantsSquats
 import com.fittracker.utilits.ConstantsSquats.ANGLE_TEXT
@@ -48,13 +44,10 @@ import com.fittracker.utilits.ConstantsSquats.TEXT_X
 import com.fittracker.utilits.ConstantsSquats.TOE_KNEE_X_DIFFS_MIN_THRESHOLD
 import com.fittracker.utilits.FormFixConstants
 import com.fittracker.utilits.FormFixSharedPreferences
-import com.fittracker.utilits.Utility
+import com.fittracker.utilits.FormFixUtility
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarker
 import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarkerResult
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.max
@@ -200,14 +193,14 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                 incorrectRepsPaint
             )
             for (landmark in poseLandmarkResult.landmarks()) {
-                if (!Utility.isUserFullyVisible(landmark, windowWidth, windowHeight)) {
-                    Utility.Log(
+                if (!FormFixUtility.isUserFullyVisible(landmark, windowWidth, windowHeight)) {
+                    FormFixUtility.Log(
                         "UserVisibility",
                         "Fully Not Visible windowWidth=$windowWidth,windowHeight=$windowHeight"
                     )
                     return
                 } else {
-                    Utility.Log(
+                    FormFixUtility.Log(
                         "UserVisibility",
                         "Fully Visible windowWidth=$windowWidth,windowHeight=$windowHeight"
                     )
@@ -240,9 +233,9 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
             //canvas.drawLine(p2x,p2y, p3x,p3y,pLinePaint)
             if(pAnkleX>0 && pAnkleY>0 && pShoulderx>0 && pShouldery>0) {
                 kneeNewAngle =
-                    Utility.calculateAngles(pAnkleX, pAnkleY, pKnee2x, pKnee2y, pKnee1x, pKnee1y)
+                    FormFixUtility.calculateAngles(pAnkleX, pAnkleY, pKnee2x, pKnee2y, pKnee1x, pKnee1y)
                 hipNewAngle =
-                    Utility.calculateAngles(phip1x, phip1y, phip2x, phip2y, pShoulderx, pShouldery)
+                    FormFixUtility.calculateAngles(phip1x, phip1y, phip2x, phip2y, pShoulderx, pShouldery)
             }
 
 
@@ -284,7 +277,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
 
             /* FRONT FACE CASE */
             if (kneeAngle > 0 && hipAngle > 0 && userFaceType == ConstantsSquats.FRONT_FACE) {
-                when (Utility.getSquatState(kneeAngle, hipAngle, ConstantsSquats.FRONT_FACE)) {
+                when (FormFixUtility.getSquatState(kneeAngle, hipAngle, ConstantsSquats.FRONT_FACE)) {
                /*     GlobalScope.launch (Dispatchers.IO) {
                         val mediaData = TransCriptionData(exerciseType=exerciseType, uri=""+mUri,filename=filename,
                             date=Utility.getCurrentDate(), time=Utility.getCurrentTime())
@@ -333,10 +326,10 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             statePaint
                         )
                         statesSet.add(STATE_MOVING)
-                        if(Utility.isHipsNotInCentre(leftToeX,rightToeX,xofLeftHip,xofRightHip)){
+                        if(FormFixUtility.isHipsNotInCentre(leftToeX,rightToeX,xofLeftHip,xofRightHip)){
                             var diff = abs(xofLeftKnee - xofRightKnee) - abs(xofLeftToe - xofRightToe)
                             diff = diff * imageHeight * scaleFactor
-                            Utility.Log("diff","kneesAndToesDiff="+diff)
+                            FormFixUtility.Log("diff","kneesAndToesDiff="+diff)
                             if (!(diff < -TOE_KNEE_X_DIFFS_MIN_THRESHOLD)) {
                                 isFrontFaceErrorMessage = true
                                 var needToSpeak = false
@@ -354,7 +347,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             }
 
                         }
-                        if(!Utility.isShoulderBalanced(yofLeftShoulder,yofRightShoulder,userHeight,yOfLeftHeel,yOfRightHeel,yForNose)){
+                        if(!FormFixUtility.isShoulderBalanced(yofLeftShoulder,yofRightShoulder,userHeight,yOfLeftHeel,yOfRightHeel,yForNose)){
                             isFrontFaceErrorMessage = true
                             var needToSpeak = false
                             if (shouldernotbalancedTimeStamp == 0.toLong() || System.currentTimeMillis() - shouldernotbalancedTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
@@ -406,7 +399,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                 isHeelCorrect = true
                                 var diff = abs(xofLeftKnee - xofRightKnee) - abs(xofLeftToe - xofRightToe)
                                 diff = diff * imageHeight * scaleFactor
-                                Utility.Log("diff","kneesAndToesDiff="+diff)
+                                FormFixUtility.Log("diff","kneesAndToesDiff="+diff)
                                 if (diff < -TOE_KNEE_X_DIFFS_MIN_THRESHOLD) {
                                     isFrontFaceErrorMessage = true
                                     var needToSpeak = false;
@@ -426,10 +419,10 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             } else {
                                 isHeelCorrect = false
                             }
-                            if(Utility.isHipsNotInCentre(leftToeX,rightToeX,xofLeftHip,xofRightHip)){
+                            if(FormFixUtility.isHipsNotInCentre(leftToeX,rightToeX,xofLeftHip,xofRightHip)){
                                 var diff = abs(xofLeftKnee - xofRightKnee) - abs(xofLeftToe - xofRightToe)
                                 diff = diff * imageHeight * scaleFactor
-                                Utility.Log("diff","kneesAndToesDiff="+diff)
+                                FormFixUtility.Log("diff","kneesAndToesDiff="+diff)
                                 if (!(diff < -TOE_KNEE_X_DIFFS_MIN_THRESHOLD)) {
                                     isFrontFaceErrorMessage = true
                                     var needToSpeak = false
@@ -446,7 +439,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                     )
                                 }
                             }
-                            if(!Utility.isShoulderBalanced(yofLeftShoulder,yofRightShoulder,userHeight,yOfLeftHeel,yOfRightHeel,yForNose)){
+                            if(!FormFixUtility.isShoulderBalanced(yofLeftShoulder,yofRightShoulder,userHeight,yOfLeftHeel,yOfRightHeel,yForNose)){
                                 isFrontFaceErrorMessage = true
                                 var needToSpeak = false
                                 if (shouldernotbalancedTimeStamp == 0.toLong() || System.currentTimeMillis() - shouldernotbalancedTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
@@ -492,7 +485,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                 }
                 /* LEFT/RIGHT FACE CASE */
             } else if (kneeAngle > 0 && hipAngle > 0 && (userFaceType == ConstantsSquats.LEFT_FACE || userFaceType == ConstantsSquats.RIGHT_FACE)) {
-                when (Utility.getSquatState(kneeAngle, hipAngle, ConstantsSquats.LEFT_FACE)) {
+                when (FormFixUtility.getSquatState(kneeAngle, hipAngle, ConstantsSquats.LEFT_FACE)) {
                     STATE_UP -> {
                         //Right/Left Face STATE_UP
                         canvas.drawText(
@@ -619,7 +612,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
 
                         statesSet.add(STATE_DOWN)
                         /*check knee crossing toes when both angles are below 80 and stack contains MOVING_STATE and UP_STATE*/
-                        if (Utility.isKneeCrossesToes(toeX, xKnee, userFaceType)) {
+                        if (FormFixUtility.isKneeCrossesToes(toeX, xKnee, userFaceType)) {
                             canvas.drawCircle(
                                 (xKnee - ConstantsSquats.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
                                 yKnee * imageHeight * scaleFactor,
@@ -647,7 +640,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                         } else {
                             canvas.drawCircle(0.0F, 0.0F, 0F, pointErrorPaint)
                         }
-                        if (Utility.kneeHipAnglesDiff(kneeNewAngle, hipNewAngle, toeX, xKnee)) {
+                        if (FormFixUtility.kneeHipAnglesDiff(kneeNewAngle, hipNewAngle, toeX, xKnee)) {
                             canvas.drawCircle(
                                 (xHip + ConstantsSquats.KNEE_TOE_THRESHOLD) * imageWidth * scaleFactor,
                                 yHip * imageHeight * scaleFactor,
@@ -676,7 +669,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                         } else {
                             canvas.drawCircle(0.0F, 0.0F, 0F, pointErrorPaint)
                         }
-                        if(!Utility.isHeelBalanced(yOfLeftHeel,yOfRightHeel,yOfLeftToe,yOfRightToe,userFaceType)){
+                        if(!FormFixUtility.isHeelBalanced(yOfLeftHeel,yOfRightHeel,yOfLeftToe,yOfRightToe,userFaceType)){
                             isFrontFaceErrorMessage = true
                             var needToSpeak = false
                             if (heelsNotbalancedTimeStamp == 0.toLong() || System.currentTimeMillis() - heelsNotbalancedTimeStamp > SPEAKERWAITTIMEFORSAMEMESSAGE) {
@@ -875,7 +868,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
             }
         }
         invalidate()
-        var scale_factor = Utility.getPixelToInchScalingFactor(windowHeight,userHeight,yOfLeftHeel,yOfRightHeel,yForNose)
+        var scale_factor = FormFixUtility.getPixelToInchScalingFactor(windowHeight,userHeight,yOfLeftHeel,yOfRightHeel,yForNose)
         FormFixConstants.PIXEL_TO_CM_SCALE=scale_factor
     }
 
@@ -953,9 +946,9 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                //en-US-default, locale: eng_USA_default
            }*/
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Utility.Log("TTS", "The Language not supported!")
+                FormFixUtility.Log("TTS", "The Language not supported!")
             } else {
-                Utility.Log("TTS", "The Language is supported!")
+                FormFixUtility.Log("TTS", "The Language is supported!")
             }
         }
     }

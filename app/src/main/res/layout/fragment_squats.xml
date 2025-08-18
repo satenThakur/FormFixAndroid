@@ -695,8 +695,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:fontFamily="@font/helvetica_bold"
-                        android:textSize="@dimen/_12ssp"
+                        android:fontFamily="@font/helvetica"
+                        android:textSize="@dimen/_11ssp"
                         android:text="Hip Shift:"
                         android:textColor="@color/black_color" />
 
@@ -705,7 +705,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_3sdp"
-                        android:fontFamily="@font/helvetica_bold"
+                        android:fontFamily="@font/helvetica"
                         android:paddingLeft="@dimen/_2sdp"
                         android:paddingRight="@dimen/_3sdp"
                         android:text="123 in"
@@ -727,8 +727,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:fontFamily="@font/helvetica_bold"
-                        android:textSize="@dimen/_12ssp"
+                        android:fontFamily="@font/helvetica"
+                        android:textSize="@dimen/_11ssp"
                         android:text="Shoulder Shift:"
                         android:textColor="@color/black_color" />
 
@@ -737,7 +737,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_1sdp"
-                        android:fontFamily="@font/helvetica_bold"
+                        android:fontFamily="@font/helvetica"
                         android:paddingLeft="@dimen/_2sdp"
                         android:paddingRight="@dimen/_3sdp"
                         android:text="3.5 in"
@@ -757,9 +757,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:fontFamily="@font/helvetica_bold"
+                        android:fontFamily="@font/helvetica"
                         android:padding="@dimen/_2sdp"
-                        android:textSize="@dimen/_12ssp"
+                        android:textSize="@dimen/_11ssp"
                         android:text="Thigh Angle:"
                         android:textColor="@color/black_color" />
 
@@ -768,7 +768,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_3sdp"
-                        android:fontFamily="@font/helvetica_bold"
+                        android:fontFamily="@font/helvetica"
                         android:paddingLeft="@dimen/_3sdp"
                         android:paddingRight="@dimen/_3sdp"
                         android:text="123 in"

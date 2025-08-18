@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fittracker.R
 import com.fittracker.databinding.ActivityRegisterBinding
 import com.fittracker.utilits.FormFixConstants
-import com.fittracker.utilits.Utility
+import com.fittracker.utilits.FormFixUtility
 import com.fittracker.viewmodel.OnBoardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,7 +32,7 @@ class RegisterActivity : AppCompatActivity() {
             var weight=activityRegisterBinding.edWeight.text.toString().trim()
             var heifhtFT=activityRegisterBinding.edFeet.text.toString().trim()
             var heightInches=activityRegisterBinding.edInches.text.toString().trim()
-            Utility.hideKeyboard(this, activityRegisterBinding.btnRegister)
+            FormFixUtility.hideKeyboard(this, activityRegisterBinding.btnRegister)
             if (isValid(name,phone,email,weight,heifhtFT,heightInches)) {
                 registerApiCall(activityRegisterBinding.ccp.selectedCountryCode,
                     activityRegisterBinding.edPhone.text.toString())
@@ -66,55 +66,55 @@ class RegisterActivity : AppCompatActivity() {
         heightInches:String
     ): Boolean {
         if (name.isEmpty()) {
-            Utility.showErrorSnackBar(
+            FormFixUtility.showErrorSnackBar(
                 activityRegisterBinding.root,
                 resources.getString(R.string.enter_name)
             )
             return false
         } else if (phone.isEmpty()) {
-            Utility.showErrorSnackBar(
+            FormFixUtility.showErrorSnackBar(
                 activityRegisterBinding.root,
                 resources.getString(R.string.enter_phone_number)
             )
             return false
         } else if (phone.length < 10) {
-            Utility.showErrorSnackBar(
+            FormFixUtility.showErrorSnackBar(
                 activityRegisterBinding.root,
                 resources.getString(R.string.enter_correct_phone_number)
             )
             return false
         } else if (email.isEmpty()) {
-            Utility.showErrorSnackBar(
+            FormFixUtility.showErrorSnackBar(
                 activityRegisterBinding.root,
                 resources.getString(R.string.enter_email)
             )
             return false
-        } else if (!Utility.isValidEmail(email.toString())) {
-            Utility.showErrorSnackBar(
+        } else if (!FormFixUtility.isValidEmail(email.toString())) {
+            FormFixUtility.showErrorSnackBar(
                 activityRegisterBinding.root,
                 resources.getString(R.string.enter_valid_email)
             )
             return false
         } else if (weight.isEmpty()) {
-            Utility.showErrorSnackBar(
+            FormFixUtility.showErrorSnackBar(
                 activityRegisterBinding.root,
                 resources.getString(R.string.enter_weight)
             )
             return false
         } else if (heightFt.isEmpty()) {
-            Utility.showErrorSnackBar(activityRegisterBinding.root, "Enter feet")
+            FormFixUtility.showErrorSnackBar(activityRegisterBinding.root, "Enter feet")
             return false
         }else if (heightInches.isEmpty()) {
-            Utility.showErrorSnackBar(activityRegisterBinding.root, "Enter inches")
+            FormFixUtility.showErrorSnackBar(activityRegisterBinding.root, "Enter inches")
             return false
         }else if(heightFt.toInt() <2 || heightFt.toInt() > 8 ){
-            Utility.showErrorSnackBar(
+            FormFixUtility.showErrorSnackBar(
                 activityRegisterBinding.root,
                 "Feet should be between 2–8"
             )
             return false
         }else if( heightInches.toInt() < 0 || heightInches.toInt() > 11){
-            Utility.showErrorSnackBar(activityRegisterBinding.root, "Inches should be 0–11")
+            FormFixUtility.showErrorSnackBar(activityRegisterBinding.root, "Inches should be 0–11")
             return false
         }
 
@@ -142,14 +142,14 @@ class RegisterActivity : AppCompatActivity() {
                 }else if(it?.data?.responseData?.code== FormFixConstants.FAILED){
                     activityRegisterBinding.progressCircular.visibility = View.GONE
                     it?.data?.responseData?.message?.let { it1 ->
-                        Utility.showDialog(this@RegisterActivity,"Error",
+                        FormFixUtility.showDialog(this@RegisterActivity,"Error",
                             it1
                         )
                     }
                 }
             } else {
                 activityRegisterBinding.progressCircular.visibility = View.GONE
-                Utility.showDialog(this@RegisterActivity,"Error",
+                FormFixUtility.showDialog(this@RegisterActivity,"Error",
                     resources.getString(R.string.something_went_wrong)
                 )
             }

@@ -20,7 +20,7 @@ import com.fittracker.database.MediaData
 import com.fittracker.interfaces.MediaItemListner
 import com.fittracker.utilits.ConstantsSquats
 import com.fittracker.utilits.ConstantsSquats.FILE_NAME
-import com.fittracker.utilits.Utility
+import com.fittracker.utilits.FormFixUtility
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -43,20 +43,20 @@ class MediaAdapter (private val itemList: List<MediaData>, private var context: 
         holder.tvTime.setText(itemList[position].time)
         holder.tvDate.setText(itemList[position].date)
         holder.ConstraintLayt.setOnClickListener{
-            if(Utility.checkIfFileExist(itemList[position].filename)) {
+            if(FormFixUtility.checkIfFileExist(itemList[position].filename)) {
                 var intent = Intent(context, VideoPlayerActivity::class.java)
                 intent.putExtra(FILE_NAME, itemList[position].filename)
                 intent.putExtra(ConstantsSquats.FILE_TYPE,0)
                 context.startActivity(intent)
             }else{
-                Utility.showErrorSnackBar(holder.itemView,context.resources.getString(R.string.file_not_exist))
+                FormFixUtility.showErrorSnackBar(holder.itemView,context.resources.getString(R.string.file_not_exist))
                 GlobalScope.launch (Dispatchers.IO) {
                     FormfitApplication.database.userDao().deletebyId(itemList[position].id)
                     mediaItemListner.onItemDeleted(position)
                 }
 
 
-                Utility.deleteMediaFile(itemList[position].filename)
+                FormFixUtility.deleteMediaFile(itemList[position].filename)
             }
         }
         holder.btnDetele.setOnClickListener{
@@ -65,7 +65,7 @@ class MediaAdapter (private val itemList: List<MediaData>, private var context: 
                mediaItemListner.onItemDeleted(position)
            }
 
-            Utility.deleteMediaFile(itemList[position].filename)
+            FormFixUtility.deleteMediaFile(itemList[position].filename)
 
         }
         holder.btnShare.setOnClickListener{

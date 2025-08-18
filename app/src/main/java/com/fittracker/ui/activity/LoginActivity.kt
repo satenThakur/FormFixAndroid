@@ -11,8 +11,8 @@ import com.fittracker.databinding.ActivityLoginBinding
 import com.fittracker.utilits.FormFixConstants
 import com.fittracker.utilits.FormFixConstants.FAILED
 import com.fittracker.utilits.FormFixConstants.SUCCESS
-import com.fittracker.utilits.Utility
-import com.fittracker.utilits.Utility.hideKeyboard
+import com.fittracker.utilits.FormFixUtility
+import com.fittracker.utilits.FormFixUtility.hideKeyboard
 import com.fittracker.viewmodel.OnBoardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,13 +48,13 @@ class LoginActivity : AppCompatActivity() {
 
     private fun isValid(): Boolean {
         if (activityLoginBinding.etPhoneNumber.text.toString().isBlank()) {
-            Utility.showErrorSnackBar(
+            FormFixUtility.showErrorSnackBar(
                 activityLoginBinding.root,
                 resources.getString(R.string.enter_phone_number)
             )
             return false
         } else if (activityLoginBinding.etPhoneNumber.text.toString().length < 10) {
-            Utility.showErrorSnackBar(
+            FormFixUtility.showErrorSnackBar(
                 activityLoginBinding.root,
                 resources.getString(R.string.enter_correct_phone_number)
             )
@@ -74,14 +74,14 @@ class LoginActivity : AppCompatActivity() {
                 }else if(it?.data?.responseData?.code==FAILED){
                     activityLoginBinding.progressCircular.visibility = View.GONE
                     it?.data?.responseData?.message?.let { it1 ->
-                        Utility.showDialog(this@LoginActivity,"Error",
+                        FormFixUtility.showDialog(this@LoginActivity,"Error",
                             it1
                         )
                     }
                 }
             } else {
                 activityLoginBinding.progressCircular.visibility = View.GONE
-                Utility.showDialog(this@LoginActivity,"Error",
+                FormFixUtility.showDialog(this@LoginActivity,"Error",
                     resources.getString(R.string.something_went_wrong)
                 )
             }
@@ -105,14 +105,14 @@ class LoginActivity : AppCompatActivity() {
                 }else if(it?.data?.responseData?.code==FAILED){
                     activityLoginBinding.progressCircular.visibility = View.GONE
                     it?.data?.responseData?.message?.let { it1 ->
-                        Utility.showDialog(this@LoginActivity,"Error",
+                        FormFixUtility.showDialog(this@LoginActivity,"Error",
                             it1
                         )
                     }
                 }
             } else {
                 activityLoginBinding.progressCircular.visibility = View.GONE
-                Utility.showDialog(this@LoginActivity,"Error",
+                FormFixUtility.showDialog(this@LoginActivity,"Error",
                     resources.getString(R.string.something_went_wrong)
                 )
             }
