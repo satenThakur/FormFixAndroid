@@ -1,6 +1,12 @@
 package com.fittracker.utilits;
 
 public class FormFixConstants {
+
+
+    public static int STATE_UP = 1;
+    public static int STATE_MOVING = 2;
+    public  static int STATE_DOWN = 3;
+    public static  int STATE_UN_DECIDED = 100;
     public static  String IS_USER_LOGEDIN="IS_USER_LOGEDIN";
 
     public static int ERROR=1;

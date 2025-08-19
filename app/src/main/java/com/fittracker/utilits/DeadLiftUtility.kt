@@ -30,10 +30,10 @@ import com.fittracker.utilits.ConstantsSquats.KNEE_HIP_DIFF_THRESHOLD
 import com.fittracker.utilits.ConstantsSquats.KNEE_TOE_THRESHOLD
 import com.fittracker.utilits.ConstantsSquats.KNEE_TOE_THRESHOLD_TO_IGNORE_TUCK_HIPS
 import com.fittracker.utilits.ConstantsSquats.SHOULDERS_DIFF_THRESHOLD
-import com.fittracker.utilits.ConstantsSquats.STATE_DOWN
-import com.fittracker.utilits.ConstantsSquats.STATE_MOVING
-import com.fittracker.utilits.ConstantsSquats.STATE_UN_DECIDED
-import com.fittracker.utilits.ConstantsSquats.STATE_UP
+import com.fittracker.utilits.FormFixConstants.STATE_DOWN
+import com.fittracker.utilits.FormFixConstants.STATE_MOVING
+import com.fittracker.utilits.FormFixConstants.STATE_UN_DECIDED
+import com.fittracker.utilits.FormFixConstants.STATE_UP
 import com.google.android.material.snackbar.Snackbar
 import com.google.mediapipe.tasks.components.containers.NormalizedLandmark
 import java.io.File
@@ -49,6 +49,39 @@ import kotlin.math.sqrt
 
 
 object DeadLiftUtility {
+
+    fun getDLState(hipAngle: Int, shoulderAngle:Int, faceType: Int): Int {
+        Log("Angels", "hipAngle=$hipAngle shoulderAngle=$shoulderAngle")
+        if(faceType == ConstantsSquats.FRONT_FACE)
+        return getFrontFaceState(hipAngle,shoulderAngle)
+        else if( faceType == ConstantsSquats.LEFT_FACE || faceType == ConstantsSquats.RIGHT_FACE)
+            return getSideFaceState(hipAngle,shoulderAngle)
+        else
+            return STATE_UN_DECIDED
+    }
+
+    private fun getFrontFaceState(hipAngle: Int, shoulderAngle:Int): Int {
+        return if ((hipAngle > 150) && (shoulderAngle in 1..34)) {
+            STATE_UP
+        } else if ((hipAngle in 126..149) &&  (shoulderAngle in 36..44)) {
+            STATE_MOVING
+        } else if (hipAngle < 125 && shoulderAngle >45) {
+            STATE_DOWN
+        }  else {
+            return STATE_UN_DECIDED
+        }
+    }
+    private fun getSideFaceState(hipAngle: Int, shoulderAngle:Int): Int {
+        return if (hipAngle > 150 &&  shoulderAngle <15 && shoulderAngle>0 ) {
+            STATE_UP
+        } else if (hipAngle in 71..149 && (shoulderAngle in 16..54)) {
+            STATE_MOVING
+        } else if (hipAngle in 1..69 && shoulderAngle>55) {
+            STATE_DOWN
+        } else {
+            return STATE_UN_DECIDED
+        }
+    }
 
     fun saveUser(user: User?, context: Context) {
         if (user != null) {
@@ -221,40 +254,7 @@ object DeadLiftUtility {
         snackbar.show()
     }
 
-    fun getDeadLiftState(kneeAngle: Int, hipAngle: Int,shoulderAngle:Int, faceType: Int): Int {
-        if (faceType == 2) {
-            Log("Angels", "FaceType=FRONT")
-        } else {
-            Log("Angels", "FaceType=LEFT/RIGHT")
-        }
 
-        Log("Angels", "KneeAngle=$kneeAngle")
-        Log("Angels", "HipAngle=$hipAngle")
-
-
-        return if ((hipAngle > 150) && faceType == ConstantsSquats.FRONT_FACE) {
-            Log("Angels", "STATE_UP FRONT_FACE")
-            ConstantsSquats.STATE_UP
-        } else if (hipAngle < 150 && hipAngle > 90 && faceType == ConstantsSquats.FRONT_FACE) {
-            Log("Angels", "STATE_MOVING FRONT_FACE")
-            ConstantsSquats.STATE_MOVING
-        } else if (hipAngle < 90 && faceType == ConstantsSquats.FRONT_FACE) {
-            Log("Angels", "STATE_DOWN FRONT_FACE")
-            ConstantsSquats.STATE_DOWN
-        } else if (hipAngle > 150 && (faceType == ConstantsSquats.LEFT_FACE || faceType == ConstantsSquats.RIGHT_FACE)) {
-            Log("Angels", "STATE_UP")
-            ConstantsSquats.STATE_UP
-        } else if (hipAngle < 150 && hipAngle > 90  && (faceType == ConstantsSquats.LEFT_FACE || faceType == ConstantsSquats.RIGHT_FACE)) {
-            Log("Angels", "STATE_MOVING")
-            ConstantsSquats.STATE_MOVING
-        } else if (hipAngle < 90 && hipAngle > 0 && (faceType == ConstantsSquats.LEFT_FACE || faceType == ConstantsSquats.RIGHT_FACE)) {
-            Log("Angels", "STATE_DOWN")
-            ConstantsSquats.STATE_DOWN
-        } else {
-            Log("Angels", "STATE_UN_DECIDED")
-            return STATE_UN_DECIDED
-        }
-    }
 
 
     fun getSquatPosition(
@@ -537,14 +537,14 @@ object DeadLiftUtility {
 
         if (elbowAngle > 135) {
             Log(PUSH_UP_TAG, "STATE_UP")
-            return ConstantsSquats.STATE_UP
+            return STATE_UP
         } else if (elbowAngle < 90) {
             Log(PUSH_UP_TAG, "STATE_DOWN")
-            return ConstantsSquats.STATE_DOWN
+            return STATE_DOWN
         } else {
             //else if (elbowAngle in 90..135) {
             Log(PUSH_UP_TAG, "STATE_MOVING")
-            return ConstantsSquats.STATE_MOVING
+            return STATE_MOVING
         }
     }
 

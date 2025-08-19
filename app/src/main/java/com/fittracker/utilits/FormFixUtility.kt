@@ -30,10 +30,10 @@ import com.fittracker.utilits.ConstantsSquats.KNEE_HIP_DIFF_THRESHOLD
 import com.fittracker.utilits.ConstantsSquats.KNEE_TOE_THRESHOLD
 import com.fittracker.utilits.ConstantsSquats.KNEE_TOE_THRESHOLD_TO_IGNORE_TUCK_HIPS
 import com.fittracker.utilits.ConstantsSquats.SHOULDERS_DIFF_THRESHOLD
-import com.fittracker.utilits.ConstantsSquats.STATE_DOWN
-import com.fittracker.utilits.ConstantsSquats.STATE_MOVING
-import com.fittracker.utilits.ConstantsSquats.STATE_UN_DECIDED
-import com.fittracker.utilits.ConstantsSquats.STATE_UP
+import com.fittracker.utilits.FormFixConstants.STATE_DOWN
+import com.fittracker.utilits.FormFixConstants.STATE_MOVING
+import com.fittracker.utilits.FormFixConstants.STATE_UN_DECIDED
+import com.fittracker.utilits.FormFixConstants.STATE_UP
 import com.google.android.material.snackbar.Snackbar
 import com.google.mediapipe.tasks.components.containers.NormalizedLandmark
 import java.io.File
@@ -234,22 +234,22 @@ object FormFixUtility {
 
         return if ((kneeAngle > 150) && faceType == ConstantsSquats.FRONT_FACE) {
             Log("Angels", "STATE_UP FRONT_FACE")
-            ConstantsSquats.STATE_UP
+            STATE_UP
         } else if (kneeAngle < 150 && kneeAngle > 90 && faceType == ConstantsSquats.FRONT_FACE) {
             Log("Angels", "STATE_MOVING FRONT_FACE")
-            ConstantsSquats.STATE_MOVING
+            STATE_MOVING
         } else if (kneeAngle < 90 /*&& hipAngle > 0*/ && faceType == ConstantsSquats.FRONT_FACE) {
             Log("Angels", "STATE_DOWN FRONT_FACE")
-            ConstantsSquats.STATE_DOWN
+            STATE_DOWN
         } else if (kneeAngle > 150 && (faceType == ConstantsSquats.LEFT_FACE || faceType == ConstantsSquats.RIGHT_FACE)) {
             Log("Angels", "STATE_UP")
-            ConstantsSquats.STATE_UP
+            STATE_UP
         } else if (kneeAngle < 150 && kneeAngle > 90 && hipAngle < 150 && (faceType == ConstantsSquats.LEFT_FACE || faceType == ConstantsSquats.RIGHT_FACE)) {
             Log("Angels", "STATE_MOVING")
-            ConstantsSquats.STATE_MOVING
+            STATE_MOVING
         } else if (kneeAngle < 90 && kneeAngle > 0 && (faceType == ConstantsSquats.LEFT_FACE || faceType == ConstantsSquats.RIGHT_FACE)) {
             Log("Angels", "STATE_DOWN")
-            ConstantsSquats.STATE_DOWN
+            STATE_DOWN
         } else {
             Log("Angels", "STATE_UN_DECIDED")
             return STATE_UN_DECIDED
@@ -558,14 +558,14 @@ object FormFixUtility {
 
         if (elbowAngle > 135) {
             Log(PUSH_UP_TAG, "STATE_UP")
-            return ConstantsSquats.STATE_UP
+            return STATE_UP
         } else if (elbowAngle < 90) {
             Log(PUSH_UP_TAG, "STATE_DOWN")
-            return ConstantsSquats.STATE_DOWN
+            return STATE_DOWN
         } else {
             //else if (elbowAngle in 90..135) {
             Log(PUSH_UP_TAG, "STATE_MOVING")
-            return ConstantsSquats.STATE_MOVING
+            return STATE_MOVING
         }
     }
 

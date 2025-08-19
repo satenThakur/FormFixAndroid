@@ -32,10 +32,10 @@ import com.fittracker.utilits.ConstantsSquats.LINE_LENGTH
 import com.fittracker.utilits.ConstantsSquats.MASK_TEXT
 import com.fittracker.utilits.ConstantsSquats.SPEAKERWAITTIMEFORSAMEMESSAGE
 import com.fittracker.utilits.ConstantsSquats.SQUAT_INCORRECT
-import com.fittracker.utilits.ConstantsSquats.STATE_DOWN
-import com.fittracker.utilits.ConstantsSquats.STATE_MOVING
-import com.fittracker.utilits.ConstantsSquats.STATE_UN_DECIDED
-import com.fittracker.utilits.ConstantsSquats.STATE_UP
+import com.fittracker.utilits.FormFixConstants.STATE_DOWN
+import com.fittracker.utilits.FormFixConstants.STATE_MOVING
+import com.fittracker.utilits.FormFixConstants.STATE_UN_DECIDED
+import com.fittracker.utilits.FormFixConstants.STATE_UP
 import com.fittracker.utilits.ConstantsSquats.TEXT_INCORRECT_RESP_Y
 import com.fittracker.utilits.ConstantsSquats.TEXT_SIZE
 import com.fittracker.utilits.ConstantsSquats.TEXT_STATE_Y

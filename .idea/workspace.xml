@@ -58,10 +58,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="1. When signing up the measurements are in centimeters. Can we change that to feet like 6'2.&#10;2. The auditory alert says &quot;shoulder not center&quot; it should be shoulders plural. I believe it also says  hip not center also. It should be hips.">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/overlay/OverlayViewDeadLift.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/ConstantsDeadLift.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/DeadLiftUtility.kt" afterDir="false" />
+    <list default="true" id="5fd7f623-b72e-4317-85b1-7cb24bab3921" name="Changes" comment="1.DeadLift Basic code">
       <change beforePath="$PROJECT_DIR$/.gradle/8.11.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.11.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.11.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.11.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.11.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.11.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -70,23 +67,14 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/CamLandscapeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/CamLandscapeActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/CamPortraitActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/CamPortraitActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/DashboardActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/DashboardActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/DisclaimerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/DisclaimerActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/LoginActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/LoginActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/RegisterActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/RegisterActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/VerifyOtpActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/activity/VerifyOtpActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/adapter/MediaAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/adapter/MediaAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/fragment/DeadLiftFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/fragment/DeadLiftFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/fragment/PushUpFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/fragment/PushUpFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/fragment/SquatFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/fragment/SquatFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/overlay/OverlayViewDeadlift.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/overlay/OverlayViewDeadLift.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/overlay/OverlayViewDeadLift.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/overlay/OverlayViewPushUps.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/overlay/OverlayViewPushUps.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/overlay/OverlayViewSquats.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/ui/overlay/OverlayViewSquats.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/Utility.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/FormFixUtility.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_squats.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_squats.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/problems/problems-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/problems/problems-report.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/ConstantsDeadLift.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/ConstantsDeadLift.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/ConstantsSquats.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/ConstantsSquats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/DeadLiftUtility.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/DeadLiftUtility.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/FormFixConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/FormFixConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/FormFixUtility.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/fittracker/utilits/FormFixUtility.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +84,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=RZCX608VTBE)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -624,7 +612,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755411432888</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="1.DeadLift Basic code">
+      <option name="closed" value="true" />
+      <created>1755542717474</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1755542717474</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -671,7 +667,8 @@
     <MESSAGE value="-commit changes" />
     <MESSAGE value="-Project Started Again on 14th August 2025&#10;-dependency issue resolved" />
     <MESSAGE value="1. When signing up the measurements are in centimeters. Can we change that to feet like 6'2.&#10;2. The auditory alert says &quot;shoulder not center&quot; it should be shoulders plural. I believe it also says  hip not center also. It should be hips." />
-    <option name="LAST_COMMIT_MESSAGE" value="1. When signing up the measurements are in centimeters. Can we change that to feet like 6'2.&#10;2. The auditory alert says &quot;shoulder not center&quot; it should be shoulders plural. I believe it also says  hip not center also. It should be hips." />
+    <MESSAGE value="1.DeadLift Basic code" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.DeadLift Basic code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -762,12 +759,12 @@
       <map>
         <entry key="com.fittracker">
           <value>
-            <CheckInfo lastCheckTimestamp="1755411363831" />
+            <CheckInfo lastCheckTimestamp="1755543014626" />
           </value>
         </entry>
         <entry key="com.fittracker.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1755411363833" />
+            <CheckInfo lastCheckTimestamp="1755543014626" />
           </value>
         </entry>
       </map>

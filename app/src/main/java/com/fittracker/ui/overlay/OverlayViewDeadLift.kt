@@ -2,7 +2,6 @@ package com.fittracker.ui.overlay
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -17,29 +16,23 @@ import com.fittracker.R
 import com.fittracker.model.ErrorMessage
 import com.fittracker.utilits.ConstantsDeadLift
 import com.fittracker.utilits.ConstantsDeadLift.ANGLE_TEXT
-import com.fittracker.utilits.ConstantsDeadLift.BEND_AT_THE_KNEES
 import com.fittracker.utilits.ConstantsDeadLift.ERROR_STROKE_WIDTH
-import com.fittracker.utilits.ConstantsDeadLift.CIRCLE_RADIUS
-import com.fittracker.utilits.ConstantsDeadLift.TUCK_HIPS
-import com.fittracker.utilits.ConstantsDeadLift.KNEES_CROSSING_TOES
 import com.fittracker.utilits.ConstantsDeadLift.LANDMARK_LINE_WIDTH
 import com.fittracker.utilits.ConstantsDeadLift.LANDMARK_STROKE_WIDTH
-import com.fittracker.utilits.ConstantsDeadLift.LINE_LENGTH
 import com.fittracker.utilits.ConstantsDeadLift.MASK_TEXT
-import com.fittracker.utilits.ConstantsDeadLift.SPEAKERWAITTIMEFORSAMEMESSAGE
 import com.fittracker.utilits.ConstantsDeadLift.SQUAT_INCORRECT
-import com.fittracker.utilits.ConstantsDeadLift.STATE_DOWN
-import com.fittracker.utilits.ConstantsDeadLift.STATE_MOVING
-import com.fittracker.utilits.ConstantsDeadLift.STATE_UN_DECIDED
-import com.fittracker.utilits.ConstantsDeadLift.STATE_UP
 import com.fittracker.utilits.ConstantsDeadLift.TEXT_INCORRECT_RESP_Y
 import com.fittracker.utilits.ConstantsDeadLift.TEXT_SIZE
 import com.fittracker.utilits.ConstantsDeadLift.TEXT_STATE_Y
 import com.fittracker.utilits.ConstantsDeadLift.TEXT_TOTAL_RESP_Y
 import com.fittracker.utilits.ConstantsDeadLift.TEXT_X
-import com.fittracker.utilits.FormFixConstants
 import com.fittracker.utilits.FormFixSharedPreferences
 import com.fittracker.utilits.DeadLiftUtility
+import com.fittracker.utilits.FormFixConstants
+import com.fittracker.utilits.FormFixConstants.STATE_DOWN
+import com.fittracker.utilits.FormFixConstants.STATE_MOVING
+import com.fittracker.utilits.FormFixConstants.STATE_UN_DECIDED
+import com.fittracker.utilits.FormFixConstants.STATE_UP
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarker
 import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarkerResult
@@ -51,8 +44,6 @@ import kotlin.math.roundToInt
 
 
 class OverlayViewDeadlift(context: Context?, attrs: AttributeSet?) : View(context, attrs), TextToSpeech.OnInitListener {
-    private var runningMode: RunningMode = RunningMode.LIVE_STREAM
-    private var scaleBitmap: Bitmap? = null
     private var results: PoseLandmarkerResult? = null
     private var pointPaint = Paint()
     private var pointErrorPaint = Paint()
@@ -103,22 +94,9 @@ class OverlayViewDeadlift(context: Context?, attrs: AttributeSet?) : View(contex
     private var yofRightShoulder=-100F
     private var yofLeftShoulder=-100F
     private var cameraFacing = -1
-    private var maskBitmap: Bitmap? = null
     private var minKneeAngle = Float.MAX_VALUE
     private var isTimerCompleted = false
-    private var isHeelCorrect: Boolean = true
-    private var isFrontFaceErrorMessage: Boolean = false
     private var tts: TextToSpeech? = null
-    private var kneesCrossingToesTimeStamp: Long = 0
-    private var tuckHipsTimeStamp: Long = 0
-    private var externallyRotateFeetTimeStamp: Long = 0
-    private var hipsnotincentreTimeStamp: Long = 0
-    private var shouldernotbalancedTimeStamp: Long = 0
-    private var heelsNotbalancedTimeStamp: Long = 0
-    private var kneesGoingInwardsTimeStamp: Long = 0
-    private var bendAtTheKneesTimeStamp: Long = 0
-    private var kneeNewAngle = 0f
-    private var hipNewAngle = 0f
     var errorMessageList = ArrayList<ErrorMessage>()
     private var windowHeight = 0
     private var windowWidth = 0
@@ -151,8 +129,6 @@ class OverlayViewDeadlift(context: Context?, attrs: AttributeSet?) : View(contex
         pointErrorPaint.color = Color.RED
         pointErrorPaint.strokeWidth = ERROR_STROKE_WIDTH
         pointErrorPaint.style = Paint.Style.STROKE
-
-
 
         statePaint.textSize = TEXT_SIZE
         statePaint.color = Color.MAGENTA
@@ -188,29 +164,6 @@ class OverlayViewDeadlift(context: Context?, attrs: AttributeSet?) : View(contex
             }
            if(!isPlaying)
              return
-
-            var phip1x=imageWidth * scaleFactor*xHip-LINE_LENGTH
-            var phip1y=imageHeight * scaleFactor*yHip
-            var phip2x=imageWidth * scaleFactor*xHip
-            var phip2y=imageHeight * scaleFactor*yHip
-
-            var pShoulderx=imageWidth * scaleFactor*shoulderx
-            var pShouldery=imageHeight * scaleFactor*shulderY
-
-
-            var pKnee1x=imageWidth * scaleFactor*xKnee+LINE_LENGTH
-            var pKnee1y=imageHeight * scaleFactor*yKnee;
-            var pKnee2x=imageWidth * scaleFactor*xKnee
-            var pKnee2y=imageHeight * scaleFactor*yKnee
-
-            var pAnkleX=imageWidth * scaleFactor*ankleX
-            var pAnkleY=imageHeight * scaleFactor*ankleY
-
-            if(pAnkleX>0 && pAnkleY>0 && pShoulderx>0 && pShouldery>0) {
-                kneeNewAngle = DeadLiftUtility.calculateAngles(pAnkleX, pAnkleY, pKnee2x, pKnee2y, pKnee1x, pKnee1y)
-                hipNewAngle = DeadLiftUtility.calculateAngles(phip1x, phip1y, phip2x, phip2y, pShoulderx, pShouldery)
-            }
-
 
             /*Check if Timer is Completed*/
             if (!isTimerCompleted)
@@ -251,8 +204,7 @@ class OverlayViewDeadlift(context: Context?, attrs: AttributeSet?) : View(contex
 
             /* FRONT FACE CASE */
             if (kneeAngle > 0 && hipAngle > 0 && this.shoulderAngle >0 && userFaceType == ConstantsDeadLift.FRONT_FACE) {
-                when (DeadLiftUtility.getDeadLiftState(kneeAngle, hipAngle,
-                    shoulderAngle, ConstantsDeadLift.FRONT_FACE)) {
+                when (DeadLiftUtility.getDLState(hipAngle, shoulderAngle, ConstantsDeadLift.FRONT_FACE)) {
                     STATE_UP -> {
                         drawAngles(canvas,resources.getString(R.string.state_up),kneeAngle,hipAngle,shoulderAngle)
                           if (statesSet.contains(STATE_DOWN) && statesSet.contains(STATE_MOVING)) {
@@ -283,7 +235,7 @@ class OverlayViewDeadlift(context: Context?, attrs: AttributeSet?) : View(contex
                 }
                 /* LEFT/RIGHT FACE CASE */
             } else if (kneeAngle > 0 && hipAngle > 0 && (userFaceType == ConstantsDeadLift.LEFT_FACE || userFaceType == ConstantsDeadLift.RIGHT_FACE)) {
-                when (DeadLiftUtility.getDeadLiftState(kneeAngle, hipAngle, shoulderAngle,ConstantsDeadLift.LEFT_FACE)) {
+                when (DeadLiftUtility.getDLState(hipAngle, shoulderAngle,ConstantsDeadLift.LEFT_FACE)) {
                     STATE_UP -> {
                         drawAngles(canvas,resources.getString(R.string.state_up),kneeAngle,hipAngle,shoulderAngle)
                         if (statesSet.contains(STATE_DOWN) && statesSet.contains(STATE_MOVING)) {
@@ -311,7 +263,6 @@ class OverlayViewDeadlift(context: Context?, attrs: AttributeSet?) : View(contex
 
                     }
                     STATE_MOVING -> {
-                        //Right/Left Face STATE_MOVING
                         drawAngles(canvas,resources.getString(R.string.state_moving),kneeAngle,hipAngle,shoulderAngle)
                         statesSet.add(STATE_MOVING)
                     }
@@ -321,12 +272,7 @@ class OverlayViewDeadlift(context: Context?, attrs: AttributeSet?) : View(contex
                     }
 
                     STATE_UN_DECIDED -> {
-                        canvas.drawText(
-                            resources.getString(R.string.empty_string),
-                            TEXT_X,
-                            TEXT_STATE_Y,
-                            statePaint
-                        )
+                        canvas.drawText(resources.getString(R.string.empty_string), TEXT_X, TEXT_STATE_Y, statePaint)
                     }
 
                     else -> {}

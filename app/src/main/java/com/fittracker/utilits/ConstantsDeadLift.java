@@ -28,10 +28,7 @@ public interface ConstantsDeadLift {
     float TEXT_SIZE = 45F;
     float ANGLE_TEXT = 56F;
     float MASK_TEXT = 33F;
-    int STATE_UP = 1;
-    int STATE_MOVING = 2;
-    int STATE_DOWN = 3;
-    int STATE_UN_DECIDED = 100;
+
 
     int SQUAT_INCORRECT = 5;
 

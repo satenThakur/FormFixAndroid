@@ -23,7 +23,10 @@ import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarkerResult
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
-
+import com.fittracker.utilits.FormFixConstants.STATE_DOWN
+import com.fittracker.utilits.FormFixConstants.STATE_MOVING
+import com.fittracker.utilits.FormFixConstants.STATE_UN_DECIDED
+import com.fittracker.utilits.FormFixConstants.STATE_UP
 
 class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
     View(context, attrs), TextToSpeech.OnInitListener {
@@ -233,15 +236,15 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                     )
 
                     when (FormFixUtility.getPushUpState(elbowAngle, shoulderAngle, ConstantsSquats.FRONT_FACE)) {
-                        ConstantsSquats.STATE_UP -> {
+                        STATE_UP -> {
                             canvas.drawText(
                                 resources.getString(R.string.state_up),
                                 ConstantsSquats.TEXT_X,
                                 ConstantsSquats.TEXT_STATE_Y,
                                 statePaint
                             )
-                            if (statesSet.contains(ConstantsSquats.STATE_DOWN) && statesSet.contains(
-                                    ConstantsSquats.STATE_MOVING)) {
+                            if (statesSet.contains(STATE_DOWN) && statesSet.contains(
+                                    STATE_MOVING)) {
                                 respCountTotal++
                                 statesSet.clear()
                             } else {
@@ -249,26 +252,26 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                             }
                         }
 
-                        ConstantsSquats.STATE_MOVING -> {
+                        STATE_MOVING -> {
                             canvas.drawText(
                                 resources.getString(R.string.state_moving),
                                 ConstantsSquats.TEXT_X,
                                 ConstantsSquats.TEXT_STATE_Y,
                                 statePaint
                             )
-                            statesSet.add(ConstantsSquats.STATE_MOVING)
+                            statesSet.add(STATE_MOVING)
                         }
 
-                        ConstantsSquats.STATE_DOWN -> {
+                        STATE_DOWN -> {
                             canvas.drawText(
                                 resources.getString(R.string.state_down),
                                 ConstantsSquats.TEXT_X,
                                 ConstantsSquats.TEXT_STATE_Y,
                                 statePaint
                             )
-                            statesSet.add(ConstantsSquats.STATE_DOWN)
+                            statesSet.add(STATE_DOWN)
                         }
-                        ConstantsSquats.STATE_UN_DECIDED -> {
+                        STATE_UN_DECIDED -> {
                             canvas.drawText(
                                 resources.getString(R.string.empty_string),
                                 ConstantsSquats.TEXT_X,
@@ -311,7 +314,7 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                         return
                     }
                     when (FormFixUtility.getPushUpState(elbowAngle, shoulderAngle, ConstantsSquats.LEFT_FACE)) {
-                        ConstantsSquats.STATE_UP -> {
+                        STATE_UP -> {
                             canvas.drawText(
                                 resources.getString(R.string.state_up),
                                 ConstantsSquats.TEXT_X,
@@ -319,8 +322,8 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                                 statePaint
                             )
 
-                            if(FormFixUtility.isPushUpPoseCorrect(hipsAngle, kneesAngle, ConstantsSquats.STATE_UP,
-                                    FormFixUtility.getShoulderElbowXDiff(shoulderX,elbowX, ConstantsSquats.STATE_UP),FormFixUtility.getWristToeYDiff(wristY,toeY))){
+                            if(FormFixUtility.isPushUpPoseCorrect(hipsAngle, kneesAngle, STATE_UP,
+                                    FormFixUtility.getShoulderElbowXDiff(shoulderX,elbowX, STATE_UP),FormFixUtility.getWristToeYDiff(wristY,toeY))){
                                 canvas.drawText(
                                     "Correct Pose",
                                     TEXT_X,
@@ -329,7 +332,7 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                                 )
 
                             }else {
-                                if(statesSet.contains(ConstantsSquats.STATE_DOWN) && statesSet.contains(ConstantsSquats.STATE_MOVING)) {
+                                if(statesSet.contains(STATE_DOWN) && statesSet.contains(STATE_MOVING)) {
                                     statesSet.add(SQUAT_INCORRECT)
                                 }
                                 canvas.drawText(
@@ -339,8 +342,8 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                                     incorrectRepsPaint
                                 )
                             }
-                            if (statesSet.contains(ConstantsSquats.STATE_DOWN) && statesSet.contains(
-                                    ConstantsSquats.STATE_MOVING)) {
+                            if (statesSet.contains(STATE_DOWN) && statesSet.contains(
+                                    STATE_MOVING)) {
                                 respCountTotal++
                                 if (statesSet.contains(ConstantsSquats.SQUAT_INCORRECT)) {
                                     respCountIncorrect++
@@ -352,7 +355,7 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
 
                         }
 
-                        ConstantsSquats.STATE_MOVING -> {
+                        STATE_MOVING -> {
                             //Right/Left Face STATE_MOVING
                             canvas.drawText(
                                 resources.getString(R.string.state_moving),
@@ -360,9 +363,9 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                                 ConstantsSquats.TEXT_STATE_Y,
                                 statePaint
                             )
-                            statesSet.add(ConstantsSquats.STATE_MOVING)
+                            statesSet.add(STATE_MOVING)
 
-                            if(FormFixUtility.isPushUpPoseCorrect(hipsAngle, kneesAngle, ConstantsSquats.STATE_MOVING, FormFixUtility.getShoulderElbowXDiff(shoulderX,elbowX, ConstantsSquats.STATE_MOVING),FormFixUtility.getWristToeYDiff(wristY,toeY))){
+                            if(FormFixUtility.isPushUpPoseCorrect(hipsAngle, kneesAngle, STATE_MOVING, FormFixUtility.getShoulderElbowXDiff(shoulderX,elbowX, STATE_MOVING),FormFixUtility.getWristToeYDiff(wristY,toeY))){
                                 canvas.drawText(
                                     "Correct Pose",
                                     TEXT_X,
@@ -371,7 +374,7 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                                 )
 
                             }else {
-                                if(statesSet.contains(ConstantsSquats.STATE_DOWN)) {
+                                if(statesSet.contains(STATE_DOWN)) {
                                     statesSet.add(SQUAT_INCORRECT)
                                 }
                                 canvas.drawText(
@@ -384,8 +387,8 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
 
                         }
 
-                        ConstantsSquats.STATE_DOWN -> {
-                            statesSet.add(ConstantsSquats.STATE_DOWN)
+                        STATE_DOWN -> {
+                            statesSet.add(STATE_DOWN)
                             canvas.drawText(
                                 resources.getString(R.string.state_down),
                                 ConstantsSquats.TEXT_X,
@@ -393,7 +396,7 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
                                 statePaint
                             )
 
-                            if(FormFixUtility.isPushUpPoseCorrect(hipsAngle, kneesAngle, ConstantsSquats.STATE_DOWN, FormFixUtility.getShoulderElbowXDiff(shoulderX,elbowX, ConstantsSquats.STATE_DOWN),FormFixUtility.getWristToeYDiff(wristY,toeY))){
+                            if(FormFixUtility.isPushUpPoseCorrect(hipsAngle, kneesAngle, STATE_DOWN, FormFixUtility.getShoulderElbowXDiff(shoulderX,elbowX, STATE_DOWN),FormFixUtility.getWristToeYDiff(wristY,toeY))){
 
                                 canvas.drawText(
                                     "Correct Pose",
@@ -414,7 +417,7 @@ class OverlayViewPushUps(context: Context?, attrs: AttributeSet?) :
 
                         }
 
-                        ConstantsSquats.STATE_UN_DECIDED -> {
+                        STATE_UN_DECIDED -> {
                             canvas.drawText(
                                 resources.getString(R.string.empty_string),
                                 ConstantsSquats.TEXT_X,
