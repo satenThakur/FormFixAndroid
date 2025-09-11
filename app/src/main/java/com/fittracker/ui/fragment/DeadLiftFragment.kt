@@ -146,11 +146,11 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     }
     @SuppressLint("SuspiciousIndentation")
     private fun errorMessageClick(msg:String){
-        var intent = Intent(context, ExoPlayerActivity::class.java)
+       /* var intent = Intent(context, ExoPlayerActivity::class.java)
         intent.putExtra(ConstantsSquats.FILE_NAME, "hipcorrection")
         intent.putExtra(ConstantsSquats.FILE_TYPE, 1)
         intent.putExtra(MESSAGE_TYPE,msg)
-        startActivity(intent)
+        startActivity(intent)*/
     }
     @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
