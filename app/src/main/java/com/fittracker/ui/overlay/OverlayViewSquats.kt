@@ -10,6 +10,7 @@ import android.graphics.RectF
 import android.os.Build
 import android.speech.tts.TextToSpeech
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -274,7 +275,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
             val kneeAngle = (leftKneeAngle * 10).roundToInt() / 10
             val hipAngle = (leftHipAngle * 10).roundToInt() / 10
             val heelAngle = (heelAngle * 10).roundToInt() / 10
-
+            Log.e("heelAngle","heelAngle="+heelAngle+" hipAngle="+hipAngle+" kneeAngle="+kneeAngle)
             /* FRONT FACE CASE */
             if (kneeAngle > 0 && hipAngle > 0 && userFaceType == ConstantsSquats.FRONT_FACE) {
                 when (FormFixUtility.getSquatState(kneeAngle, hipAngle, ConstantsSquats.FRONT_FACE)) {
@@ -394,7 +395,6 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             }
 
 
-
                             if (HEEL_MIN_ANGLE <= heelAngle || heelAngle <= HEEL_MAX_ANGLE) {
                                 isHeelCorrect = true
                                 var diff = abs(xofLeftKnee - xofRightKnee) - abs(xofLeftToe - xofRightToe)
@@ -419,6 +419,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                             } else {
                                 isHeelCorrect = false
                             }
+
                             if(FormFixUtility.isHipsNotInCentre(leftToeX,rightToeX,xofLeftHip,xofRightHip)){
                                 var diff = abs(xofLeftKnee - xofRightKnee) - abs(xofLeftToe - xofRightToe)
                                 diff = diff * imageHeight * scaleFactor
@@ -439,6 +440,7 @@ class OverlayViewSquats(context: Context?, attrs: AttributeSet?) :
                                     )
                                 }
                             }
+
                             if(!FormFixUtility.isShoulderBalanced(yofLeftShoulder,yofRightShoulder,userHeight,yOfLeftHeel,yOfRightHeel,yForNose)){
                                 isFrontFaceErrorMessage = true
                                 var needToSpeak = false

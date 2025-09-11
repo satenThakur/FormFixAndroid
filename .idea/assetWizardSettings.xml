@@ -24,20 +24,9 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="/private/var/folders/gx/s2k11nc16k750v1jnmjzggjc0000gn/T/baseline_video_file_24.xml" />
+                                                <entry key="imagePath" value="/private/var/folders/gx/s2k11nc16k750v1jnmjzggjc0000gn/T/ic_android_black_24dp.xml" />
                                                 <entry key="opacityPercent" value="80" />
                                                 <entry key="paddingPercent" value="-10" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
-                                      <entry key="clipartAsset">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/video_file/baseline_video_file_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -87,6 +76,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
+                                                <entry key="color" value="000000" />
                                                 <entry key="imagePath" value="/private/var/folders/gx/s2k11nc16k750v1jnmjzggjc0000gn/T/ic_android_black_24dp.xml" />
                                               </map>
                                             </option>
@@ -99,8 +89,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$USER_HOME$/Downloads/hhhhh.png" />
-                                                <entry key="scalingPercent" value="89" />
+                                                <entry key="imagePath" value="$USER_HOME$/Downloads/FF Screens/formfix-screens512-app-icon-2.png" />
+                                                <entry key="scalingPercent" value="69" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -296,11 +286,6 @@
                                 </PersistentState>
                               </value>
                             </entry>
-                          </map>
-                        </option>
-                        <option name="values">
-                          <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>

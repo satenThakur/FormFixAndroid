@@ -6,7 +6,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,15 +39,14 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
-import kotlin.math.roundToInt
 import androidx.navigation.findNavController
+import com.fittracker.landmarkModels.Point3D
 import com.fittracker.model.ErrorMessage
 
 class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     companion object {
         private const val TAG = "Form Fit"
     }
-
     private var _fragmentDeadLiftBinding: FragmentDeadliftBinding? = null
     private val fragmentDeadLiftBinding get() = _fragmentDeadLiftBinding!!
     private lateinit var poseLandmarkHelper: PoseLandmarkerHelper
@@ -146,7 +144,6 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         _fragmentDeadLiftBinding = FragmentDeadliftBinding.inflate(inflater, container, false)
         return fragmentDeadLiftBinding.root
     }
-
     @SuppressLint("SuspiciousIndentation")
     private fun errorMessageClick(msg:String){
         var intent = Intent(context, ExoPlayerActivity::class.java)
@@ -155,7 +152,6 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         intent.putExtra(MESSAGE_TYPE,msg)
         startActivity(intent)
     }
-
     @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -237,7 +233,6 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             setUpCamera(cameraFacing)
         }
     }
-
     private fun startTimer() {
         object : CountDownTimer(timerLimit, timerInterval) {
             override fun onTick(millisUntilFinished: Long) {
@@ -253,8 +248,6 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             }
         }.start()
     }
-
-    // Initialize CameraX, and prepare to bind the camera use cases
     private fun setUpCamera(cameraFacing: Int) {
         this.cameraFacing = cameraFacing
         val cameraProviderFuture =
@@ -269,8 +262,6 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             }, ContextCompat.getMainExecutor(requireContext())
         )
     }
-
-    // Declare and bind preview, capture and analysis use cases
     @SuppressLint("UnsafeOptInUsageError")
     private fun bindCameraUseCases() {
         // CameraProvider
@@ -316,7 +307,6 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             FormFixUtility.Log(TAG, "Use case binding failed$exc")
         }
     }
-
     private fun detectPose(imageProxy: ImageProxy) {
         if (this::poseLandmarkHelper.isInitialized) {
             poseLandmarkHelper.detectLiveStream(
@@ -326,16 +316,11 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         }
 
     }
-
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         imageAnalyzer?.targetRotation =
             fragmentDeadLiftBinding.viewFinder.display.rotation
     }
-
-    // Update UI after pose have been detected. Extracts original
-    // image height/width to scale and place the landmarks properly through
-    // OverlayView
     @SuppressLint("SuspiciousIndentation")
     override fun onResults(
         resultBundle: PoseLandmarkerHelper.ResultBundle
@@ -347,6 +332,16 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             var kneeAngle = 0.0f
             var hipAngle = 0.0f
             var heelAngle = 0.0f
+            var leftParlelAngle=0
+            var rightParaleleAngle=0
+            var  lAnkle3D = Point3D(0f, 0f, 0f)
+            var rAnkle3D = Point3D(0f, 0f, 0f)
+            var lWrist3D =Point3D(0f, 0f, 0f)
+            var rWrist3D = Point3D(0f, 0f, 0f)
+            var leftFootIndex= Point3D(0f, 0f, 0f)
+            var rightFootIndex= Point3D(0f, 0f, 0f)
+            var leftHeel= Point3D(0f, 0f, 0f)
+            var rightHeel= Point3D(0f, 0f, 0f)
             if (resultBundle.results.first().landmarks() != null && resultBundle.results.first()
                     .landmarks().size > 0 && resultBundle.results.first().landmarks()[0] != null
             ) {
@@ -372,28 +367,17 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 val nose = landMarkList[0].x
                 val leftSdoulder_node_distance = leftShoulder - nose
                 val rightSdoulder_node_distance = rightShoulder - nose
-                var shouldersDiff= abs(leftShoulder-rightShoulder)
+                var shouldersDiff = abs(leftShoulder - rightShoulder)
                 if (shouldersDiff > ConstantsSquats.SHOULDERSDIFF_CONSTANT) {
-                    userFaceType= ConstantsSquats.FRONT_FACE
-                }
-                else{
-                    if(leftSdoulder_node_distance > 0 && rightSdoulder_node_distance > 0) {
-                        userFaceType= ConstantsSquats.LEFT_FACE
-                    }
-                    else  {
-                        userFaceType= ConstantsSquats.RIGHT_FACE
+                    userFaceType = ConstantsSquats.FRONT_FACE
+                } else {
+                    if (leftSdoulder_node_distance > 0 && rightSdoulder_node_distance > 0) {
+                        userFaceType = ConstantsSquats.LEFT_FACE
+                    } else {
+                        userFaceType = ConstantsSquats.RIGHT_FACE
                     }
                 }
 
-                if(userFaceType==1)
-                    FormFixUtility.Log("FACETYPE","LEFT_FACE")
-                else if(userFaceType==2){
-                    FormFixUtility.Log("FACETYPE","FRONT_FACE")
-                }else if(userFaceType==3){
-                    FormFixUtility.Log("FACETYPE","RIGHT_FACE")
-                }else{
-                    FormFixUtility.Log("FACETYPE","NOT_DECIDED")
-                }
 
                 val cordHip: Int
                 val cordKnee: Int
@@ -408,61 +392,147 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
 
                 if (userFaceType == ConstantsSquats.LEFT_FACE) {
-                    cordElbow=13; cordHip = 23;cordKnee = 25;cordAnkle = 27;cordShoulder = 11;cordToe = 31
+                    cordElbow = 13; cordHip = 23;cordKnee = 25;cordAnkle = 27;cordShoulder =
+                        11;cordToe = 31
                 } else {
-                    cordElbow=14;cordHip = 24;cordKnee = 26;cordAnkle = 28;cordShoulder = 12;cordToe = 32
+                    cordElbow = 14;cordHip = 24;cordKnee = 26;cordAnkle = 28;cordShoulder =
+                        12;cordToe = 32
                 }
-                val elbowPoint = doubleArrayOf(landMarkList[cordElbow].x.toDouble(), landMarkList[cordElbow].y.toDouble(), landMarkList[cordElbow].z.toDouble())
-                val hipPoint = doubleArrayOf(landMarkList[cordHip].x.toDouble(), landMarkList[cordHip].y.toDouble(), landMarkList[cordHip].z.toDouble())
-                val kneePoint = doubleArrayOf(landMarkList[cordKnee].x.toDouble(), landMarkList[cordKnee].y.toDouble(), landMarkList[cordKnee].z.toDouble())
-                val anklePoint = doubleArrayOf(landMarkList[cordAnkle].x.toDouble(), landMarkList[cordAnkle].y.toDouble(), landMarkList[cordAnkle].z.toDouble())
-                val shoulderPoint = doubleArrayOf(landMarkList[cordShoulder].x.toDouble(), landMarkList[cordShoulder].y.toDouble(), landMarkList[cordShoulder].z.toDouble())
-                val leftFootPoint = doubleArrayOf(landMarkList[lfiCord].x.toDouble(), landMarkList[lfiCord].y.toDouble(), landMarkList[lfiCord].z.toDouble())
-                val heelPoint = doubleArrayOf((landMarkList[lHeelCord].x.toDouble() + landMarkList[lHeelCord].x.toDouble()) / 2, (landMarkList[lHeelCord].y.toDouble() + landMarkList[lHeelCord].y.toDouble()) / 2, (landMarkList[lHeelCord].z.toDouble() + landMarkList[lHeelCord].z.toDouble()) / 2,)
-                val rightFootPoint = doubleArrayOf(landMarkList[rfICord].x.toDouble(), landMarkList[rfICord].y.toDouble(), landMarkList[rfICord].z.toDouble())
+                val elbowPoint = doubleArrayOf(
+                    landMarkList[cordElbow].x.toDouble(),
+                    landMarkList[cordElbow].y.toDouble(),
+                    landMarkList[cordElbow].z.toDouble()
+                )
+                val hipPoint = doubleArrayOf(
+                    landMarkList[cordHip].x.toDouble(),
+                    landMarkList[cordHip].y.toDouble(),
+                    landMarkList[cordHip].z.toDouble()
+                )
+                val kneePoint = doubleArrayOf(
+                    landMarkList[cordKnee].x.toDouble(),
+                    landMarkList[cordKnee].y.toDouble(),
+                    landMarkList[cordKnee].z.toDouble()
+                )
+                val anklePoint = doubleArrayOf(
+                    landMarkList[cordAnkle].x.toDouble(),
+                    landMarkList[cordAnkle].y.toDouble(),
+                    landMarkList[cordAnkle].z.toDouble()
+                )
+                val shoulderPoint = doubleArrayOf(
+                    landMarkList[cordShoulder].x.toDouble(),
+                    landMarkList[cordShoulder].y.toDouble(),
+                    landMarkList[cordShoulder].z.toDouble()
+                )
+                val leftFootPoint = doubleArrayOf(
+                    landMarkList[lfiCord].x.toDouble(),
+                    landMarkList[lfiCord].y.toDouble(),
+                    landMarkList[lfiCord].z.toDouble()
+                )
+                val heelPoint = doubleArrayOf(
+                    (landMarkList[lHeelCord].x.toDouble() + landMarkList[lHeelCord].x.toDouble()) / 2,
+                    (landMarkList[lHeelCord].y.toDouble() + landMarkList[lHeelCord].y.toDouble()) / 2,
+                    (landMarkList[lHeelCord].z.toDouble() + landMarkList[lHeelCord].z.toDouble()) / 2,
+                )
+                val rightFootPoint = doubleArrayOf(
+                    landMarkList[rfICord].x.toDouble(),
+                    landMarkList[rfICord].y.toDouble(),
+                    landMarkList[rfICord].z.toDouble()
+                )
+                var leftAnklePoint= doubleArrayOf(
+                    landMarkList[27].x.toDouble(),
+                    landMarkList[27].y.toDouble(),
+                    landMarkList[27].z.toDouble()
+                )
+                var rightAnklePoint= doubleArrayOf(
+                    landMarkList[28].x.toDouble(),
+                    landMarkList[28].y.toDouble(),
+                    landMarkList[28].z.toDouble()
+                )
+                var leftWristPoint= doubleArrayOf(
+                    landMarkList[15].x.toDouble(),
+                    landMarkList[15].y.toDouble(),
+                    landMarkList[15].z.toDouble()
+                )
+                var rightWristPoint= doubleArrayOf(
+                    landMarkList[16].x.toDouble(),
+                    landMarkList[16].y.toDouble(),
+                    landMarkList[16].z.toDouble()
+                )
 
 
-                shoulderAngle= FormFixUtility.angleBetweenPoints(hipPoint, shoulderPoint, elbowPoint).toFloat()
+                leftParlelAngle=FormFixUtility.angleBetweenPoints(rightAnklePoint, leftAnklePoint, rightWristPoint).toInt()
+                rightParaleleAngle=FormFixUtility.angleBetweenX(leftAnklePoint, rightAnklePoint, leftWristPoint).toInt()
                 kneeAngle = FormFixUtility.angleBetweenPoints(hipPoint, kneePoint, anklePoint).toFloat()
                 hipAngle = FormFixUtility.angleBetweenPoints(shoulderPoint, hipPoint, kneePoint).toFloat()
-                heelAngle = FormFixUtility.angleBetweenPoints(leftFootPoint, heelPoint, rightFootPoint).toFloat()
-                Log.e("Angels=>","shoulderAngle="+shoulderAngle)
-                Log.e("Angels=>","kneeAngle="+kneeAngle)
-                Log.e("Angels=>","hipAngle="+hipAngle)
-                Log.e("Angels=>","heelAngle="+heelAngle)
+                 heelAngle = FormFixUtility.angleBetweenPoints(leftFootPoint, heelPoint, rightFootPoint).toFloat()
+                 shoulderAngle = FormFixUtility.angleBetweenPoints(hipPoint, shoulderPoint, elbowPoint).toFloat()
+                 lAnkle3D= Point3D(landMarkList[27].x,landMarkList[27].y,landMarkList[27].z)
+                 rAnkle3D=Point3D(landMarkList[28].x,landMarkList[28].y,landMarkList[28].z)
+                 lWrist3D=Point3D(landMarkList[15].x,landMarkList[15].y,landMarkList[15].z)
+                 rWrist3D=Point3D(landMarkList[16].x,landMarkList[16].y,landMarkList[16].z)
 
-                xHip = landMarkList[cordHip].x
+                leftFootIndex=Point3D(landMarkList[31].x,landMarkList[31].y,landMarkList[31].z)
+                rightFootIndex=Point3D(landMarkList[32].x,landMarkList[32].y,landMarkList[32].z)
+                leftHeel=Point3D(landMarkList[29].x,landMarkList[29].y,landMarkList[29].z)
+                rightHeel=Point3D(landMarkList[30].x,landMarkList[30].y,landMarkList[30].z)
+
+
+                 xHip = landMarkList[cordHip].x
                 yHip = landMarkList[cordHip].y
                 xKnee = landMarkList[cordKnee].x
                 yKnee = landMarkList[cordKnee].y
                 shoulderx = landMarkList[cordShoulder].x
-                shulderY=landMarkList[cordShoulder].y
+                shulderY = landMarkList[cordShoulder].y
                 ankleX = landMarkList[cordAnkle].x
-                ankleY=landMarkList[cordAnkle].y
+                ankleY = landMarkList[cordAnkle].y
                 toeX = landMarkList[cordToe].x
                 xHeel = (landMarkList[lHeelCord].x + landMarkList[rHeelCord].x) / 2
                 yHeel = landMarkList[lHeelCord].y
-                xofLeftKnee=landMarkList[25].x
-                xofRightKnee=landMarkList[26].x
-                xofLeftToe=landMarkList[29].x
-                xofRightToe=landMarkList[30].x
-                yOfToe=landMarkList[32].y
-                yoFShoulder=landMarkList[11].y
-                yForNose=landMarkList[0].y
-                leftToeX=landMarkList[31].x
-                rightToeX=landMarkList[32].x
-                xofLeftHip=landMarkList[23].x
-                xofRightHip=landMarkList[24].x
-                yofLeftShoulder=landMarkList[11].y
-                yofRightShoulder=landMarkList[12].y
-                yOfLeftHeel=landMarkList[29].y
-                yOfRightHeel=landMarkList[30].y
-                yOfLeftToe=landMarkList[31].y
-                yOfRightToe=landMarkList[32].y
-          /*      showBottomLayoutValues(userFaceType,kneeAngle,hipAngle,isTimerCompleted,xofLeftToe, xofRightToe, xofLeftHip,xofRightHip,leftShoulder, rightShoulder,leftShoulder_Y,rightShoulder_Y) */}
+                xofLeftKnee = landMarkList[25].x
+                xofRightKnee = landMarkList[26].x
+                xofLeftToe = landMarkList[29].x
+                xofRightToe = landMarkList[30].x
+                leftToeX = landMarkList[31].x
+                rightToeX = landMarkList[32].x
+                yOfToe = landMarkList[32].y
+                yoFShoulder = landMarkList[11].y
+                yForNose = landMarkList[0].y
+                xofLeftHip = landMarkList[23].x
+                xofRightHip = landMarkList[24].x
+                yofLeftShoulder = landMarkList[11].y
+                yofRightShoulder = landMarkList[12].y
+                yOfLeftHeel = landMarkList[29].y
+                yOfRightHeel = landMarkList[30].y
+                yOfLeftToe = landMarkList[31].y
+                yOfRightToe = landMarkList[32].y
+                showBottomLayoutValues(
+                    userFaceType,
+                    kneeAngle,
+                    hipAngle,
+                    isTimerCompleted,
+                    xofLeftToe,
+                    xofRightToe,
+                    xofLeftHip,
+                    xofRightHip,
+                    leftShoulder,
+                    rightShoulder,
+                    leftShoulder_Y,
+                    rightShoulder_Y
+                )
+            }
 
             if (_fragmentDeadLiftBinding != null) {
                 // Pass necessary information to OverlayView for drawing on the canvas
+                var faceType="NOT_DECIDED"
+                if (userFaceType == 1)
+                    faceType="LEFT_FACE"
+                else if (userFaceType == 2) {
+                    faceType="FRONT_FACE"
+                } else if (userFaceType == 3) {
+                    faceType="RIGHT_FACE"
+                }
+                //DeadLiftUtility.Log("Angels=>", "faceType="+faceType+" shldrA=" + shoulderAngle+" kneeA="+kneeAngle+" hipA="+hipAngle+" heelA="+heelAngle)
+
                 fragmentDeadLiftBinding.overlay.setResults(
                     resultBundle.results.first(),
                     resultBundle.inputImageHeight,
@@ -474,6 +544,16 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                     hipAngle,
                     heelAngle,
                     shoulderAngle,
+                     leftParlelAngle,
+                     rightParaleleAngle,
+                    lAnkle3D,
+                    rAnkle3D,
+                    lWrist3D,
+                    rWrist3D,
+                    leftFootIndex,
+                    rightFootIndex,
+                    leftHeel,
+                    rightHeel,
                     xHeel,
                     yHeel,
                     xHip, yHip, xKnee, yKnee, toeX, isTimerCompleted,xofLeftKnee,xofRightKnee,xofLeftToe,xofRightToe,
@@ -483,7 +563,6 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             }
         }
     }
-
     private fun setAdapterData(errorMessageList: List<ErrorMessage>) {
         activity?.runOnUiThread(Runnable {
             if(errorMessageList.isEmpty()){
@@ -652,7 +731,6 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             }
         })
     }
-
     override fun onError(error: String, errorCode: Int) {
         activity?.runOnUiThread {
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
@@ -661,9 +739,7 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
             }
         }
     }
-
-
-    fun initialiseScreenWidthAndHeight() {
+    private fun initialiseScreenWidthAndHeight() {
         val window: Window? = activity?.window
         val displayMetrics = DisplayMetrics()
         window?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
@@ -674,17 +750,15 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         FormFixConstants.SCREEN_WIDTH=windowWidth
 
     }
-
-
-    fun showBottomLayoutValues(userFaceType:Int,kneesAngle: Float,hipAngle: Float,isTimerCompleted:Boolean,toe1_X: Float,
-                               toe2_X: Float,
-                               hip1_X: Float,
-                               hip2_X: Float,sholder1_X: Float,
-                               shoulder2_x: Float, sholder1_Y: Float,
-                               shoulder2_Y: Float){
+    private fun showBottomLayoutValues(userFaceType:Int, kneesAngle: Float, hipAngle: Float, isTimerCompleted:Boolean, toe1_X: Float,
+                                       toe2_X: Float,
+                                       hip1_X: Float,
+                                       hip2_X: Float, sholder1_X: Float,
+                                       shoulder2_x: Float, sholder1_Y: Float,
+                                       shoulder2_Y: Float){
         if(isTimerCompleted) {
             fragmentDeadLiftBinding.bottomLayout.visibility = View.VISIBLE
-            val kneeAngles = (kneesAngle * 10).roundToInt() / 10
+            /*val kneeAngles = (kneesAngle * 10).roundToInt() / 10
 
             if (userFaceType == ConstantsSquats.FRONT_FACE) {
                 fragmentDeadLiftBinding.valueThighAngle.text = "" + kneeAngles+" deg"
@@ -713,7 +787,7 @@ class DeadLiftFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 fragmentDeadLiftBinding.lblHipShift.text="Knees Shift:"
                 fragmentDeadLiftBinding.valueShoulderShift.text =""+FormFixUtility.heelsShift(yOfLeftHeel, yOfRightHeel, yOfLeftToe, yOfRightToe, userFaceType,height)+" in"
                 fragmentDeadLiftBinding.lblShoulderShift.text="Heels Shift:"
-            }
+            }*/
         }
 
     }

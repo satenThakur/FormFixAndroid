@@ -339,6 +339,32 @@ object FormFixUtility {
 
 
     /*Screen Recorder Functions */
+    fun angleBetweenX(  point1: DoubleArray,
+                        point2: DoubleArray,
+                        point3: DoubleArray): Double {
+        val vector1 = doubleArrayOf(
+            point1[0] - point2[0],
+            point1[1] - point2[1],
+            point1[2] - point2[2]
+        )
+        val vector2 = doubleArrayOf(
+            point3[0] - point2[0],
+            point3[1] - point2[1],
+            point3[2] - point2[2]
+        )
+        val dotProduct =
+            vector1[0] * vector2[0] + vector1[1] * vector2[1] + vector1[2] * vector2[2]
+        val magnitudeVector1 = Math.sqrt(
+            vector1[0] * vector1[0] + vector1[1] * vector1[1] + vector1[2] * vector1[2]
+        )
+        val magnitudeVector2 = Math.sqrt(
+            vector2[0] * vector2[0] + vector2[1] * vector2[1] + vector2[2] * vector2[2]
+        )
+        val angle =
+            Math.acos(dotProduct / (magnitudeVector1 * magnitudeVector2))
+        return Math.toDegrees(angle)
+    }
+
 
 
     fun angleBetweenPoints(
@@ -443,7 +469,7 @@ object FormFixUtility {
     }
 
     fun Log(tag: String, message: String) {
-        //Log.e(tag, message)
+        Log.e(tag, message)
     }
 
     fun getFaceType(leftShoulder: Float, rightShoulder: Float, nose: Float): Int {

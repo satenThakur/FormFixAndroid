@@ -3,7 +3,9 @@ package com.fittracker.utilits;
 import android.os.Environment;
 
 public interface ConstantsDeadLift {
-    long SPEAKERWAITTIMEFORSAMEMESSAGE=2500;
+
+    float HIPS_ANKLE_AVARGE_DIFF=2.0f;
+    long SPEAKERWAITTIMEFORSAMEMESSAGE=5500;
     int LINE_LENGTH=300;
     int TUCK_HIPS =1;
     int KNEES_CROSSING_TOES =2;
@@ -15,6 +17,10 @@ public interface ConstantsDeadLift {
     int SHOULDER_NOT_BALANCED=7;
     int HEELS_NOT_BALANCED=8;
 
+
+    int INCORRECT_ROD_HOLDING=9;
+    int INCORRECT_KNEES_POSITION=10;
+    int INCORRECT_HEELS_POSITION=11;
     float CIRCLE_RADIUS = 5.0F;
 
     int LEFT_FACE = 1;
@@ -47,5 +53,5 @@ public interface ConstantsDeadLift {
 
 
 
-    float TOE_KNEE_X_DIFFS_MIN_THRESHOLD =33;//32;//39//42;//55;
+    float TOE_KNEE_X_DIFFS_MIN_THRESHOLD =55;//32;//39//42;//55;
 }
