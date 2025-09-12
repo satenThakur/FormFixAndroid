@@ -754,7 +754,7 @@ class OverlayViewDeadlift(context: Context?, attrs: AttributeSet?) : View(contex
             "Rod Parallel: " + angle,
             TEXT_X,
             300f,
-            incorrectRepsPaint
+            statePaint
         )
         DeadLiftUtility.Log("ROdANGLE","LPA="+angle)
         if (angle >8) {
@@ -783,7 +783,7 @@ class OverlayViewDeadlift(context: Context?, attrs: AttributeSet?) : View(contex
             "KneesAnkle Diff: " + diff,
             TEXT_X,
             340f,
-            incorrectRepsPaint
+            statePaint
         )
         if (diff>20 || diff<-18) {
                 hasFrontFaceError = true
@@ -817,10 +817,10 @@ class OverlayViewDeadlift(context: Context?, attrs: AttributeSet?) : View(contex
                               leftHeel: Point3D,
                               rightHeel: Point3D,){
         val diff=DeadLiftUtility.foorKneesDistnaceDiff(leftFootIndex,rightFootIndex,leftHeel,rightHeel)
-        canvas.drawText("footHeel Diff: " + diff,
+        canvas.drawText("FootHeel Diff: " + diff,
             TEXT_X,
             380f,
-            incorrectRepsPaint
+            statePaint
         )
         if(diff<-10) {
             hasFrontFaceError = true

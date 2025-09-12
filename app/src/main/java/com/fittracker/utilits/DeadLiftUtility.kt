@@ -317,13 +317,13 @@ object DeadLiftUtility {
         leftAnkleX: Float,
         rightAnkleX: Float,
         scale: Float = 100f // default multiplier
-    ): Float {
+    ): Int {
         val kneeDistX = kotlin.math.abs(leftKneeX - rightKneeX)
         val ankleDistX = kotlin.math.abs(leftAnkleX - rightAnkleX)
 
-        if (ankleDistX == 0f) return 0f // avoid divide-by-zero
+        if (ankleDistX == 0f) return 0 // avoid divide-by-zero
 
-        return ((kneeDistX - ankleDistX) / ankleDistX) * scale
+        return (((kneeDistX - ankleDistX) / ankleDistX) * scale).toInt()
     }
 
     fun foorKneesDistnaceDiff(
@@ -332,11 +332,11 @@ object DeadLiftUtility {
         leftHeel: Point3D,
         rightHeel: Point3D,
         scale: Float = 100f
-    ): Float {
+    ): Int {
         val footDistX = kotlin.math.abs(leftFootIndex.x - rightFootIndex.x)
         val heelDistX = kotlin.math.abs(leftHeel.x - rightHeel.x)
-        if (heelDistX == 0f) return 0f
-        return ((footDistX - heelDistX) / heelDistX) * scale
+        if (heelDistX == 0f) return 0
+        return (((footDistX - heelDistX) / heelDistX) * scale).toInt()
     }
 
 }
