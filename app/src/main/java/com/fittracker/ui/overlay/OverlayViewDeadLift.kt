@@ -328,6 +328,7 @@ class OverlayViewDeadlift(context: Context?, attrs: AttributeSet?) : View(contex
                                     ,leftHeel, rightHeel)
                     }
 
+
                     STATE_UN_DECIDED -> {
                         canvas.drawText(
                             resources.getString(R.string.empty_string),
