@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorAccent">#FF3700B3</color>
-    <color name="colorPrimary">#FF3700B3</color>
-    <color name="colorPrimaryDark">#FF3700B3</color>
+    <color name="colorAccent">#021a62</color>
+    <color name="colorPrimary">#021a62</color> <!--<color name="colorPrimary">#FF3700B3</color>-->
+    <color name="colorPrimaryDark">#021a62</color>
+    <color name="gray_splash">#676661</color>
     <color name="green_color">#559938</color>
     <color name="parrot_color">#788B28</color>
     <color name="red_color">#B00020</color>

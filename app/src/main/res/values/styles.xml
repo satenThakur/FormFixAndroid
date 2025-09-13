@@ -73,12 +73,19 @@
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/rounded_corner_bg</item>
     </style>
+
     <style name="Theme.MyApp.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Fullscreen / edge-to-edge -->
-        <item name="android:windowFullscreen">true</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/gray_splash</item>
+        <item name="colorPrimaryVariant">@color/gray_splash</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/gray_splash</item>
+        <item name="colorSecondaryVariant">@color/gray_splash</item>
 
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/gray_splash</item>
+        <!-- Customize your theme here. -->
     </style>
-
 
 </resources>
