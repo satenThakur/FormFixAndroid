@@ -1,1 +1,28 @@
-/build
+# Gradle files
+.gradle/
+build/
+
+# Local configuration
+local.properties
+.gradle/
+*.iml
+
+# Android Studio
+.idea/
+*.ipr
+*.iws
+
+# Log files
+*.log
+
+# Generated files
+captures/
+output.json
+
+# APKs
+*.apk
+*.ap_
+*.aab
+
+# Misc
+.DS_Store
