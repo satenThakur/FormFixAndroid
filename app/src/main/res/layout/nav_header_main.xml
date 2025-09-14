@@ -7,7 +7,7 @@
     android:layout_height="@dimen/_195sdp"
     android:gravity="bottom"
     android:padding="@dimen/_16sdp"
-    android:background="@color/purple_700">
+    android:background="@color/colorPrimary">
     <androidx.cardview.widget.CardView
         android:id="@+id/profile_img"
         android:layout_width="@dimen/_65sdp"

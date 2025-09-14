@@ -795,6 +795,7 @@ class OverlayViewDeadlift(context: Context?, attrs: AttributeSet?) : View(contex
                     inCorrectKneeAnkleTimestamp = System.currentTimeMillis()
                 }
 
+
             var stringMessage=""
             if(diff>0){
                 stringMessage= context.getString(R.string.knees_outwards)

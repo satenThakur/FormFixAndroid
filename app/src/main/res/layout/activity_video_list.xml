@@ -14,7 +14,7 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimaryVariant"
+            android:background="@color/colorPrimary"
             android:paddingBottom="@dimen/_8sdp">
             <ImageView
                 android:id="@+id/back_btn"
